@@ -34,3 +34,4 @@ extension Parser: ParserProtocol {
 		return ifSuccess(input, index)
 	}
 }
+
