@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8409837D1DA50DF300FF2F8D"
-               BuildableName = "Mattress.framework"
-               BlueprintName = "Mattress-macOS"
+               BlueprintIdentifier = "840983A21DA50F4800FF2F8D"
+               BuildableName = "Mattress-iOS.framework"
+               BlueprintName = "Mattress-iOS"
                ReferencedContainer = "container:Mattress.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "840983861DA50DF300FF2F8D"
-               BuildableName = "Mattress-macOSTests.xctest"
-               BlueprintName = "Mattress-macOSTests"
+               BlueprintIdentifier = "840983AA1DA50F4800FF2F8D"
+               BuildableName = "Mattress-iOSTests.xctest"
+               BlueprintName = "Mattress-iOSTests"
                ReferencedContainer = "container:Mattress.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8409837D1DA50DF300FF2F8D"
-            BuildableName = "Mattress.framework"
-            BlueprintName = "Mattress-macOS"
+            BlueprintIdentifier = "840983A21DA50F4800FF2F8D"
+            BuildableName = "Mattress-iOS.framework"
+            BlueprintName = "Mattress-iOS"
             ReferencedContainer = "container:Mattress.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8409837D1DA50DF300FF2F8D"
-            BuildableName = "Mattress.framework"
-            BlueprintName = "Mattress-macOS"
+            BlueprintIdentifier = "840983A21DA50F4800FF2F8D"
+            BuildableName = "Mattress-iOS.framework"
+            BlueprintName = "Mattress-iOS"
             ReferencedContainer = "container:Mattress.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8409837D1DA50DF300FF2F8D"
-            BuildableName = "Mattress.framework"
-            BlueprintName = "Mattress-macOS"
+            BlueprintIdentifier = "840983A21DA50F4800FF2F8D"
+            BuildableName = "Mattress-iOS.framework"
+            BlueprintName = "Mattress-iOS"
             ReferencedContainer = "container:Mattress.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
