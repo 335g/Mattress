@@ -23,6 +23,8 @@
 		840983CC1DA5142500FF2F8D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983CA1DA5142500FF2F8D /* Parser.swift */; };
 		840983CE1DA5161800FF2F8D /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983CD1DA5161800FF2F8D /* Map.swift */; };
 		840983CF1DA5161800FF2F8D /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983CD1DA5161800FF2F8D /* Map.swift */; };
+		840983D11DA5173B00FF2F8D /* Concat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D01DA5173B00FF2F8D /* Concat.swift */; };
+		840983D21DA5173B00FF2F8D /* Concat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D01DA5173B00FF2F8D /* Concat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,7 @@
 		840983C71DA5117C00FF2F8D /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Error.swift; path = Sources/Error.swift; sourceTree = SOURCE_ROOT; };
 		840983CA1DA5142500FF2F8D /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parser.swift; path = Sources/Parser.swift; sourceTree = SOURCE_ROOT; };
 		840983CD1DA5161800FF2F8D /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Map.swift; path = Sources/Map.swift; sourceTree = SOURCE_ROOT; };
+		840983D01DA5173B00FF2F8D /* Concat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Concat.swift; path = Sources/Concat.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,7 @@
 				840983C41DA510B200FF2F8D /* Protocol.swift */,
 				840983CA1DA5142500FF2F8D /* Parser.swift */,
 				840983CD1DA5161800FF2F8D /* Map.swift */,
+				840983D01DA5173B00FF2F8D /* Concat.swift */,
 				840983C71DA5117C00FF2F8D /* Error.swift */,
 			);
 			name = Sources;
@@ -337,6 +341,7 @@
 				840983C81DA5117C00FF2F8D /* Error.swift in Sources */,
 				840983CE1DA5161800FF2F8D /* Map.swift in Sources */,
 				840983CB1DA5142500FF2F8D /* Parser.swift in Sources */,
+				840983D11DA5173B00FF2F8D /* Concat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +360,7 @@
 				840983C91DA5117C00FF2F8D /* Error.swift in Sources */,
 				840983CF1DA5161800FF2F8D /* Map.swift in Sources */,
 				840983CC1DA5142500FF2F8D /* Parser.swift in Sources */,
+				840983D21DA5173B00FF2F8D /* Concat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,6 +674,7 @@
 				840983B61DA50F4800FF2F8D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		840983B71DA50F4800FF2F8D /* Build configuration list for PBXNativeTarget "Mattress-iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -676,6 +683,7 @@
 				840983B91DA50F4800FF2F8D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
