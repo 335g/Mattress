@@ -11,6 +11,10 @@
 		8409839B1DA50E5F00FF2F8D /* Mattress.h in Headers */ = {isa = PBXBuildFile; fileRef = 840983991DA50E5F00FF2F8D /* Mattress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		840983AC1DA50F4800FF2F8D /* Mattress.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840983A31DA50F4800FF2F8D /* Mattress.framework */; };
 		840983BA1DA50F6F00FF2F8D /* Mattress.h in Headers */ = {isa = PBXBuildFile; fileRef = 840983991DA50E5F00FF2F8D /* Mattress.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		840983BE1DA5103600FF2F8D /* Either.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840983BC1DA5103600FF2F8D /* Either.framework */; };
+		840983BF1DA5103600FF2F8D /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840983BD1DA5103600FF2F8D /* Prelude.framework */; };
+		840983C21DA5103C00FF2F8D /* Either.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840983C01DA5103C00FF2F8D /* Either.framework */; };
+		840983C31DA5103C00FF2F8D /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840983C11DA5103C00FF2F8D /* Prelude.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,10 @@
 		8409839C1DA50E7F00FF2F8D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Info.plist; sourceTree = SOURCE_ROOT; };
 		840983A31DA50F4800FF2F8D /* Mattress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mattress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840983AB1DA50F4800FF2F8D /* Mattress-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mattress-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		840983BC1DA5103600FF2F8D /* Either.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Either.framework; path = Carthage/Checkouts/Either/build/Debug/Either.framework; sourceTree = "<group>"; };
+		840983BD1DA5103600FF2F8D /* Prelude.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Prelude.framework; path = Carthage/Checkouts/Prelude/build/Debug/Prelude.framework; sourceTree = "<group>"; };
+		840983C01DA5103C00FF2F8D /* Either.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Either.framework; path = "Carthage/Checkouts/Either/build/Debug-iphoneos/Either.framework"; sourceTree = "<group>"; };
+		840983C11DA5103C00FF2F8D /* Prelude.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Prelude.framework; path = "Carthage/Checkouts/Prelude/build/Debug-iphoneos/Prelude.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840983BE1DA5103600FF2F8D /* Either.framework in Frameworks */,
+				840983BF1DA5103600FF2F8D /* Prelude.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840983C21DA5103C00FF2F8D /* Either.framework in Frameworks */,
+				840983C31DA5103C00FF2F8D /* Prelude.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +92,7 @@
 				840983801DA50DF300FF2F8D /* Sources */,
 				8409838B1DA50DF300FF2F8D /* Tests */,
 				8409837F1DA50DF300FF2F8D /* Products */,
+				840983BB1DA5103600FF2F8D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,6 +124,17 @@
 			);
 			name = Tests;
 			path = MattressTests;
+			sourceTree = "<group>";
+		};
+		840983BB1DA5103600FF2F8D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				840983C01DA5103C00FF2F8D /* Either.framework */,
+				840983C11DA5103C00FF2F8D /* Prelude.framework */,
+				840983BC1DA5103600FF2F8D /* Either.framework */,
+				840983BD1DA5103600FF2F8D /* Prelude.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,10 +460,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.335g.Mattress;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
@@ -456,10 +482,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.335g.Mattress;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
@@ -500,9 +528,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.335g.Mattress-iOS";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
@@ -522,9 +551,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.335g.Mattress-iOS";
 				PRODUCT_NAME = "$(PROJECT_NAME)";

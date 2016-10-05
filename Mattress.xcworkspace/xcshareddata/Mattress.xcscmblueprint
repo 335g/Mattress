@@ -1,0 +1,29 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D5FA66743146831DA2A20C0EAE4583EF424D9041" : 9223372036854775807,
+    "9A760A1EBAC1979D46EF016B1BE84D98E53C16FF" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "4266A20A-E9C5-4AA3-9811-66BC06921F5D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D5FA66743146831DA2A20C0EAE4583EF424D9041" : "Mattress\/Carthage\/Checkouts\/Either\/",
+    "9A760A1EBAC1979D46EF016B1BE84D98E53C16FF" : "Mattress\/Carthage\/Checkouts\/Prelude\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Mattress",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Mattress.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/robrix\/Prelude.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9A760A1EBAC1979D46EF016B1BE84D98E53C16FF"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/robrix\/Either.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D5FA66743146831DA2A20C0EAE4583EF424D9041"
+    }
+  ]
+}

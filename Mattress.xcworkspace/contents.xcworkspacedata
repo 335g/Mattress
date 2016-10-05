@@ -4,4 +4,10 @@
    <FileRef
       location = "group:Mattress.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/Prelude/Prelude.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/Either/Either.xcodeproj">
+   </FileRef>
 </Workspace>
