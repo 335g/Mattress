@@ -18,7 +18,7 @@ extension ParserProtocol {
 			ifSuccess: { tree, index in
 				return index == input.endIndex
 					? Either.right(tree)
-					: Either.left(ParsingError(index: index, reason: "index is not input.endIndex"))
+					: Either.left(ParsingError(index: index, reason: "not end"))
 				},
 			ifFailure: Either.left
 		)

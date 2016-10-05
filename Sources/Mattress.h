@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Yoshiki Kudo. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for Mattress.
 FOUNDATION_EXPORT double MattressVersionNumber;
