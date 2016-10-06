@@ -35,3 +35,12 @@ extension Parser: ParserProtocol {
 	}
 }
 
+// MARK: - Literal constructor
+
+public prefix func % <C>(x: C) -> Parser<C> {
+	return Parser(x)
+}
+
+public prefix func % (string: String) -> Parser<String.CharacterView> {
+	return Parser(string.characters)
+}

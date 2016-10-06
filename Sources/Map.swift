@@ -1,5 +1,6 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
+import Prelude
 
 // MARK: - MapParser
 
@@ -20,4 +21,8 @@ extension MapParser: ParserProtocol {
 			ifFailure: ifFailure
 		)
 	}
+}
+
+public func pure<C, T>(_ x: T) -> MapParser<AnyParser<C>, T> where C: Collection {
+	return MapParser<AnyParser<C>, T>(parser: AnyParser(), mapping: const(x))
 }
