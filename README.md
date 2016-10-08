@@ -1,4 +1,4 @@
-# Mattress
+# Dive to `Mattress`
 
 [![Platform support](https://img.shields.io/badge/platform-iOS%20%7C%20OS%20X-lightgrey.svg?style=flat-square)](https://github.com/ReSwift/ReSwift/blob/master/LICENSE.md)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
