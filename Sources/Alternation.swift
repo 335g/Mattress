@@ -7,7 +7,7 @@ import Either
 
 public struct AltParser<P1, P2> where P1: ParserProtocol, P2: ParserProtocol, P1.Targets == P2.Targets {
 	let this: P1
-	let other: P2
+	let another: P2
 }
 
 // AltParser : ParserProtocol
@@ -20,7 +20,7 @@ extension AltParser: ParserProtocol {
 		return this.parse(input, at: index,
 			ifSuccess: { tree, index in ifSuccess(Either.left(tree), index) },
 			ifFailure: { _ in
-				return self.other.parse(input, at: index,
+				return self.another.parse(input, at: index,
 					ifSuccess: { tree, index in ifSuccess(Either.right(tree), index) },
 					ifFailure: ifFailure
 				)

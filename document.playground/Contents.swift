@@ -3,20 +3,16 @@ import Prelude
 import Either
 import Mattress
 
-let parser1 = %"abc"
-let parser2 = %"def"
+let parser1 = %"a"
+let parser2 = %"b"
+let parser3 = parser1 <|> parser2
 
-if let parsed = parser1.parse("abc".characters).right {
-	String(parsed)
+if let parsed = parser3.parse("a".characters).right {
+	parsed.either(
+		ifLeft: String.init,
+		ifRight: String.init
+	)
+}else {
+	""
 }
 
-let parser3 = String.init <^> %"1"
-
-//let onetwo: ConcatParser<Parser<String.CharacterView>, Parser<String.CharacterView>> = %"1" >>- { _ in %"2" }
-
-let onetwo = parser1.flatMap{ _ in parser2 }
-if let parsed = onetwo.parse("abcdef".characters).right {
-	String(parsed)
-}
-
-let onetwo2 = parser1 >>- { _ in parser2 }
