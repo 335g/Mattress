@@ -13,4 +13,10 @@
    <FileRef
       location = "group:Carthage/Checkouts/Either/Either.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/Quick/Quick.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/Nimble/Nimble.xcodeproj">
+   </FileRef>
 </Workspace>

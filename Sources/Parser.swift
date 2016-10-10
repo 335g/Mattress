@@ -4,9 +4,9 @@
 // MARK: - Parser
 
 public struct Parser<C> where C: Collection, C.Iterator.Element: Equatable {
-	let compared: C
+	fileprivate let compared: C.Iterator.Element
 	
-	public init(_ x: C) {
+	public init(_ x: C.Iterator.Element) {
 		compared = x
 	}
 }
@@ -15,32 +15,15 @@ public struct Parser<C> where C: Collection, C.Iterator.Element: Equatable {
 
 extension Parser: ParserProtocol {
 	public typealias Targets = C
-	public typealias Tree = C
+	public typealias Tree = C.Iterator.Element
 	
-	public func parse<A>(_ input: C, at index: C.Index, ifSuccess: (C, C.Index) -> A, ifFailure: (ParsingError<C.Index>) -> A) -> A {
-		guard let _ = input.index(index, offsetBy: compared.count, limitedBy: input.endIndex) else {
+	public func parse<A>(_ input: C, at index: C.Index, ifSuccess: (C.Iterator.Element, C.Index) -> A, ifFailure: (ParsingError<C.Index>) -> A) -> A {
+		guard let nextIndex = input.index(index, offsetBy: 1, limitedBy: input.endIndex) else {
 			return ifFailure(ParsingError(index: index, reason: "range over"))
 		}
 		
-		var index = index
-		for elem in compared {
-			if input[index] != elem {
-				return ifFailure(ParsingError(index: index, reason: "not eq"))
-			}
-			
-			input.formIndex(after: &index)
-		}
-		
-		return ifSuccess(input, index)
+		return input[index] == compared
+			? ifSuccess(compared, nextIndex)
+			: ifFailure(ParsingError(index: index, reason: "not eq"))
 	}
-}
-
-// MARK: - Literal constructor
-
-public prefix func % <C>(x: C) -> Parser<C> {
-	return Parser(x)
-}
-
-public prefix func % (string: String) -> Parser<String.CharacterView> {
-	return Parser(string.characters)
 }

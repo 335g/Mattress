@@ -6,8 +6,13 @@ import Either
 // MARK: - AltParser
 
 public struct AltParser<P1, P2> where P1: ParserProtocol, P2: ParserProtocol, P1.Targets == P2.Targets {
-	let this: P1
-	let another: P2
+	fileprivate let this: P1
+	fileprivate let another: P2
+	
+	public init(this: P1, another: P2) {
+		self.this = this
+		self.another = another
+	}
 }
 
 // AltParser : ParserProtocol

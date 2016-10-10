@@ -4,8 +4,13 @@
 // MARK: - ConcatParser
 
 public struct ConcatParser<P1, P2> where P1: ParserProtocol, P2: ParserProtocol, P1.Targets == P2.Targets {
-	let previous: P1
-	let toBehind: (P1.Tree) -> P2
+	fileprivate let previous: P1
+	fileprivate let toBehind: (P1.Tree) -> P2
+	
+	public init(previous: P1, toBehind: @escaping (P1.Tree) -> P2) {
+		self.previous = previous
+		self.toBehind = toBehind
+	}
 }
 
 // MARK: - ConcatParser : ParserProtocol

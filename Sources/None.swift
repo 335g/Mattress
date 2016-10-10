@@ -5,6 +5,8 @@
 
 public struct NoneParser<C: Collection> {}
 
+// MARK: - NoneParser : ParserProtocol
+
 extension NoneParser: ParserProtocol {
 	public typealias Targets = C
 	public typealias Tree = ()

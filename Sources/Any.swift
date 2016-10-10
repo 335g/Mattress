@@ -5,6 +5,8 @@
 
 public struct AnyParser<C: Collection> {}
 
+// MARK: - AnyParser : ParserProtocol
+
 extension AnyParser: ParserProtocol {
 	public typealias Targets = C
 	public typealias Tree = ()

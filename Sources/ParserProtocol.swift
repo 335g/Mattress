@@ -71,7 +71,6 @@ extension ParserProtocol {
 		P.Tree == (Self.Tree) -> T
 	{
 		return left >>- { $0 <^> right }
-	}
-	
+	}	
 }
 

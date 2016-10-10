@@ -1,12 +1,16 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
-import Prelude
 
 // MARK: - MapParser
 
 public struct MapParser<P, T> where P: ParserProtocol {
-	let parser: P
-	let mapping: (P.Tree) -> T
+	fileprivate let parser: P
+	fileprivate let mapping: (P.Tree) -> T
+	
+	public init(parser: P, mapping: @escaping (P.Tree) -> T) {
+		self.parser = parser
+		self.mapping = mapping
+	}
 }
 
 // MARK: - MapParser : ParserProtocol
@@ -21,8 +25,4 @@ extension MapParser: ParserProtocol {
 			ifFailure: ifFailure
 		)
 	}
-}
-
-public func pure<C, T>(_ x: T) -> MapParser<AnyParser<C>, T> where C: Collection {
-	return MapParser<AnyParser<C>, T>(parser: AnyParser(), mapping: const(x))
 }
