@@ -27,3 +27,9 @@ extension Parser: ParserProtocol {
 			: ifFailure(ParsingError(index: index, reason: "not eq"))
 	}
 }
+
+// MARK: - Constructor
+
+public prefix func % <C>(literal: C.Iterator.Element) -> Parser<C> {
+	return Parser(literal)
+}

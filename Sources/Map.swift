@@ -1,5 +1,6 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
+import Prelude
 
 // MARK: - MapParser
 
@@ -25,4 +26,14 @@ extension MapParser: ParserProtocol {
 			ifFailure: ifFailure
 		)
 	}
+}
+
+// MARK: - Constructor
+
+public func pure<C, T>(_ x: T) -> MapParser<AnyParser<C>, T> {
+	return MapParser<AnyParser<C>, T>(parser: any(), mapping: const(x))
+}
+
+public prefix func % (literal: String) -> MapParser<CollectionParser<String.CharacterView>, String> {
+	return MapParser(parser: CollectionParser(literal.characters), mapping: String.init)
 }

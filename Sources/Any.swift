@@ -15,3 +15,9 @@ extension AnyParser: ParserProtocol {
 		return ifSuccess((), index)
 	}
 }
+
+// MARK: - Constructor
+
+public func any<C>() -> AnyParser<C> {
+	return AnyParser()
+}

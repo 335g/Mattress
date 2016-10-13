@@ -28,4 +28,8 @@ extension CollectionParser: ParserProtocol {
 	}
 }
 
+// MARK: - Constructor
 
+public prefix func % <C>(literal: C) -> CollectionParser<C> {
+	return CollectionParser(literal)
+}

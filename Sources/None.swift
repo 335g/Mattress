@@ -15,3 +15,9 @@ extension NoneParser: ParserProtocol {
 		return ifFailure(ParsingError(index: index, reason: "is none"))
 	}
 }
+
+// MARK: - Constructor
+
+public func none<C>() -> NoneParser<C> {
+	return NoneParser()
+}
