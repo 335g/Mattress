@@ -43,13 +43,13 @@ extension RepetitionParser: ParserProtocol {
 	public typealias Tree = [P.Tree]
 	
 	public func parse<A>(_ input: P.Targets, at index: P.Targets.Index, ifSuccess: ([P.Tree], P.Targets.Index) -> A, ifFailure: (ParsingError<P.Targets.Index>) -> A) -> A {
-		return parse(input, at: index, ifSuccess: ifSuccess, ifFailure: ifFailure, time: 1)
+		return parse(input, at: index, ifSuccess: ifSuccess, ifFailure: ifFailure, time: 0)
 	}
 	
 	private func parse<A>(_ input: P.Targets, at index: P.Targets.Index, ifSuccess: ([P.Tree], P.Targets.Index) -> A, ifFailure: (ParsingError<P.Targets.Index>) -> A, time: Int) -> A {
 		
 		switch time {
-		case 1...1:
+		case 0...0:
 			return parser.parse(input, at: index,
 				ifSuccess: { tree, index in
 					return self.times.upperBound > 1
@@ -58,28 +58,30 @@ extension RepetitionParser: ParserProtocol {
 									ifSuccess([tree] + treeCollection, index)
 								},
 								ifFailure: ifFailure,
-								time: 2)
+								time: 1)
 						: ifSuccess([tree], index)
 									
 				},
 				ifFailure: { err in
+					
+					/// match the empty list if you allow the empty.
 					return self.times.lowerBound == 0
 						? pure([]).parse(input, at: index, ifSuccess: ifSuccess, ifFailure: ifFailure)
 						: ifFailure(err)
 				}
 			)
 			
-		case 2...times.upperBound:
+		case 1...times.upperBound:
 			return parser.parse(input, at: index,
 				ifSuccess: { tree, index in
 					let nextTime = time == Int.max ? Int.max : time + 1
-						return parse(input, at: index,
-							ifSuccess: { treeCollection, index in
-								ifSuccess([tree] + treeCollection, index)
-							},
-							ifFailure: ifFailure,
-							time: nextTime
-						)
+					return parse(input, at: index,
+						ifSuccess: { treeCollection, index in
+							ifSuccess([tree] + treeCollection, index)
+						},
+						ifFailure: ifFailure,
+						time: nextTime
+					)
 				},
 				ifFailure: { _ in
 					return pure([]).parse(input, at: index, ifSuccess: ifSuccess, ifFailure: ifFailure)

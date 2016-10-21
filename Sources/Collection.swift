@@ -1,5 +1,6 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
+import Prelude
 
 // MARK: - CollectionParser
 

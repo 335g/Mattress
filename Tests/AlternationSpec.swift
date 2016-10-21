@@ -2,6 +2,7 @@
 
 
 @testable import Mattress
+import Prelude
 import Either
 import Quick
 import Nimble
@@ -27,7 +28,9 @@ final class AlternationSpec: QuickSpec {
 }
 
 extension EitherProtocol where Left == Right {
-	func extract() -> Right {
-		return either(ifLeft: { $0 }, ifRight: { $0 })
+	typealias Value = Right
+	
+	func extract() -> Value {
+		return either(ifLeft: id, ifRight: id)
 	}
 }

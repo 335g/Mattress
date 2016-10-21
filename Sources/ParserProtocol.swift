@@ -24,6 +24,10 @@ extension ParserProtocol {
 			ifFailure: Either.left
 		)
 	}
+	
+	public func mapped() -> MapParser<Self, Tree> {
+		return MapParser(parser: self, mapping: id)
+	}
 }
 
 // MARK: - Operator
@@ -33,7 +37,15 @@ extension ParserProtocol {
 		return MapParser(parser: parser, mapping: f)
 	}
 	
+	public static func <^> <T>(f: @escaping (Self.Tree) -> T, parser: Self) -> ConcatParser<Self, MapParser<AnyParser<Self.Targets>, T>> {
+		return parser >>- { pure(f($0)) }
+	}
+	
 	public static func <^ <T>(value: T, parser: Self) -> MapParser<Self, T> {
+		return const(value) <^> parser
+	}
+	
+	public static func <^ <T>(value: T, parser: Self) -> ConcatParser<Self, MapParser<AnyParser<Self.Targets>, T>> {
 		return const(value) <^> parser
 	}
 	

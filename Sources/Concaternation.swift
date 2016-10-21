@@ -32,7 +32,6 @@ extension ConcatParser: ParserProtocol {
 	}
 }
 
-
 // MARK: - IgnoreParser
 
 public struct IgnoreParser<P1, P2> where P1: ParserProtocol, P2: ParserProtocol, P1.Targets == P2.Targets {

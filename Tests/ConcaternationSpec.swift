@@ -10,12 +10,11 @@ import XCTest
 
 final class ConcaternationSpec: QuickSpec {
 	override func spec() {
-		describe("ConcatParser"){
-			
-		}
-		
-		describe("IgnoreParser"){
-			
+		describe(">>-"){
+			it(""){
+				let parser = %"x" >>- const(%"y")
+				expect( parser.check("xy") ) == "y"
+			}
 		}
 	}
 }

@@ -1,5 +1,6 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
+import Either
 
 ///
 /// higher priority
@@ -23,7 +24,7 @@ precedencegroup Map {
 
 precedencegroup Concaternation {
 	associativity: left
-	higherThan: WeakConcaternation
+	higherThan: Bind
 }
 
 // MARK: - WeakConcaternation
@@ -67,7 +68,7 @@ infix operator <*  : Concaternation
 // TODO: add document
 ///
 ///
-infix operator >>- : WeakConcaternation
+//infix operator >>- : WeakConcaternation
 
 // TODO: add document
 ///

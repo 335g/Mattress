@@ -1,7 +1,7 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
 import Either
-
+import Prelude
 
 // MARK: - AltParser
 
@@ -30,6 +30,15 @@ extension AltParser: ParserProtocol {
 					ifFailure: ifFailure
 				)
 			}
+		)
+	}
+}
+
+extension AltParser where P1.Tree == P2.Tree {
+	public func extract() -> MapParser<AltParser, P1.Tree> {
+		return MapParser(
+			parser: self,
+			mapping: { $0.either(ifLeft: id, ifRight: id) }
 		)
 	}
 }
