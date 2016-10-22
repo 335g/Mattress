@@ -83,8 +83,10 @@ extension RepetitionParser: ParserProtocol {
 						time: nextTime
 					)
 				},
-				ifFailure: { _ in
-					return pure([]).parse(input, at: index, ifSuccess: ifSuccess, ifFailure: ifFailure)
+				ifFailure: { err in
+					return time >= times.lowerBound
+						? pure([]).parse(input, at: index, ifSuccess: ifSuccess, ifFailure: ifFailure)
+						: ifFailure(err)
 				}
 			)
 			
