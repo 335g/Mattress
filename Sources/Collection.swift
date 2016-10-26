@@ -4,17 +4,17 @@ import Prelude
 
 // MARK: - CollectionParser
 
-public struct CollectionParser<C> where C: Collection, C.Iterator.Element: Equatable, C.SubSequence.Iterator.Element == C.Iterator.Element {
-	fileprivate let compared: C
+public struct CollectionParser<C>: ParserProtocol where C: Collection, C.SubSequence.Iterator.Element == C.Iterator.Element {
+	private let compared: C
+	private let eq: (C.Iterator.Element, C.Iterator.Element) -> Bool
 	
-	public init(_ x: C) {
+	public init(_ x: C, _ f: @escaping (C.Iterator.Element, C.Iterator.Element) -> Bool) {
 		compared = x
+		eq = f
 	}
-}
-
-// MARK: - Parser : ParserProtocol
-
-extension CollectionParser: ParserProtocol {
+	
+	// MARK: - ParserProtocol
+	
 	public typealias Targets = C
 	public typealias Tree = C
 	
@@ -23,7 +23,7 @@ extension CollectionParser: ParserProtocol {
 			return ifFailure(ParsingError(index: index, reason: "range over"))
 		}
 		
-		return zip(compared, input.suffix(from: index)).lazy.map{ $0 == $1 }.reduce(true){ $0 && $1 }
+		return zip(compared, input.suffix(from: index)).lazy.map(eq).reduce(true){ $0 && $1 }
 			? ifSuccess(compared, lastIndex)
 			: ifFailure(ParsingError(index: index, reason: "not eq"))
 	}
@@ -31,6 +31,6 @@ extension CollectionParser: ParserProtocol {
 
 // MARK: - Constructor
 
-public prefix func % <C>(literal: C) -> CollectionParser<C> {
-	return CollectionParser(literal)
+public prefix func % <C>(literal: C) -> CollectionParser<C> where C.Iterator.Element: Equatable {
+	return CollectionParser(literal, ==)
 }

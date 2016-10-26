@@ -9,7 +9,7 @@ import SwiftCheck
 final class ParserSpec: XCTestCase {
 	func testParse() {
 		property("`Parser` should parse only one element.") <- forAll { (int: Int) in
-			let parser = Parser<[Int]>(int)
+			let parser: Parser<[Int]> = %int
 			
 			return parser.parse([int]).either(
 				ifLeft: const(false),

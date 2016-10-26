@@ -9,7 +9,7 @@ import SwiftCheck
 final class CollectionSpec: XCTestCase {
 	func testParse() {
 		property("`CollectionParser` should parse elements that is conformed Equatable.") <- forAll { (ints: [Int]) in
-			let parser = CollectionParser(ints)
+			let parser = CollectionParser(ints, ==)
 			
 			return parser.parse(ints).either(
 				ifLeft: const(false),
