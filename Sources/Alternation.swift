@@ -45,6 +45,8 @@ extension AltParser where P1.Tree == P2.Tree {
 	}
 }
 
+// MARK: - Operator
+
 extension ParserProtocol {
 	public static func <|> <P>(this: Self, another: P) -> AltParser<Self, P> where
 		P: ParserProtocol,

@@ -29,6 +29,22 @@ public struct Parser<C: Collection>: ParserProtocol {
 
 // MARK: - Constructor
 
-public prefix func % <C>(literal: C.Iterator.Element) -> Parser<C> where C: Collection, C.Iterator.Element: Equatable {
-	return Parser { $0 == literal }
+public func satisfy<C>(_ pred: @escaping (C.Iterator.Element) -> Bool) -> Parser<C> {
+	return Parser(pred)
+}
+
+public func oneOf<C>(_ input: C) -> Parser<C> where C.Iterator.Element: Equatable {
+	return satisfy { elem in
+		input.contains(where: { $0 == elem })
+	}
+}
+
+public func noneOf<C>(_ input: C) -> Parser<C> where C.Iterator.Element: Equatable {
+	return satisfy { elem in
+		!input.contains(where: { $0 == elem })
+	}
+}
+
+public prefix func % <C>(literal: C.Iterator.Element) -> Parser<C> where C.Iterator.Element: Equatable {
+	return satisfy { $0 == literal }
 }
