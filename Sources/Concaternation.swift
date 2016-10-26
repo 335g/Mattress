@@ -25,14 +25,12 @@ public struct ConcatParser<P1, P2>: ParserProtocol where
 	
 	public func parse<A>(_ input: P1.Targets, at index: P1.Targets.Index, ifSuccess: (P2.Tree, P1.Targets.Index) -> A, ifFailure: (ParsingError<P1.Targets.Index>) -> A) -> A {
 		return previous.parse(input, at: index,
-		                      ifSuccess: { tree, index in
-								return self.toBehind(tree).parse(input, at: index,
-								                                 ifSuccess: ifSuccess,
-								                                 ifFailure: ifFailure
-								)
-		},
-		                      ifFailure: ifFailure
-		)
+			ifSuccess: { tree, index in
+				return self.toBehind(tree).parse(input, at: index,
+					ifSuccess: ifSuccess,
+					ifFailure: ifFailure)
+			},
+			ifFailure: ifFailure)
 	}
 }
 
@@ -84,14 +82,12 @@ public struct IgnoreParser<P1, P2>: ParserProtocol where
 	
 	public func parse<A>(_ input: P1.Targets, at index: P1.Targets.Index, ifSuccess: (P1.Tree, P1.Targets.Index) -> A, ifFailure: (ParsingError<P1.Targets.Index>) -> A) -> A {
 		return previous.parse(input, at: index,
-		                      ifSuccess: { tree, index in
-								return self.toBehind(tree).parse(input, at: index,
-								                                 ifSuccess: { _, index in ifSuccess(tree, index) },
-								                                 ifFailure: ifFailure
-								)
-		},
-		                      ifFailure: ifFailure
-		)
+			ifSuccess: { tree, index in
+				return self.toBehind(tree).parse(input, at: index,
+					ifSuccess: { _, index in ifSuccess(tree, index) },
+					ifFailure: ifFailure)
+			},
+			ifFailure: ifFailure)
 	}
 }
 
