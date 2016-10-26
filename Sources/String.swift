@@ -29,3 +29,12 @@ public prefix func % (literal: Character) -> Parser<String.CharacterView> {
 	return char(literal)
 }
 
+// MARK: - Parser of Character
+
+public let digit		= oneOf("0123456789".characters)
+public let space		= char(" ")
+public let cr			= char("\r")
+public let crlf			= char("\r\n")
+public let newline		= char("\n")
+public let tab			= char("\t")
+public let endOfLine	= newline <|> crlf
