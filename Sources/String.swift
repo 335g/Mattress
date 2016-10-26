@@ -2,7 +2,7 @@
 
 
 public prefix func % (literal: String) -> MapParser<CollectionParser<String.CharacterView>, String> {
-	return MapParser(parser: CollectionParser(literal.characters, ==), mapping: String.init)
+	return MapParser(parser: CollectionParser(literal.characters), mapping: String.init)
 }
 
 public func satisfy<C>(_ pred: @escaping (C.Iterator.Element) -> Bool) -> Parser<C> {

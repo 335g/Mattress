@@ -4,9 +4,6 @@
 // MARK: - Parser
 
 public struct Parser<C>: ParserProtocol where C: Collection {
-	public typealias Targets = C
-	public typealias Tree = C.Iterator.Element
-	
 	private let satisfy: (C.Iterator.Element) -> Bool
 	
 	public init(_ satisfy: @escaping (C.Iterator.Element) -> Bool) {
@@ -14,6 +11,9 @@ public struct Parser<C>: ParserProtocol where C: Collection {
 	}
 	
 	// MARK: ParserProtocol
+	
+	public typealias Targets = C
+	public typealias Tree = C.Iterator.Element
 	
 	public func parse<A>(_ input: C, at index: C.Index, ifSuccess: (C.Iterator.Element, C.Index) -> A, ifFailure: (ParsingError<C.Index>) -> A) -> A {
 		guard let nextIndex = input.index(index, offsetBy: 1, limitedBy: input.endIndex) else {
