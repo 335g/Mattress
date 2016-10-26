@@ -3,7 +3,7 @@
 
 // MARK: - Parser
 
-public struct Parser<C>: ParserProtocol where C: Collection {
+public struct Parser<C: Collection>: ParserProtocol {
 	private let satisfy: (C.Iterator.Element) -> Bool
 	
 	public init(_ satisfy: @escaping (C.Iterator.Element) -> Bool) {

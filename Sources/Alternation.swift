@@ -5,19 +5,21 @@ import Prelude
 
 // MARK: - AltParser
 
-public struct AltParser<P1, P2> where P1: ParserProtocol, P2: ParserProtocol, P1.Targets == P2.Targets {
-	fileprivate let this: P1
-	fileprivate let another: P2
+public struct AltParser<P1, P2>: ParserProtocol where
+	P1: ParserProtocol,
+	P2: ParserProtocol,
+	P1.Targets == P2.Targets
+{
+	private let this: P1
+	private let another: P2
 	
-	public init(this: P1, another: P2) {
+	fileprivate init(this: P1, another: P2) {
 		self.this = this
 		self.another = another
 	}
-}
-
-// AltParser : ParserProtocol
-
-extension AltParser: ParserProtocol {
+	
+	// MARK: ParserProtocol
+	
 	public typealias Targets = P1.Targets
 	public typealias Tree = Either<P1.Tree, P2.Tree>
 	
@@ -40,5 +42,14 @@ extension AltParser where P1.Tree == P2.Tree {
 			parser: self,
 			mapping: { $0.either(ifLeft: id, ifRight: id) }
 		)
+	}
+}
+
+extension ParserProtocol {
+	public static func <|> <P>(this: Self, another: P) -> AltParser<Self, P> where
+		P: ParserProtocol,
+		P.Targets == Self.Targets
+	{
+		return AltParser(this: this, another: another)
 	}
 }
