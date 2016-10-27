@@ -95,12 +95,48 @@ public struct RepetitionParser<P: ParserProtocol>: ParserProtocol {
 
 // MARK: - Constructor
 
+public func some<P>(_ parser: P) -> RepetitionParser<P> {
+	return RepetitionParser.some(parser)
+}
+
+public func some<P1, P2>(_ parser: P1, endBy terminator: P2) -> RepetitionParser<IgnoreParser<P1, MapParser<P2, P1.Tree>>> where
+	P1: ParserProtocol,
+	P2: ParserProtocol,
+	P1.Targets == P2.Targets
+{
+	return some(parser <* terminator)
+}
+
+public func some<P1, P2>(_ parser: P1, separatedBy separator: P2)
+	-> ConcatParser<MapParser<P1, ([P1.Tree]) -> [P1.Tree]>, MapParser<RepetitionParser<ConcatParser<P2, P1>>, [P1.Tree]>>
+	where
+	P1: ParserProtocol,
+	P2: ParserProtocol,
+	P1.Targets == P2.Targets
+{
+	return prepend <^> parser <*> many(separator *> parser)
+}
+
 public func many<P>(_ parser: P) -> RepetitionParser<P> {
 	return RepetitionParser.many(parser)
 }
 
-public func some<P>(_ parser: P) -> RepetitionParser<P> {
-	return RepetitionParser.some(parser)
+public func many<P1, P2>(_ parser: P1, endBy terminator: P2) -> RepetitionParser<IgnoreParser<P1, MapParser<P2, P1.Tree>>> where
+	P1: ParserProtocol,
+	P2: ParserProtocol,
+	P1.Targets == P2.Targets
+{
+	return many(parser <* terminator)
+}
+
+public func many<P1, P2>(_ parser: P1, separatedBy separator: P2)
+	-> AltParser<ConcatParser<MapParser<P1, ([P1.Tree]) -> [P1.Tree]>, MapParser<RepetitionParser<ConcatParser<P2, P1>>, [P1.Tree]>>, MapParser<AnyParser<P1.Targets>, [P1.Tree]>>
+	where
+	P1: ParserProtocol,
+	P2: ParserProtocol,
+	P1.Targets == P2.Targets
+{
+	return some(parser, separatedBy: separator) <|> pure([])
 }
 
 public func * <P>(parser: P, range: ClosedRange<Int>) -> RepetitionParser<P> {
@@ -109,4 +145,14 @@ public func * <P>(parser: P, range: ClosedRange<Int>) -> RepetitionParser<P> {
 
 public func * <P>(parser: P, times: Int) -> RepetitionParser<P> {
 	return RepetitionParser.times(parser, times: times)
+}
+
+// MARK: - Private 
+
+private func prepend<T>(_ value: T) -> ([T]) -> [T] {
+	return { arr in
+		var arr = arr
+		arr.insert(value, at: 0)
+		return arr
+	}
 }
