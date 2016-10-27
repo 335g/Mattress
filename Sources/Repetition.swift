@@ -139,6 +139,14 @@ public func many<P1, P2>(_ parser: P1, separatedBy separator: P2)
 	return some(parser, separatedBy: separator) <|> pure([])
 }
 
+public func many<P1, P2>(_ parser: P1, until end: P2) -> IgnoreParser<RepetitionParser<P1>, MapParser<P2, [P1.Tree]>> where
+	P1: ParserProtocol,
+	P2: ParserProtocol,
+	P1.Targets == P2.Targets
+{
+	return many(parser) <* end
+}
+
 public func * <P>(parser: P, range: ClosedRange<Int>) -> RepetitionParser<P> {
 	return RepetitionParser.times(parser, times: range)
 }
