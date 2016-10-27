@@ -53,7 +53,9 @@ public struct RepetitionParser<P: ParserProtocol>: ParserProtocol {
 					return self.times.upperBound > 1
 						? parse(input, at: index,
 							ifSuccess: { treeCollection, index in
-								ifSuccess([tree] + treeCollection, index)
+								var collection = treeCollection
+								collection.insert(tree, at: 0)
+								return ifSuccess(collection, index)
 							},
 							ifFailure: ifFailure,
 							time: 1)

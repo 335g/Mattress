@@ -48,3 +48,11 @@ public func noneOf<C>(_ input: C) -> Parser<C> where C.Iterator.Element: Equatab
 public prefix func % <C>(literal: C.Iterator.Element) -> Parser<C> where C.Iterator.Element: Equatable {
 	return satisfy { $0 == literal }
 }
+
+public prefix func % <C>(range: Range<C.Iterator.Element>) -> Parser<C> {
+	return satisfy(range.contains)
+}
+
+public prefix func % <C>(range: ClosedRange<C.Iterator.Element>) -> Parser<C> {
+	return satisfy(range.contains)
+}

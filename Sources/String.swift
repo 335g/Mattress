@@ -1,7 +1,7 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
 public func char(_ x: Character) -> Parser<String.CharacterView> {
-	return satisfy { $0 == x }
+	return satisfy{ $0 == x }
 }
 
 public prefix func % (literal: Character) -> Parser<String.CharacterView> {
@@ -10,6 +10,14 @@ public prefix func % (literal: Character) -> Parser<String.CharacterView> {
 
 public prefix func % (literal: String) -> MapParser<CollectionParser<String.CharacterView>, String> {
 	return MapParser(parser: CollectionParser(literal.characters), mapping: String.init)
+}
+
+public prefix func % (range: ClosedRange<String>) -> Parser<String.CharacterView> {
+	return satisfy{ range.contains("\($0)") }
+}
+
+public prefix func % (range: Range<String>) -> MapParser<Parser<String.CharacterView>, String> {
+	return MapParser(parser: satisfy{ range.contains("\($0)") }, mapping: { "\($0)" })
 }
 
 // MARK: - Parser of Character
