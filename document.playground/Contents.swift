@@ -2,14 +2,22 @@
 import Either
 import Mattress
 
-let parser = %"abcd"
-parser.parse("abcd".characters).either(
-	ifLeft: { print($0) },
-	ifRight: { print($0) }
-)
+//let parser = %"x" <|> %"xx"
+//try parser.parse("xx")
 
-let parser2 = %("a"..."z")
-parser2.parse("b".characters).either(
-	ifLeft: { print($0) },
-	ifRight: { print($0) }
-)
+let p = %"x" * 3
+do {
+	try p.parse("xx")
+} catch ParsingError<String.Index>.notEnd(_) {
+	""
+} catch ParsingError<String.Index>.noReason(_) {
+	""
+} catch ParsingError<String.Index>.rangeOver(_) {
+	""
+} catch ParsingError<String.Index>.notEqual(_) {
+	""
+} catch ParsingError<String.Index>.debug(_) {
+	""
+} catch ParsingError<String.Index>.notAllowNoMatch(_) {
+	""
+}

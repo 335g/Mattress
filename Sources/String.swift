@@ -1,5 +1,11 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
+extension ParserProtocol where Targets == String.CharacterView {
+	public func parse(_ input: String) throws -> Tree {
+		return try parse(input.characters)
+	}
+}
+
 public func char(_ x: Character) -> Parser<String.CharacterView> {
 	return satisfy{ $0 == x }
 }

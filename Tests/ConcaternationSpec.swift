@@ -12,8 +12,7 @@ final class ConcaternationSpec: QuickSpec {
 	override func spec() {
 		describe(">>-"){
 			it(""){
-				let parser = %"x" >>- const(%"y")
-				expect( parser.check("xy") ) == "y"
+				expect(try? (%"x" >>- const(%"y")).parse("xy")) == "y"
 			}
 		}
 	}

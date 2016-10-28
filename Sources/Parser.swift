@@ -15,15 +15,18 @@ public struct Parser<C: Collection>: ParserProtocol {
 	public typealias Targets = C
 	public typealias Tree = C.Iterator.Element
 	
-	public func parse<A>(_ input: C, at index: C.Index, ifSuccess: (C.Iterator.Element, C.Index) -> A, ifFailure: (ParsingError<C.Index>) -> A) -> A {
+	public func parse<A>(_ input: C, at index: C.Index, ifSuccess: (C.Iterator.Element, C.Index) throws -> A) throws -> A {
 		guard let nextIndex = input.index(index, offsetBy: 1, limitedBy: input.endIndex) else {
-			return ifFailure(ParsingError(index: index, reason: "range over"))
+			throw ParsingError.rangeOver(index)
 		}
 		
 		let x = input[index]
-		return satisfy(x)
-			? ifSuccess(x, nextIndex)
-			: ifFailure(ParsingError(index: index, reason: "not eq"))
+		
+		guard satisfy(x) else {
+			throw ParsingError.notEqual(index)
+		}
+		
+		return try ifSuccess(x, nextIndex)
 	}
 }
 

@@ -11,10 +11,12 @@ final class CollectionSpec: XCTestCase {
 		property("`CollectionParser` should parse elements that is conformed Equatable.") <- forAll { (ints: [Int]) in
 			let parser = CollectionParser(ints)
 			
-			return parser.parse(ints).either(
-				ifLeft: const(false),
-				ifRight: { $0 == ints }
-			)
+			do {
+				let result = try parser.parse(ints)
+				return result == ints
+			} catch {
+				return false
+			}
 		}
 	}
 }

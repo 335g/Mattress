@@ -8,18 +8,17 @@ public protocol ParserProtocol {
 	associatedtype Targets: Collection
 	associatedtype Tree
 	
-	func parse<A>(_ input: Targets, at index: Targets.Index, ifSuccess: (Tree, Targets.Index) -> A, ifFailure: (ParsingError<Targets.Index>) -> A) -> A
+	func parse<A>(_ input: Targets, at index: Targets.Index, ifSuccess: (Tree, Targets.Index) throws -> A) throws -> A
 }
 
 extension ParserProtocol {
-	public func parse(_ input: Targets) -> Either<ParsingError<Targets.Index>, Tree> {
-		return parse(input, at: input.startIndex,
-			ifSuccess: { tree, index in
-				return index == input.endIndex
-					? Either.right(tree)
-					: Either.left(ParsingError(index: index, reason: "not end"))
-				},
-			ifFailure: Either.left
-		)
+	public func parse(_ input: Targets) throws -> Tree {
+		return try parse(input, at: input.startIndex, ifSuccess: { tree, index in
+			guard index == input.endIndex else {
+				throw ParsingError.notEnd(index)
+			}
+			
+			return tree
+		})
 	}
 }

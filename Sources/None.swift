@@ -11,8 +11,8 @@ extension NoneParser: ParserProtocol {
 	public typealias Targets = C
 	public typealias Tree = ()
 	
-	public func parse<A>(_ input: C, at index: C.Index, ifSuccess: ((), C.Index) -> A, ifFailure: (ParsingError<C.Index>) -> A) -> A {
-		return ifFailure(ParsingError(index: index, reason: "is none"))
+	public func parse<A>(_ input: C, at index: C.Index, ifSuccess: ((), C.Index) throws -> A) throws -> A {
+		throw ParsingError.noReason(index)
 	}
 }
 

@@ -49,8 +49,6 @@
 		843846901DAD27900034F9F9 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8438468E1DAD27900034F9F9 /* Quick.framework */; };
 		843846921DAD27AF0034F9F9 /* RepetitionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843846911DAD27AF0034F9F9 /* RepetitionSpec.swift */; };
 		843846931DAD27AF0034F9F9 /* RepetitionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843846911DAD27AF0034F9F9 /* RepetitionSpec.swift */; };
-		843846951DAE62410034F9F9 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843846941DAE62410034F9F9 /* Extension.swift */; };
-		843846961DAE62410034F9F9 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843846941DAE62410034F9F9 /* Extension.swift */; };
 		843846981DAFAD930034F9F9 /* AlternationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843846971DAFAD930034F9F9 /* AlternationSpec.swift */; };
 		843846991DAFAD930034F9F9 /* AlternationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843846971DAFAD930034F9F9 /* AlternationSpec.swift */; };
 		8438469B1DAFF8640034F9F9 /* ColllectionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8438469A1DAFF8640034F9F9 /* ColllectionSpec.swift */; };
@@ -121,7 +119,6 @@
 		8438468D1DAD27900034F9F9 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Mattress-bpixfixanwwyjubhengfmogenyua/Build/Products/Debug/Nimble.framework"; sourceTree = "<group>"; };
 		8438468E1DAD27900034F9F9 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Mattress-bpixfixanwwyjubhengfmogenyua/Build/Products/Debug/Quick.framework"; sourceTree = "<group>"; };
 		843846911DAD27AF0034F9F9 /* RepetitionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepetitionSpec.swift; path = Tests/RepetitionSpec.swift; sourceTree = SOURCE_ROOT; };
-		843846941DAE62410034F9F9 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extension.swift; path = Tests/Extension.swift; sourceTree = SOURCE_ROOT; };
 		843846971DAFAD930034F9F9 /* AlternationSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlternationSpec.swift; path = Tests/AlternationSpec.swift; sourceTree = SOURCE_ROOT; };
 		8438469A1DAFF8640034F9F9 /* ColllectionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColllectionSpec.swift; path = Tests/ColllectionSpec.swift; sourceTree = SOURCE_ROOT; };
 		8438469D1DAFFA000034F9F9 /* MapSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapSpec.swift; path = Tests/MapSpec.swift; sourceTree = SOURCE_ROOT; };
@@ -218,7 +215,6 @@
 			isa = PBXGroup;
 			children = (
 				8409839C1DA50E7F00FF2F8D /* Info.plist */,
-				843846941DAE62410034F9F9 /* Extension.swift */,
 				8438466E1DAB89100034F9F9 /* ParserSpec.swift */,
 				8438469A1DAFF8640034F9F9 /* ColllectionSpec.swift */,
 				8438469D1DAFFA000034F9F9 /* MapSpec.swift */,
@@ -490,7 +486,6 @@
 				8438469B1DAFF8640034F9F9 /* ColllectionSpec.swift in Sources */,
 				8438469E1DAFFA000034F9F9 /* MapSpec.swift in Sources */,
 				843846981DAFAD930034F9F9 /* AlternationSpec.swift in Sources */,
-				843846951DAE62410034F9F9 /* Extension.swift in Sources */,
 				8438466F1DAB89100034F9F9 /* ParserSpec.swift in Sources */,
 				843846A11DB001A80034F9F9 /* ConcaternationSpec.swift in Sources */,
 				843846921DAD27AF0034F9F9 /* RepetitionSpec.swift in Sources */,
@@ -524,7 +519,6 @@
 				8438469C1DAFF8640034F9F9 /* ColllectionSpec.swift in Sources */,
 				8438469F1DAFFA000034F9F9 /* MapSpec.swift in Sources */,
 				843846991DAFAD930034F9F9 /* AlternationSpec.swift in Sources */,
-				843846961DAE62410034F9F9 /* Extension.swift in Sources */,
 				843846701DAB89100034F9F9 /* ParserSpec.swift in Sources */,
 				843846A21DB001A80034F9F9 /* ConcaternationSpec.swift in Sources */,
 				843846931DAD27AF0034F9F9 /* RepetitionSpec.swift in Sources */,

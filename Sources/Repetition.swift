@@ -40,55 +40,51 @@ public struct RepetitionParser<P: ParserProtocol>: ParserProtocol {
 	public typealias Targets = P.Targets
 	public typealias Tree = [P.Tree]
 	
-	public func parse<A>(_ input: P.Targets, at index: P.Targets.Index, ifSuccess: ([P.Tree], P.Targets.Index) -> A, ifFailure: (ParsingError<P.Targets.Index>) -> A) -> A {
-		return parse(input, at: index, ifSuccess: ifSuccess, ifFailure: ifFailure, time: 0)
+	public func parse<A>(_ input: P.Targets, at index: P.Targets.Index, ifSuccess: ([P.Tree], P.Targets.Index) throws -> A) throws -> A {
+		return try parse(input, at: index, nth: 1, ifSuccess: ifSuccess)
 	}
 	
-	private func parse<A>(_ input: P.Targets, at index: P.Targets.Index, ifSuccess: ([P.Tree], P.Targets.Index) -> A, ifFailure: (ParsingError<P.Targets.Index>) -> A, time: Int) -> A {
+	private func parse<A>(_ input: P.Targets, at index: P.Targets.Index, nth: Int, ifSuccess: ([P.Tree], P.Targets.Index) throws -> A) throws -> A {
 		
-		switch time {
-		case 0...0:
-			return parser.parse(input, at: index,
-				ifSuccess: { tree, index in
-					return self.times.upperBound > 1
-						? parse(input, at: index,
-							ifSuccess: { treeCollection, index in
-								var collection = treeCollection
-								collection.insert(tree, at: 0)
-								return ifSuccess(collection, index)
-							},
-							ifFailure: ifFailure,
-							time: 1)
-						: ifSuccess([tree], index)
-									
-				},
-				ifFailure: { err in
+		do {
+			return try parser.parse(input, at: index, ifSuccess: { tree, index in
+				if times.upperBound <= 1 {
+					return try ifSuccess([tree], index)
+					
+				}else {
+					let next = nth == Int.max ? Int.max : nth + 1
+					
+					return try parse(input, at: index, nth: next, ifSuccess: { treeCollection, index in
+						var collection = treeCollection
+						collection.insert(tree, at: 0)
+					
+						return try ifSuccess(collection, index)
+					})
+				}
+			})
+		
+		} catch {
+			/// If it does not matched
+			
+			switch nth {
+			case 1...1:
+				/// It may be empty array if lowerbound is 0. (ex) `many`, 0...2, etc...
 				
-					/// match the empty list if you allow the empty.
-					return self.times.lowerBound == 0
-						? pure([]).parse(input, at: index, ifSuccess: ifSuccess, ifFailure: ifFailure)
-						: ifFailure(err)
-				})
-			
-		case 1...times.upperBound:
-			return parser.parse(input, at: index,
-				ifSuccess: { tree, index in
-					let nextTime = time == Int.max ? Int.max : time + 1
-						return parse(input, at: index,
-							ifSuccess: { treeCollection, index in
-								ifSuccess([tree] + treeCollection, index)
-							},
-							ifFailure: ifFailure,
-							time: nextTime)
-				},
-				ifFailure: { err in
-					return time >= times.lowerBound
-						? pure([]).parse(input, at: index, ifSuccess: ifSuccess, ifFailure: ifFailure)
-						: ifFailure(err)
-				})
-			
-		default:
-			return ifFailure(ParsingError(index: index, reason: "range over"))
+				if times.lowerBound == 0 {
+					return try pure([]).parse(input, at: index, ifSuccess: ifSuccess)
+				}else {
+					throw ParsingError.notAllowNoMatch(index)
+				}
+				
+			case times.lowerBound...times.lowerBound:
+				throw ParsingError.notAllowNoMatch(index)
+				
+			case times, times.lowerBound...(times.upperBound == Int.max ? Int.max : times.upperBound + 1):
+				return try pure([]).parse(input, at: index, ifSuccess: ifSuccess)
+				
+			default:
+				throw ParsingError.debug(index)
+			}
 		}
 	}
 }

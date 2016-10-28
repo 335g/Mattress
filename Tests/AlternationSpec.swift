@@ -13,15 +13,15 @@ final class AlternationSpec: QuickSpec {
 			it("should parse either left or right"){
 				let parser = %"x" <|> %"y"
 				
-				expect(parser.check("x")?.extract()) == "x"
-				expect(parser.check("y")?.extract()) == "y"
+				expect(try? parser.parse("x").extract()) == "x"
+				expect(try? parser.parse("y").extract()) == "y"
 			}
 			
 			it("should parse in favor of the left"){
-				let parser = %"x" <|> %"xy"
+				let parser = %"x" <|> %"xx"
 				
-				expect(parser.check("x")?.extract()) == "x"
-				expect(parser.check("xy")?.extract()).to(beNil())
+				expect(try? parser.parse("x").extract()) == "x"
+				expect(try? parser.parse("xx").extract()).to(beNil())
 			}
 		}
 	}

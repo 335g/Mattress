@@ -20,14 +20,17 @@ public struct CollectionParser<C>: ParserProtocol where
 	public typealias Targets = C
 	public typealias Tree = C
 	
-	public func parse<A>(_ input: C, at index: C.Index, ifSuccess: (C, C.Index) -> A, ifFailure: (ParsingError<C.Index>) -> A) -> A {
+	public func parse<A>(_ input: C, at index: C.Index, ifSuccess: (C, C.Index) throws -> A) throws -> A {
 		guard let lastIndex = input.index(index, offsetBy: compared.count, limitedBy: input.endIndex) else {
-			return ifFailure(ParsingError(index: index, reason: "range over"))
+			throw ParsingError.rangeOver(index)
 		}
 		
-		return zip(compared, input.suffix(from: index)).lazy.map{ $0 == $1 }.reduce(true){ $0 && $1 }
-			? ifSuccess(compared, lastIndex)
-			: ifFailure(ParsingError(index: index, reason: "not eq"))
+		let allOk = zip(compared, input.suffix(from: index)).lazy.map{ $0 == $1 }.reduce(true){ $0 && $1 }
+		guard allOk else {
+			throw ParsingError.notEqual(index)
+		}
+			
+		return try ifSuccess(compared, lastIndex)
 	}
 }
 

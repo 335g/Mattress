@@ -14,15 +14,15 @@ final class RepetitionSpec: QuickSpec {
 			let parser = many(%"x")
 			
 			it("should parse empty"){
-				expect(parser.check("")) == []
+				expect(try? parser.parse("")) == []
 			}
 			
 			it("should parse one element"){
-				expect(parser.check("x")) == ["x"]
+				expect(try? parser.parse("x")) == ["x"]
 			}
 			
 			it("should parse multiple elements"){
-				expect(parser.check("xxx")) == ["x", "x", "x"]
+				expect(try? parser.parse("xxx")) == ["x", "x", "x"]
 			}
 		}
 		
@@ -30,15 +30,15 @@ final class RepetitionSpec: QuickSpec {
 			let parser = some(%"x")
 			
 			it("should not parse empty"){
-				expect(parser.check("")).to(beNil())
+				expect(try? parser.parse("")).to(beNil())
 			}
 			
 			it("should parse one element"){
-				expect(parser.check("x")) == ["x"]
+				expect(try? parser.parse("x")) == ["x"]
 			}
 			
 			it("should parse multiple elements"){
-				expect(parser.check("xxx")) == ["x", "x", "x"]
+				expect(try? parser.parse("xxx")) == ["x", "x", "x"]
 			}
 		}
 		
@@ -46,29 +46,29 @@ final class RepetitionSpec: QuickSpec {
 			it("should parse only same number of elements"){
 				let parser = %"x" * 3
 				
-				expect(parser.check("x")).to(beNil())
-				expect(parser.check("xx")).to(beNil())
-				expect(parser.check("xxx")) == ["x", "x", "x"]
-				expect(parser.check("xxxx")).to(beNil())
-				expect(parser.check("xxxxx")).to(beNil())
+				expect(try? parser.parse("x")).to(beNil())
+				expect(try? parser.parse("xx")).to(beNil())
+				expect(try? parser.parse("xxx")) == ["x", "x", "x"]
+				expect(try? parser.parse("xxxx")).to(beNil())
+				expect(try? parser.parse("xxxxx")).to(beNil())
 			}
 			
 			it("should parse only elements in range"){
 				let parser = %"x" * (0...1)
 				
-				expect(parser.check("")) == []
-				expect(parser.check("x")) == ["x"]
-				expect(parser.check("xx")).to(beNil())
+				expect(try? parser.parse("")) == []
+				expect(try? parser.parse("x")) == ["x"]
+				expect(try? parser.parse("xx")).to(beNil())
 				
 				let parser2 = %"x" * (3...5)
 				
-				expect(parser2.check("")).to(beNil())
-				expect(parser2.check("x")).to(beNil())
-				expect(parser2.check("xx")).to(beNil())
-				expect(parser2.check("xxx")) == ["x", "x", "x"]
-				expect(parser2.check("xxxx")) == ["x", "x", "x", "x"]
-				expect(parser2.check("xxxxx")) == ["x", "x", "x", "x", "x"]
-				expect(parser2.check("xxxxxx")).to(beNil())
+				expect(try? parser2.parse("")).to(beNil())
+				expect(try? parser2.parse("x")).to(beNil())
+				expect(try? parser2.parse("xx")).to(beNil())
+				expect(try? parser2.parse("xxx")) == ["x", "x", "x"]
+				expect(try? parser2.parse("xxxx")) == ["x", "x", "x", "x"]
+				expect(try? parser2.parse("xxxxx")) == ["x", "x", "x", "x", "x"]
+				expect(try? parser2.parse("xxxxxx")).to(beNil())
 			}
 		}
 	}

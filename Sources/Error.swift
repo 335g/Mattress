@@ -1,7 +1,11 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
 
-public struct ParsingError<Index: Comparable> {
-	let index: Index
-	let reason: String
+public enum ParsingError<Index: Comparable>: Error {
+	case notEnd(Index)
+	case noReason(Index)
+	case rangeOver(Index)
+	case notEqual(Index)
+	case notAllowNoMatch(Index)
+	case debug(Index)
 }

@@ -23,16 +23,18 @@ public struct AltParser<P1, P2>: ParserProtocol where
 	public typealias Targets = P1.Targets
 	public typealias Tree = Either<P1.Tree, P2.Tree>
 	
-	public func parse<A>(_ input: P1.Targets, at index: P1.Targets.Index, ifSuccess: (Either<P1.Tree, P2.Tree>, P1.Targets.Index) -> A, ifFailure: (ParsingError<P1.Targets.Index>) -> A) -> A {
-		return this.parse(input, at: index,
-			ifSuccess: { tree, index in ifSuccess(Either.left(tree), index) },
-			ifFailure: { _ in
-				return self.another.parse(input, at: index,
-					ifSuccess: { tree, index in ifSuccess(Either.right(tree), index) },
-					ifFailure: ifFailure
-				)
-			}
-		)
+	public func parse<A>(_ input: P1.Targets, at index: P1.Targets.Index, ifSuccess: (Either<P1.Tree, P2.Tree>, P1.Targets.Index) throws -> A) throws -> A {
+		
+		do {
+			return try this.parse(input, at: index, ifSuccess: { tree, index in try ifSuccess(.left(tree), index) })
+			
+		} catch ParsingError<Targets.Index>.notEnd(let index) {
+			/// short circuiting
+			throw ParsingError<Targets.Index>.notEnd(index)
+			
+		} catch {
+			return try self.another.parse(input, at: index, ifSuccess: { tree, index in try ifSuccess(Either.right(tree), index) })
+		}
 	}
 }
 

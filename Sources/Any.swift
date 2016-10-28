@@ -11,8 +11,8 @@ extension AnyParser: ParserProtocol {
 	public typealias Targets = C
 	public typealias Tree = ()
 	
-	public func parse<A>(_ input: C, at index: C.Index, ifSuccess: ((), C.Index) -> A, ifFailure: (ParsingError<C.Index>) -> A) -> A {
-		return ifSuccess((), index)
+	public func parse<A>(_ input: C, at index: C.Index, ifSuccess: ((), C.Index) throws -> A) throws -> A {
+		return try ifSuccess((), index)
 	}
 }
 

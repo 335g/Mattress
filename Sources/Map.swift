@@ -21,11 +21,8 @@ public struct MapParser<P, T>: ParserProtocol where
 	public typealias Targets = P.Targets
 	public typealias Tree = T
 	
-	public func parse<A>(_ input: P.Targets, at index: P.Targets.Index, ifSuccess: (T, P.Targets.Index) -> A, ifFailure: (ParsingError<P.Targets.Index>) -> A) -> A {
-		return parser.parse(input, at: index,
-			ifSuccess: { tree, index in ifSuccess(mapping(tree), index) },
-			ifFailure: ifFailure
-		)
+	public func parse<A>(_ input: P.Targets, at index: P.Targets.Index, ifSuccess: (T, P.Targets.Index) throws -> A) throws -> A {
+		return try parser.parse(input, at: index, ifSuccess: { tree, index in try ifSuccess(mapping(tree), index) })
 	}
 }
 

@@ -11,10 +11,12 @@ final class ParserSpec: XCTestCase {
 		property("`Parser` should parse only one element.") <- forAll { (int: Int) in
 			let parser: Parser<[Int]> = %int
 			
-			return parser.parse([int]).either(
-				ifLeft: const(false),
-				ifRight: { $0 == int }
-			)
+			do {
+				let result = try parser.parse([int])
+				return result == int
+			} catch {
+				return false
+			}
 		}
 	}
 }
