@@ -95,10 +95,11 @@ public func some<P>(_ parser: P) -> RepetitionParser<P> {
 	return RepetitionParser.some(parser)
 }
 
-public func some<P1, P2>(_ parser: P1, endBy terminator: P2) -> RepetitionParser<IgnoreParser<P1, MapParser<P2, P1.Tree>>> where
-	P1: ParserProtocol,
-	P2: ParserProtocol,
-	P1.Targets == P2.Targets
+public func some<P1, P2>(_ parser: P1, endBy terminator: P2) -> RepetitionParser<IgnoreParser<P1, MapParser<P2, P1.Tree>>>
+	where
+		P1: ParserProtocol,
+		P2: ParserProtocol,
+		P1.Targets == P2.Targets
 {
 	return some(parser <* terminator)
 }
@@ -106,21 +107,29 @@ public func some<P1, P2>(_ parser: P1, endBy terminator: P2) -> RepetitionParser
 public func some<P1, P2>(_ parser: P1, separatedBy separator: P2)
 	-> ConcatParser<MapParser<P1, ([P1.Tree]) -> [P1.Tree]>, MapParser<RepetitionParser<ConcatParser<P2, P1>>, [P1.Tree]>>
 	where
-	P1: ParserProtocol,
-	P2: ParserProtocol,
-	P1.Targets == P2.Targets
+		P1: ParserProtocol,
+		P2: ParserProtocol,
+		P1.Targets == P2.Targets
 {
 	return prepend <^> parser <*> many(separator *> parser)
+}
+
+public func skipSome<P>(_ parser: P) -> RepetitionParser<IgnoreParser<SuccessParser<P.Targets>, MapParser<P, ()>>>
+	where
+		P: ParserProtocol
+{
+	return some(success() <* parser)
 }
 
 public func many<P>(_ parser: P) -> RepetitionParser<P> {
 	return RepetitionParser.many(parser)
 }
 
-public func many<P1, P2>(_ parser: P1, endBy terminator: P2) -> RepetitionParser<IgnoreParser<P1, MapParser<P2, P1.Tree>>> where
-	P1: ParserProtocol,
-	P2: ParserProtocol,
-	P1.Targets == P2.Targets
+public func many<P1, P2>(_ parser: P1, endBy terminator: P2) -> RepetitionParser<IgnoreParser<P1, MapParser<P2, P1.Tree>>>
+	where
+		P1: ParserProtocol,
+		P2: ParserProtocol,
+		P1.Targets == P2.Targets
 {
 	return many(parser <* terminator)
 }
@@ -128,19 +137,27 @@ public func many<P1, P2>(_ parser: P1, endBy terminator: P2) -> RepetitionParser
 public func many<P1, P2>(_ parser: P1, separatedBy separator: P2)
 	-> AltParser<ConcatParser<MapParser<P1, ([P1.Tree]) -> [P1.Tree]>, MapParser<RepetitionParser<ConcatParser<P2, P1>>, [P1.Tree]>>, MapParser<SuccessParser<P1.Targets>, [P1.Tree]>>
 	where
-	P1: ParserProtocol,
-	P2: ParserProtocol,
-	P1.Targets == P2.Targets
+		P1: ParserProtocol,
+		P2: ParserProtocol,
+		P1.Targets == P2.Targets
 {
 	return some(parser, separatedBy: separator) <|> pure([])
 }
 
-public func many<P1, P2>(_ parser: P1, until end: P2) -> IgnoreParser<RepetitionParser<P1>, MapParser<P2, [P1.Tree]>> where
-	P1: ParserProtocol,
-	P2: ParserProtocol,
-	P1.Targets == P2.Targets
+public func many<P1, P2>(_ parser: P1, until end: P2) -> IgnoreParser<RepetitionParser<P1>, MapParser<P2, [P1.Tree]>>
+	where
+		P1: ParserProtocol,
+		P2: ParserProtocol,
+		P1.Targets == P2.Targets
 {
 	return many(parser) <* end
+}
+
+public func skipMany<P>(_ parser: P) -> RepetitionParser<IgnoreParser<SuccessParser<P.Targets>, MapParser<P, ()>>>
+	where
+		P: ParserProtocol
+{
+	return many(success() <* parser)
 }
 
 public func * <P>(parser: P, range: ClosedRange<Int>) -> RepetitionParser<P> {
