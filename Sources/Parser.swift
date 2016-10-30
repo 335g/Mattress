@@ -1,5 +1,6 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
+import Prelude
 
 // MARK: - Parser
 
@@ -46,6 +47,10 @@ public func noneOf<C>(_ input: C) -> Parser<C> where C.Iterator.Element: Equatab
 	return satisfy { elem in
 		!input.contains(where: { $0 == elem })
 	}
+}
+
+public func any<C>() -> Parser<C> {
+	return satisfy(const(true))
 }
 
 public prefix func % <C>(literal: C.Iterator.Element) -> Parser<C> where C.Iterator.Element: Equatable {
