@@ -7,7 +7,7 @@ import Mattress
 
 let p = %"x" * 3
 do {
-	try p.parse("xx")
+	try p.parse("xxx")
 } catch ParsingError<String.Index>.notEnd(_) {
 	""
 } catch ParsingError<String.Index>.noReason(_) {

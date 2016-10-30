@@ -1,13 +1,13 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
 
-// MARK: - AnyParser
+// MARK: - SuccessParser
 
-public struct AnyParser<C: Collection> {}
+public struct SuccessParser<C: Collection> {}
 
-// MARK: - AnyParser : ParserProtocol
+// MARK: - SuccessParser : ParserProtocol
 
-extension AnyParser: ParserProtocol {
+extension SuccessParser: ParserProtocol {
 	public typealias Targets = C
 	public typealias Tree = ()
 	
@@ -18,6 +18,6 @@ extension AnyParser: ParserProtocol {
 
 // MARK: - Constructor
 
-public func any<C>() -> AnyParser<C> {
-	return AnyParser()
+public func success<C>() -> SuccessParser<C> {
+	return SuccessParser()
 }

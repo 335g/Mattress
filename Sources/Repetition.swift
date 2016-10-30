@@ -83,7 +83,7 @@ public struct RepetitionParser<P: ParserProtocol>: ParserProtocol {
 				return try pure([]).parse(input, at: index, ifSuccess: ifSuccess)
 				
 			default:
-				throw ParsingError.debug(index)
+				throw ParsingError.rangeOver(index)
 			}
 		}
 	}
@@ -126,7 +126,7 @@ public func many<P1, P2>(_ parser: P1, endBy terminator: P2) -> RepetitionParser
 }
 
 public func many<P1, P2>(_ parser: P1, separatedBy separator: P2)
-	-> AltParser<ConcatParser<MapParser<P1, ([P1.Tree]) -> [P1.Tree]>, MapParser<RepetitionParser<ConcatParser<P2, P1>>, [P1.Tree]>>, MapParser<AnyParser<P1.Targets>, [P1.Tree]>>
+	-> AltParser<ConcatParser<MapParser<P1, ([P1.Tree]) -> [P1.Tree]>, MapParser<RepetitionParser<ConcatParser<P2, P1>>, [P1.Tree]>>, MapParser<SuccessParser<P1.Targets>, [P1.Tree]>>
 	where
 	P1: ParserProtocol,
 	P2: ParserProtocol,

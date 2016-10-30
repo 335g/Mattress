@@ -27,10 +27,10 @@
 		840983D21DA5173B00FF2F8D /* Concaternation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D01DA5173B00FF2F8D /* Concaternation.swift */; };
 		840983D41DA51CC900FF2F8D /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D31DA51CC900FF2F8D /* Operator.swift */; };
 		840983D51DA51CC900FF2F8D /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D31DA51CC900FF2F8D /* Operator.swift */; };
-		840983D71DA548B500FF2F8D /* Any.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D61DA548B500FF2F8D /* Any.swift */; };
-		840983D81DA548B500FF2F8D /* Any.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D61DA548B500FF2F8D /* Any.swift */; };
-		840983DA1DA54A4900FF2F8D /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D91DA54A4900FF2F8D /* None.swift */; };
-		840983DB1DA54A4900FF2F8D /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D91DA54A4900FF2F8D /* None.swift */; };
+		840983D71DA548B500FF2F8D /* Success.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D61DA548B500FF2F8D /* Success.swift */; };
+		840983D81DA548B500FF2F8D /* Success.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D61DA548B500FF2F8D /* Success.swift */; };
+		840983DA1DA54A4900FF2F8D /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D91DA54A4900FF2F8D /* Failure.swift */; };
+		840983DB1DA54A4900FF2F8D /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983D91DA54A4900FF2F8D /* Failure.swift */; };
 		840983DD1DA6A7DD00FF2F8D /* Alternation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983DC1DA6A7DD00FF2F8D /* Alternation.swift */; };
 		840983DE1DA6A7DD00FF2F8D /* Alternation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983DC1DA6A7DD00FF2F8D /* Alternation.swift */; };
 		840983EA1DA91D2500FF2F8D /* Repetition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840983E91DA91D2500FF2F8D /* Repetition.swift */; };
@@ -98,8 +98,8 @@
 		840983CD1DA5161800FF2F8D /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Map.swift; path = Sources/Map.swift; sourceTree = SOURCE_ROOT; };
 		840983D01DA5173B00FF2F8D /* Concaternation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Concaternation.swift; path = Sources/Concaternation.swift; sourceTree = SOURCE_ROOT; };
 		840983D31DA51CC900FF2F8D /* Operator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operator.swift; path = Sources/Operator.swift; sourceTree = SOURCE_ROOT; };
-		840983D61DA548B500FF2F8D /* Any.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Any.swift; path = Sources/Any.swift; sourceTree = SOURCE_ROOT; };
-		840983D91DA54A4900FF2F8D /* None.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = None.swift; path = Sources/None.swift; sourceTree = SOURCE_ROOT; };
+		840983D61DA548B500FF2F8D /* Success.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Success.swift; path = Sources/Success.swift; sourceTree = SOURCE_ROOT; };
+		840983D91DA54A4900FF2F8D /* Failure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Failure.swift; path = Sources/Failure.swift; sourceTree = SOURCE_ROOT; };
 		840983DC1DA6A7DD00FF2F8D /* Alternation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Alternation.swift; path = Sources/Alternation.swift; sourceTree = SOURCE_ROOT; };
 		840983E91DA91D2500FF2F8D /* Repetition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Repetition.swift; path = Sources/Repetition.swift; sourceTree = SOURCE_ROOT; };
 		8438466B1DAB28570034F9F9 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Collection.swift; path = Sources/Collection.swift; sourceTree = SOURCE_ROOT; };
@@ -254,8 +254,8 @@
 		840983DF1DA873C200FF2F8D /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				840983D61DA548B500FF2F8D /* Any.swift */,
-				840983D91DA54A4900FF2F8D /* None.swift */,
+				840983D61DA548B500FF2F8D /* Success.swift */,
+				840983D91DA54A4900FF2F8D /* Failure.swift */,
 				840983CA1DA5142500FF2F8D /* Parser.swift */,
 				8438466B1DAB28570034F9F9 /* Collection.swift */,
 				840983CD1DA5161800FF2F8D /* Map.swift */,
@@ -465,7 +465,7 @@
 			files = (
 				8461DD7D1DC24A25000A19C6 /* Combinator.swift in Sources */,
 				840983DD1DA6A7DD00FF2F8D /* Alternation.swift in Sources */,
-				840983D71DA548B500FF2F8D /* Any.swift in Sources */,
+				840983D71DA548B500FF2F8D /* Success.swift in Sources */,
 				840983C51DA510B200FF2F8D /* ParserProtocol.swift in Sources */,
 				8461DD791DBFA203000A19C6 /* String.swift in Sources */,
 				840983D41DA51CC900FF2F8D /* Operator.swift in Sources */,
@@ -473,7 +473,7 @@
 				8438466C1DAB28570034F9F9 /* Collection.swift in Sources */,
 				840983C81DA5117C00FF2F8D /* Error.swift in Sources */,
 				840983CE1DA5161800FF2F8D /* Map.swift in Sources */,
-				840983DA1DA54A4900FF2F8D /* None.swift in Sources */,
+				840983DA1DA54A4900FF2F8D /* Failure.swift in Sources */,
 				840983CB1DA5142500FF2F8D /* Parser.swift in Sources */,
 				840983D11DA5173B00FF2F8D /* Concaternation.swift in Sources */,
 			);
@@ -498,7 +498,7 @@
 			files = (
 				8461DD7E1DC24A25000A19C6 /* Combinator.swift in Sources */,
 				840983DE1DA6A7DD00FF2F8D /* Alternation.swift in Sources */,
-				840983D81DA548B500FF2F8D /* Any.swift in Sources */,
+				840983D81DA548B500FF2F8D /* Success.swift in Sources */,
 				840983C61DA510B200FF2F8D /* ParserProtocol.swift in Sources */,
 				8461DD7A1DBFA203000A19C6 /* String.swift in Sources */,
 				840983D51DA51CC900FF2F8D /* Operator.swift in Sources */,
@@ -506,7 +506,7 @@
 				8438466D1DAB28570034F9F9 /* Collection.swift in Sources */,
 				840983C91DA5117C00FF2F8D /* Error.swift in Sources */,
 				840983CF1DA5161800FF2F8D /* Map.swift in Sources */,
-				840983DB1DA54A4900FF2F8D /* None.swift in Sources */,
+				840983DB1DA54A4900FF2F8D /* Failure.swift in Sources */,
 				840983CC1DA5142500FF2F8D /* Parser.swift in Sources */,
 				840983D21DA5173B00FF2F8D /* Concaternation.swift in Sources */,
 			);

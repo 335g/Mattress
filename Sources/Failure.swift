@@ -1,13 +1,13 @@
 //  Copyright (C) 2016 Yoshiki Kudo. All rights reserved.
 
 
-// MARK: - NoneParser
+// MARK: - FailureParser
 
-public struct NoneParser<C: Collection> {}
+public struct FailureParser<C: Collection> {}
 
-// MARK: - NoneParser : ParserProtocol
+// MARK: - FailureParser : ParserProtocol
 
-extension NoneParser: ParserProtocol {
+extension FailureParser: ParserProtocol {
 	public typealias Targets = C
 	public typealias Tree = ()
 	
@@ -18,6 +18,6 @@ extension NoneParser: ParserProtocol {
 
 // MARK: - Constructor
 
-public func none<C>() -> NoneParser<C> {
-	return NoneParser()
+public func failure<C>() -> FailureParser<C> {
+	return FailureParser()
 }

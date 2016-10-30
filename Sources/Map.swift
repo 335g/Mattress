@@ -28,8 +28,8 @@ public struct MapParser<P, T>: ParserProtocol where
 
 // MARK: - Constructor
 
-public func pure<C, T>(_ x: T) -> MapParser<AnyParser<C>, T> {
-	return MapParser<AnyParser<C>, T>(parser: any(), mapping: const(x))
+public func pure<C, T>(_ x: T) -> MapParser<SuccessParser<C>, T> {
+	return MapParser<SuccessParser<C>, T>(parser: success(), mapping: const(x))
 }
 
 // MARK: - Operator
