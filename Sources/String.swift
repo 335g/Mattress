@@ -10,6 +10,10 @@ public func char(_ x: Character) -> Parser<String.CharacterView> {
 	return satisfy{ $0 == x }
 }
 
+public func anyChar() -> Parser<String.CharacterView> {
+	return any()
+}
+
 public prefix func % (literal: Character) -> Parser<String.CharacterView> {
 	return char(literal)
 }
