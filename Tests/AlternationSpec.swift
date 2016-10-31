@@ -13,24 +13,16 @@ final class AlternationSpec: QuickSpec {
 			it("should parse either left or right"){
 				let parser = %"x" <|> %"y"
 				
-				expect(try? parser.parse("x").extract()) == "x"
-				expect(try? parser.parse("y").extract()) == "y"
+				expect(try? parser.parse("x")) == "x"
+				expect(try? parser.parse("y")) == "y"
 			}
 			
 			it("should parse in favor of the left"){
 				let parser = %"x" <|> %"xx"
 				
-				expect(try? parser.parse("x").extract()) == "x"
-				expect(try? parser.parse("xx").extract()).to(beNil())
+				expect(try? parser.parse("x")) == "x"
+				expect(try? parser.parse("xx")).to(beNil())
 			}
 		}
-	}
-}
-
-extension EitherProtocol where Left == Right {
-	typealias Value = Right
-	
-	func extract() -> Value {
-		return either(ifLeft: id, ifRight: id)
 	}
 }
