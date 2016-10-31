@@ -172,26 +172,30 @@ final class RepetitionSpec: QuickSpec {
 		}
 		
 		describe("skipMany"){
-			it("should parse multiple elements and no return"){
-				let parser = skipMany(%"x")
-				
+			let parser = skipMany(%"x")
+			
+			it("should parse empty"){
 				expect(try? parser.parse("")) == ()
+			}
+			
+			it("should parse multiple elements and no return"){
 				expect(try? parser.parse("x")) == ()
 				expect(try? parser.parse("xx")) == ()
 				expect(try? parser.parse("xxx")) == ()
-				
 			}
 		}
 		
 		describe("skipSome"){
-			it("should parse multiple elements and no return"){
-				let parser = skipSome(%"x")
-				
+			let parser = skipSome(%"x")
+			
+			it("should not parse empty"){
 				expect(try? parser.parse("")).to(beNil())
+			}
+			
+			it("should parse multiple elements and no return"){
 				expect(try? parser.parse("x")) == ()
 				expect(try? parser.parse("xx")) == ()
 				expect(try? parser.parse("xxx")) == ()
-				
 			}
 		}
 	}

@@ -142,7 +142,7 @@ public func many<P1, P2>(_ parser: P1, separatedBy separator: P2)
 		P2: ParserProtocol,
 		P1.Targets == P2.Targets
 {
-	return (some(parser, separatedBy: separator) <|> pure([])).extract()
+	return some(parser, separatedBy: separator) <|> pure([])
 }
 
 public func many<P1, P2>(_ parser: P1, until terminator: P2) -> IgnoreParser<RepetitionParser<P1>, MapParser<P2, [P1.Tree]>>

@@ -50,10 +50,20 @@ extension AltParser where P1.Tree == P2.Tree {
 // MARK: - Operator
 
 extension ParserProtocol {
-	public static func <|> <P>(this: Self, another: P) -> AltParser<Self, P> where
-		P: ParserProtocol,
-		P.Targets == Self.Targets
+	public static func <|> <P>(this: Self, another: P) -> AltParser<Self, P>
+		where
+			P: ParserProtocol,
+			P.Targets == Self.Targets
 	{
 		return AltParser(this: this, another: another)
+	}
+	
+	public static func <|> <P>(this: Self, another: P) -> MapParser<AltParser<Self, P>, Self.Tree>
+		where
+			P: ParserProtocol,
+			P.Targets == Self.Targets,
+			P.Tree == Self.Tree
+	{
+		return AltParser(this: this, another: another).extract()
 	}
 }

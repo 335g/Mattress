@@ -26,20 +26,23 @@ public prefix func % (range: ClosedRange<String>) -> Parser<String.CharacterView
 	return satisfy{ range.contains("\($0)") }
 }
 
-public prefix func % (range: Range<String>) -> MapParser<Parser<String.CharacterView>, String> {
-	return MapParser(parser: satisfy{ range.contains("\($0)") }, mapping: { "\($0)" })
+public prefix func % (range: Range<String>) -> Parser<String.CharacterView> {
+	return satisfy{ range.contains("\($0)") }
 }
 
 // MARK: - Default implemented parser
 
 public let digit		= oneOf("0123456789".characters)
 public let space		= char(" ")
+public let spaces		= skipMany(space)
 public let comma		= char(",")
 public let semicolon	= char(";")
 public let colon		= char(":")
 public let dot			= char(".")
 public let backslash	= char("\\")
 public let equals		= char("=")
+public let upper		= %("A"..."Z")
+public let lower		= %("a"..."z")
 
 public let cr			= char("\r")
 public let crlf			= char("\r\n")
