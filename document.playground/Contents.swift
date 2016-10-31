@@ -5,7 +5,7 @@ import Mattress
 //let parser = %"x" <|> %"xx"
 //try parser.parse("xx")
 
-let p = %"x" * 3
+let p = skipMany(%"x")
 do {
 	try p.parse("xxx")
 } catch ParsingError<String.Index>.notEnd(_) {
