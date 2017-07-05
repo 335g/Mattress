@@ -6,69 +6,224 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		"Mattress::MattressPackageTests::ProductTarget" /* MattressPackageTests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = OBJ_75 /* Build configuration list for PBXAggregateTarget "MattressPackageTests" */;
+			buildPhases = (
+			);
+			dependencies = (
+				OBJ_78 /* PBXTargetDependency */,
+			);
+			name = MattressPackageTests;
+			productName = MattressPackageTests;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
-		84C4D1DD1F0BB3F900DDA110 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4D1DC1F0BB3F900DDA110 /* Error.swift */; };
-		84C4D1DF1F0BB40800DDA110 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4D1DE1F0BB40800DDA110 /* Parser.swift */; };
-		84C4D1E31F0BD1BB00DDA110 /* Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4D1E21F0BD1BB00DDA110 /* Cluster.swift */; };
-		84C4D1E51F0BD6E100DDA110 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4D1E41F0BD6E100DDA110 /* Map.swift */; };
-		84C4D1E91F0BD73C00DDA110 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4D1E81F0BD73C00DDA110 /* ParserTests.swift */; };
-		OBJ_29 /* Mattress.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* Mattress.framework */; };
+		843CA2E81F0D002B00DCFEA9 /* Concatenation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA2E71F0D002B00DCFEA9 /* Concatenation.swift */; };
+		843CA2EA1F0D205700DCFEA9 /* Prelude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA2E91F0D205700DCFEA9 /* Prelude.swift */; };
+		843CA2EC1F0D31DB00DCFEA9 /* Alternation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA2EB1F0D31DB00DCFEA9 /* Alternation.swift */; };
+		OBJ_41 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* ParserTests.swift */; };
+		OBJ_43 /* Mattress.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mattress::Mattress::Product" /* Mattress.framework */; };
+		OBJ_44 /* Runes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Runes::Runes::Product" /* Runes.framework */; };
+		OBJ_53 /* Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* Cluster.swift */; };
+		OBJ_54 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Error.swift */; };
+		OBJ_55 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* Map.swift */; };
+		OBJ_56 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Parser.swift */; };
+		OBJ_58 /* Runes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Runes::Runes::Product" /* Runes.framework */; };
+		OBJ_64 /* Array+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* Array+Alternative.swift */; };
+		OBJ_65 /* Array+Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Array+Applicative.swift */; };
+		OBJ_66 /* Array+Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Array+Functor.swift */; };
+		OBJ_67 /* Array+Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* Array+Monad.swift */; };
+		OBJ_68 /* Optional+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* Optional+Alternative.swift */; };
+		OBJ_69 /* Optional+Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* Optional+Applicative.swift */; };
+		OBJ_70 /* Optional+Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* Optional+Functor.swift */; };
+		OBJ_71 /* Optional+Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* Optional+Monad.swift */; };
+		OBJ_72 /* Runes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* Runes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		84C4D1DB1F0BB34900DDA110 /* PBXContainerItemProxy */ = {
+		843CA2E31F0CF85800DCFEA9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_15;
+			remoteGlobalIDString = "Runes::Runes";
+			remoteInfo = Runes;
+		};
+		843CA2E41F0CF85800DCFEA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Mattress::Mattress";
 			remoteInfo = Mattress;
+		};
+		843CA2E51F0CF85800DCFEA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Runes::Runes";
+			remoteInfo = Runes;
+		};
+		843CA2E61F0CF85900DCFEA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Mattress::MattressTests";
+			remoteInfo = MattressTests;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		84C4D1DC1F0BB3F900DDA110 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		84C4D1DE1F0BB40800DDA110 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
-		84C4D1E21F0BD1BB00DDA110 /* Cluster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cluster.swift; sourceTree = "<group>"; };
-		84C4D1E41F0BD6E100DDA110 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
-		84C4D1E81F0BD73C00DDA110 /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
-		OBJ_13 /* Mattress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mattress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_14 /* MattressTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MattressTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		843CA2E71F0D002B00DCFEA9 /* Concatenation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concatenation.swift; sourceTree = "<group>"; };
+		843CA2E91F0D205700DCFEA9 /* Prelude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prelude.swift; sourceTree = "<group>"; };
+		843CA2EB1F0D31DB00DCFEA9 /* Alternation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alternation.swift; sourceTree = "<group>"; };
+		"Mattress::Mattress::Product" /* Mattress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mattress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Mattress::MattressTests::Product" /* MattressTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = MattressTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_10 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		OBJ_11 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		OBJ_14 /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
+		OBJ_19 /* Array+Alternative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Alternative.swift"; sourceTree = "<group>"; };
+		OBJ_20 /* Array+Applicative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Applicative.swift"; sourceTree = "<group>"; };
+		OBJ_21 /* Array+Functor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Functor.swift"; sourceTree = "<group>"; };
+		OBJ_22 /* Array+Monad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Monad.swift"; sourceTree = "<group>"; };
+		OBJ_24 /* Optional+Alternative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Alternative.swift"; sourceTree = "<group>"; };
+		OBJ_25 /* Optional+Applicative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Applicative.swift"; sourceTree = "<group>"; };
+		OBJ_26 /* Optional+Functor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Functor.swift"; sourceTree = "<group>"; };
+		OBJ_27 /* Optional+Monad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Monad.swift"; sourceTree = "<group>"; };
+		OBJ_28 /* Runes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Runes.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		OBJ_8 /* Cluster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cluster.swift; sourceTree = "<group>"; };
+		OBJ_9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		"Runes::Runes::Product" /* Runes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Runes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		OBJ_21 /* Frameworks */ = {
+		OBJ_42 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				OBJ_43 /* Mattress.framework in Frameworks */,
+				OBJ_44 /* Runes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_28 /* Frameworks */ = {
+		OBJ_57 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_29 /* Mattress.framework in Frameworks */,
+				OBJ_58 /* Runes.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_73 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		OBJ_10 /* MattressTests */ = {
+		OBJ_12 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				84C4D1E81F0BD73C00DDA110 /* ParserTests.swift */,
+				OBJ_13 /* MattressTests */,
+			);
+			name = Tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_13 /* MattressTests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_14 /* ParserTests.swift */,
 			);
 			name = MattressTests;
 			path = Tests/MattressTests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_12 /* Products */ = {
+		OBJ_15 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_13 /* Mattress.framework */,
-				OBJ_14 /* MattressTests.xctest */,
+				OBJ_16 /* Runes */,
+				OBJ_29 /* Mozart */,
+				OBJ_31 /* SwiftCheck */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		OBJ_16 /* Runes */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_17 /* Runes */,
+			);
+			name = Runes;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_17 /* Runes */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_18 /* Array */,
+				OBJ_23 /* Optional */,
+				OBJ_28 /* Runes.swift */,
+			);
+			name = Runes;
+			path = ".build/checkouts/Runes.git--7744271602551567394/Sources/Runes";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_18 /* Array */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_19 /* Array+Alternative.swift */,
+				OBJ_20 /* Array+Applicative.swift */,
+				OBJ_21 /* Array+Functor.swift */,
+				OBJ_22 /* Array+Monad.swift */,
+			);
+			path = Array;
+			sourceTree = "<group>";
+		};
+		OBJ_23 /* Optional */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_24 /* Optional+Alternative.swift */,
+				OBJ_25 /* Optional+Applicative.swift */,
+				OBJ_26 /* Optional+Functor.swift */,
+				OBJ_27 /* Optional+Monad.swift */,
+			);
+			path = Optional;
+			sourceTree = "<group>";
+		};
+		OBJ_29 /* Mozart */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_30 /* Mozart */,
+			);
+			name = Mozart;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_30 /* Mozart */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Mozart;
+			path = ".build/checkouts/Mozart.git-7276125647754317050/Sources/Mozart";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_31 /* SwiftCheck */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SwiftCheck;
+			path = ".build/checkouts/SwiftCheck.git--616440353985239835/Sources";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_32 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				"Mattress::MattressTests::Product" /* MattressTests.xctest */,
+				"Mattress::Mattress::Product" /* Mattress.framework */,
+				"Runes::Runes::Product" /* Runes.framework */,
 			);
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -78,8 +233,9 @@
 			children = (
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
-				OBJ_9 /* Tests */,
-				OBJ_12 /* Products */,
+				OBJ_12 /* Tests */,
+				OBJ_15 /* Dependencies */,
+				OBJ_32 /* Products */,
 			);
 			name = "";
 			sourceTree = "<group>";
@@ -87,57 +243,70 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				84C4D1DC1F0BB3F900DDA110 /* Error.swift */,
-				84C4D1DE1F0BB40800DDA110 /* Parser.swift */,
-				84C4D1E21F0BD1BB00DDA110 /* Cluster.swift */,
-				84C4D1E41F0BD6E100DDA110 /* Map.swift */,
+				OBJ_8 /* Cluster.swift */,
+				OBJ_9 /* Error.swift */,
+				OBJ_10 /* Map.swift */,
+				843CA2E71F0D002B00DCFEA9 /* Concatenation.swift */,
+				OBJ_11 /* Parser.swift */,
+				843CA2E91F0D205700DCFEA9 /* Prelude.swift */,
+				843CA2EB1F0D31DB00DCFEA9 /* Alternation.swift */,
 			);
 			path = Sources;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_9 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_10 /* MattressTests */,
-			);
-			name = Tests;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		OBJ_15 /* Mattress-macOS */ = {
+		"Mattress::Mattress" /* Mattress */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_16 /* Build configuration list for PBXNativeTarget "Mattress-macOS" */;
+			buildConfigurationList = OBJ_49 /* Build configuration list for PBXNativeTarget "Mattress" */;
 			buildPhases = (
-				OBJ_19 /* Sources */,
-				OBJ_21 /* Frameworks */,
+				OBJ_52 /* Sources */,
+				OBJ_57 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				OBJ_59 /* PBXTargetDependency */,
 			);
-			name = "Mattress-macOS";
+			name = Mattress;
 			productName = Mattress;
-			productReference = OBJ_13 /* Mattress.framework */;
+			productReference = "Mattress::Mattress::Product" /* Mattress.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_22 /* Mattress-macOSTests */ = {
+		"Mattress::MattressTests" /* MattressTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_23 /* Build configuration list for PBXNativeTarget "Mattress-macOSTests" */;
+			buildConfigurationList = OBJ_37 /* Build configuration list for PBXNativeTarget "MattressTests" */;
 			buildPhases = (
-				OBJ_26 /* Sources */,
-				OBJ_28 /* Frameworks */,
+				OBJ_40 /* Sources */,
+				OBJ_42 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_30 /* PBXTargetDependency */,
+				OBJ_45 /* PBXTargetDependency */,
+				OBJ_47 /* PBXTargetDependency */,
 			);
-			name = "Mattress-macOSTests";
+			name = MattressTests;
 			productName = MattressTests;
-			productReference = OBJ_14 /* MattressTests.xctest */;
+			productReference = "Mattress::MattressTests::Product" /* MattressTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		"Runes::Runes" /* Runes */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_60 /* Build configuration list for PBXNativeTarget "Runes" */;
+			buildPhases = (
+				OBJ_63 /* Sources */,
+				OBJ_73 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Runes;
+			productName = Runes;
+			productReference = "Runes::Runes::Product" /* Runes.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -146,14 +315,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 9999;
-				TargetAttributes = {
-					OBJ_15 = {
-						LastSwiftMigration = 0900;
-					};
-					OBJ_22 = {
-						LastSwiftMigration = 0900;
-					};
-				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Mattress" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -163,141 +324,83 @@
 				en,
 			);
 			mainGroup = OBJ_5 /*  */;
-			productRefGroup = OBJ_12 /* Products */;
+			productRefGroup = OBJ_32 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				OBJ_15 /* Mattress-macOS */,
-				OBJ_22 /* Mattress-macOSTests */,
+				"Mattress::MattressTests" /* MattressTests */,
+				"Mattress::Mattress" /* Mattress */,
+				"Runes::Runes" /* Runes */,
+				"Mattress::MattressPackageTests::ProductTarget" /* MattressPackageTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		OBJ_19 /* Sources */ = {
+		OBJ_40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				84C4D1DF1F0BB40800DDA110 /* Parser.swift in Sources */,
-				84C4D1DD1F0BB3F900DDA110 /* Error.swift in Sources */,
-				84C4D1E51F0BD6E100DDA110 /* Map.swift in Sources */,
-				84C4D1E31F0BD1BB00DDA110 /* Cluster.swift in Sources */,
+				OBJ_41 /* ParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_26 /* Sources */ = {
+		OBJ_52 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				84C4D1E91F0BD73C00DDA110 /* ParserTests.swift in Sources */,
+				OBJ_53 /* Cluster.swift in Sources */,
+				OBJ_54 /* Error.swift in Sources */,
+				843CA2EC1F0D31DB00DCFEA9 /* Alternation.swift in Sources */,
+				843CA2E81F0D002B00DCFEA9 /* Concatenation.swift in Sources */,
+				843CA2EA1F0D205700DCFEA9 /* Prelude.swift in Sources */,
+				OBJ_55 /* Map.swift in Sources */,
+				OBJ_56 /* Parser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_63 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_64 /* Array+Alternative.swift in Sources */,
+				OBJ_65 /* Array+Applicative.swift in Sources */,
+				OBJ_66 /* Array+Functor.swift in Sources */,
+				OBJ_67 /* Array+Monad.swift in Sources */,
+				OBJ_68 /* Optional+Alternative.swift in Sources */,
+				OBJ_69 /* Optional+Applicative.swift in Sources */,
+				OBJ_70 /* Optional+Functor.swift in Sources */,
+				OBJ_71 /* Optional+Monad.swift in Sources */,
+				OBJ_72 /* Runes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		OBJ_30 /* PBXTargetDependency */ = {
+		OBJ_45 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_15 /* Mattress-macOS */;
-			targetProxy = 84C4D1DB1F0BB34900DDA110 /* PBXContainerItemProxy */;
+			target = "Mattress::Mattress" /* Mattress */;
+			targetProxy = 843CA2E41F0CF85800DCFEA9 /* PBXContainerItemProxy */;
+		};
+		OBJ_47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Runes::Runes" /* Runes */;
+			targetProxy = 843CA2E51F0CF85800DCFEA9 /* PBXContainerItemProxy */;
+		};
+		OBJ_59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Runes::Runes" /* Runes */;
+			targetProxy = 843CA2E31F0CF85800DCFEA9 /* PBXContainerItemProxy */;
+		};
+		OBJ_78 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Mattress::MattressTests" /* MattressTests */;
+			targetProxy = 843CA2E61F0CF85900DCFEA9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		OBJ_17 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mattress.xcodeproj/Mattress_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = Mattress;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = Mattress;
-			};
-			name = Debug;
-		};
-		OBJ_18 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mattress.xcodeproj/Mattress_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = Mattress;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = Mattress;
-			};
-			name = Release;
-		};
-		OBJ_24 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_MODULES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mattress.xcodeproj/MattressTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = MattressTests;
-			};
-			name = Debug;
-		};
-		OBJ_25 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_MODULES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mattress.xcodeproj/MattressTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = MattressTests;
-			};
-			name = Release;
-		};
 		OBJ_3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -316,10 +419,45 @@
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 				USE_HEADERMAP = NO;
 			};
 			name = Debug;
+		};
+		OBJ_38 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Mattress.xcodeproj/MattressTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = MattressTests;
+			};
+			name = Debug;
+		};
+		OBJ_39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Mattress.xcodeproj/MattressTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = MattressTests;
+			};
+			name = Release;
 		};
 		OBJ_4 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -337,23 +475,113 @@
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
 				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		OBJ_50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Mattress.xcodeproj/Mattress_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Mattress;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = Mattress;
+			};
+			name = Debug;
+		};
+		OBJ_51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Mattress.xcodeproj/Mattress_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Mattress;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = Mattress;
+			};
+			name = Release;
+		};
+		OBJ_61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Mattress.xcodeproj/Runes_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Runes;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = Runes;
+			};
+			name = Debug;
+		};
+		OBJ_62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Mattress.xcodeproj/Runes_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Runes;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = Runes;
+			};
+			name = Release;
+		};
+		OBJ_76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		OBJ_77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		OBJ_16 /* Build configuration list for PBXNativeTarget "Mattress-macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_17 /* Debug */,
-				OBJ_18 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
 		OBJ_2 /* Build configuration list for PBXProject "Mattress" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -363,11 +591,38 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_23 /* Build configuration list for PBXNativeTarget "Mattress-macOSTests" */ = {
+		OBJ_37 /* Build configuration list for PBXNativeTarget "MattressTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_24 /* Debug */,
-				OBJ_25 /* Release */,
+				OBJ_38 /* Debug */,
+				OBJ_39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_49 /* Build configuration list for PBXNativeTarget "Mattress" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_50 /* Debug */,
+				OBJ_51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_60 /* Build configuration list for PBXNativeTarget "Runes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_61 /* Debug */,
+				OBJ_62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_75 /* Build configuration list for PBXAggregateTarget "MattressPackageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_76 /* Debug */,
+				OBJ_77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

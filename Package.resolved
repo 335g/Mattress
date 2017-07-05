@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Mozart",
+        "repositoryURL": "git@github.com:gfontenot/Mozart.git",
+        "state": {
+          "branch": "swift-4",
+          "revision": "055c7c92eed95d6d11861f62e3bbf463fefe088e",
+          "version": null
+        }
+      },
+      {
+        "package": "Runes",
+        "repositoryURL": "git@github.com:thoughtbot/Runes.git",
+        "state": {
+          "branch": "swift-4",
+          "revision": "7cf336b88b89171f401cf87fe4efe3920e04bb7f",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftCheck",
+        "repositoryURL": "git@github.com:CodaFi/SwiftCheck.git",
+        "state": {
+          "branch": "four-parts-unknown",
+          "revision": "cbe4b7926044c09230ae13b09241c3d6d43d8d7b",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

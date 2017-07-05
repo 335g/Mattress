@@ -1,11 +1,4 @@
 .DS_Store
-build
-xcuserdata
-*.mode*
-*.pbxuser
-*.xcuserdatad
-*.xccheckout
-
-Carthage
-dev.playground
-
+/.build
+/Packages
+/*.xcodeproj
