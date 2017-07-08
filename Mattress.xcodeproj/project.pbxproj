@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		842FCBF71F110992005AEDFE /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FCBF61F110992005AEDFE /* Map.swift */; };
 		843CA2EA1F0D205700DCFEA9 /* Prelude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA2E91F0D205700DCFEA9 /* Prelude.swift */; };
 		OBJ_41 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* ParserTests.swift */; };
 		OBJ_43 /* Mattress.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mattress::Mattress::Product" /* Mattress.framework */; };
@@ -71,6 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		842FCBF61F110992005AEDFE /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		843CA2E91F0D205700DCFEA9 /* Prelude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prelude.swift; sourceTree = "<group>"; };
 		"Mattress::Mattress::Product" /* Mattress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mattress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mattress::MattressTests::Product" /* MattressTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = MattressTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -237,6 +239,7 @@
 				OBJ_9 /* Error.swift */,
 				OBJ_11 /* Parser.swift */,
 				843CA2E91F0D205700DCFEA9 /* Prelude.swift */,
+				842FCBF61F110992005AEDFE /* Map.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -338,6 +341,7 @@
 			files = (
 				OBJ_54 /* Error.swift in Sources */,
 				843CA2EA1F0D205700DCFEA9 /* Prelude.swift in Sources */,
+				842FCBF71F110992005AEDFE /* Map.swift in Sources */,
 				OBJ_56 /* Parser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

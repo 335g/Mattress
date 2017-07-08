@@ -1,16 +1,20 @@
 
 
 public enum AParser<C, T, A> where C: Collection {
+	// There are cases where it is evaluated inside `ifSuccess` to chain next parser.
 	public typealias IfSuccess = (T, C.Index) throws -> A
-	public typealias IfFailure = (ParsingError<C>) throws -> A	// always throwing
-	public typealias Function = (C, C.Index, IfSuccess, IfFailure) throws -> A
+	
+	// always throwing
+	public typealias IfFailure = (ParsingError<C>) throws -> A
+	
+	public typealias Function = (C, C.Index, IfFailure, IfSuccess) throws -> A
 }
 
 public typealias Parser<C, T> = AParser<C, T, Any> where C: Collection
 
 func token<C>(_ pred: @escaping (C.Element) -> Bool, _ next: @escaping (C, C.Index, C.Element) -> C.Index) -> Parser<C, C.Element>.Function where C.Element: Equatable {
 	
-	return { input, index, ifSuccess, ifFailure in
+	return { input, index, ifFailure, ifSuccess in
 		if index == input.endIndex {
 			return try ifFailure(.alreadyEnd(index))
 		}else {
@@ -41,7 +45,7 @@ extension String {
 
 prefix operator %
 public prefix func %(literal: String) -> Parser<String, String>.Function {
-	return { input, index, ifSuccess, ifFailure in
+	return { input, index, ifFailure, ifSuccess in
 		return input.contains(literal, at: index)
 			? try ifSuccess(literal, index)
 			: try ifFailure(.notMatch(index))
@@ -49,7 +53,7 @@ public prefix func %(literal: String) -> Parser<String, String>.Function {
 }
 
 public func none<C, T>() -> Parser<C, T>.Function {
-	return { _, index, _, ifFailure in
+	return { _, index, ifFailure, _ in
 		return try ifFailure(ParsingError<C>.notMatch(index))
 	}
 }
@@ -59,7 +63,7 @@ public func parse<C, T>(_ parser: @escaping Parser<C, T>.Function, input: C) thr
 	let ifSuccess: AParser<C, T, T>.IfSuccess = { a, _ in a }
 	let parser = parser as! AParser<C, T, T>.Function
 	
-	return try parser(input, input.startIndex, ifSuccess, ifFailure)
+	return try parser(input, input.startIndex, ifFailure, ifSuccess)
 }
 
 
