@@ -1,27 +1,29 @@
 
 
-public enum Parser<C, T, A> where C: Collection {
+public enum AParser<C, T, A> where C: Collection {
 	public typealias IfSuccess = (T, C.Index) throws -> A
-	public typealias IfFailure = (ParsingError<C>) throws -> A	// always throw error
+	public typealias IfFailure = (ParsingError<C>) throws -> A	// always throwing
 	public typealias Function = (C, C.Index, IfSuccess, IfFailure) throws -> A
 }
 
-func token<C, A>(_ pred: @escaping (C.Element) -> Bool, _ next: @escaping (C, C.Index, C.Element) -> C.Index) -> Parser<C, C.Element, A>.Function where C.Element: Equatable {
+public typealias Parser<C, T> = AParser<C, T, Any> where C: Collection
+
+func token<C>(_ pred: @escaping (C.Element) -> Bool, _ next: @escaping (C, C.Index, C.Element) -> C.Index) -> Parser<C, C.Element>.Function where C.Element: Equatable {
 	
 	return { input, index, ifSuccess, ifFailure in
 		if index == input.endIndex {
-			return try ifFailure(.end(index))
+			return try ifFailure(.alreadyEnd(index))
 		}else {
 			let elem = input[index]
 			
 			return pred(elem)
 				? try ifSuccess(elem, next(input, index, elem))
-				: try ifFailure(.end(index))
+				: try ifFailure(.notSatisfaction(index))
 		}
 	}
 }
 
-public func satisfy<C, A>(pred: @escaping (C.Element) -> Bool) -> Parser<C, C.Element, A>.Function where C.Element: Equatable {
+public func satisfy<C>(pred: @escaping (C.Element) -> Bool) -> Parser<C, C.Element>.Function where C.Element: Equatable {
 	return token(pred){ input, index, elem in
 		input.index(after: index)
 	}
@@ -37,23 +39,8 @@ extension String {
 	}
 }
 
-func contains<C1, C2>(_ needle: C1, at i: C2.Index, from collection: C2) -> Bool where
-	C1: Collection,
-	C2: Collection,
-	C2.SubSequence: ToCluster,
-	C2.SubSequence.Cluster == C1,
-	C2.IndexDistance == C1.IndexDistance,
-	C1: Equatable
-{
-	guard let to = collection.index(i, offsetBy: needle.count, limitedBy: collection.endIndex) else {
-		return false
-	}
-	
-	return collection[i..<to].toCluster() == needle
-}
-
 prefix operator %
-public prefix func %<A>(literal: String) -> Parser<String, String, A>.Function {
+public prefix func %(literal: String) -> Parser<String, String>.Function {
 	return { input, index, ifSuccess, ifFailure in
 		return input.contains(literal, at: index)
 			? try ifSuccess(literal, index)
@@ -61,23 +48,16 @@ public prefix func %<A>(literal: String) -> Parser<String, String, A>.Function {
 	}
 }
 
-public prefix func %<C, A>(literal: C) -> Parser<C, C, A>.Function where C: Equatable, C.SubSequence: ToCluster, C.SubSequence.Cluster == C {
-	return { input, index, ifSuccess, ifFailure in
-		return contains(literal, at: index, from: input)
-			? try ifSuccess(literal, index)
-			: try ifFailure(.notMatch(index))
-	}
-}
-
-public func none<C, T, A>() -> Parser<C, T, A>.Function {
+public func none<C, T>() -> Parser<C, T>.Function {
 	return { _, index, _, ifFailure in
-		return try ifFailure(.notMatch(index))
+		return try ifFailure(ParsingError<C>.notMatch(index))
 	}
 }
 
-public func parse<C, T>(_ parser: Parser<C, T, T>.Function, input: C) rethrows -> T where C.Element: Equatable {
-	let ifFailure: Parser<C, T, T>.IfFailure = { e in throw Error(e) }
-	let ifSuccess: Parser<C, T, T>.IfSuccess = { a, _ in a }
+public func parse<C, T>(_ parser: @escaping Parser<C, T>.Function, input: C) throws -> T where C.Element: Equatable {
+	let ifFailure: AParser<C, T, T>.IfFailure = { e in throw Error(e) }
+	let ifSuccess: AParser<C, T, T>.IfSuccess = { a, _ in a }
+	let parser = parser as! AParser<C, T, T>.Function
 	
 	return try parser(input, input.startIndex, ifSuccess, ifFailure)
 }
