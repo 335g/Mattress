@@ -1,5 +1,5 @@
 
-
+// T == A
 public enum AParser<C, T, A> where C: Collection {
 	// There are cases where it is evaluated inside `ifSuccess` to chain other parser.
 	public typealias IfSuccess = (T, C.Index) throws -> A
@@ -78,4 +78,22 @@ public func pure<C, T>(_ value: T) -> Parser<C, T>.Function {
 
 public func lift<C, T, U, V>(_ f: @escaping (T, U) -> V) -> Parser<C, (T) -> (U) -> V>.Function {
 	return pure(curry(f))
+}
+
+private func memoize<T>(_ f: @escaping () -> T) -> () -> T {
+	var memoized: T!
+	
+	return {
+		if memoized == nil {
+			memoized = f()
+		}
+		
+		return memoized
+	}
+}
+
+public func delay<C, T>(_ parser: @escaping () -> Parser<C, T>.Function) -> Parser<C, T>.Function {
+	let memoized = memoize(parser)
+	
+	return { try memoized()($0, $1, $2, $3) }
 }
