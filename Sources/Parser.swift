@@ -1,7 +1,7 @@
 
 
 public enum AParser<C, T, A> where C: Collection {
-	// There are cases where it is evaluated inside `ifSuccess` to chain next parser.
+	// There are cases where it is evaluated inside `ifSuccess` to chain other parser.
 	public typealias IfSuccess = (T, C.Index) throws -> A
 	
 	// always throwing
@@ -11,21 +11,6 @@ public enum AParser<C, T, A> where C: Collection {
 }
 
 public typealias Parser<C, T> = AParser<C, T, Any> where C: Collection
-
-func token<C>(_ pred: @escaping (C.Element) -> Bool, _ next: @escaping (C, C.Index, C.Element) -> C.Index) -> Parser<C, C.Element>.Function where C.Element: Equatable {
-	
-	return { input, index, ifFailure, ifSuccess in
-		if index == input.endIndex {
-			return try ifFailure(.alreadyEnd(index))
-		}else {
-			let elem = input[index]
-			
-			return pred(elem)
-				? try ifSuccess(elem, next(input, index, elem))
-				: try ifFailure(.notSatisfaction(index))
-		}
-	}
-}
 
 public func satisfy<C>(pred: @escaping (C.Element) -> Bool) -> Parser<C, C.Element>.Function where C.Element: Equatable {
 	return token(pred){ input, index, elem in
@@ -52,11 +37,7 @@ public prefix func %(literal: String) -> Parser<String, String>.Function {
 	}
 }
 
-public func none<C, T>() -> Parser<C, T>.Function {
-	return { _, index, ifFailure, _ in
-		return try ifFailure(ParsingError<C>.notMatch(index))
-	}
-}
+// MARK: - parse
 
 public func parse<C, T>(_ parser: @escaping Parser<C, T>.Function, input: C) throws -> T where C.Element: Equatable {
 	let ifFailure: AParser<C, T, T>.IfFailure = { e in throw Error(e) }
@@ -66,4 +47,35 @@ public func parse<C, T>(_ parser: @escaping Parser<C, T>.Function, input: C) thr
 	return try parser(input, input.startIndex, ifFailure, ifSuccess)
 }
 
+// MARK: - primitive functions
 
+public func none<C, T>() -> Parser<C, T>.Function {
+	return { _, index, ifFailure, _ in
+		return try ifFailure(ParsingError<C>.notMatch(index))
+	}
+}
+
+func token<C>(_ pred: @escaping (C.Element) -> Bool, _ next: @escaping (C, C.Index, C.Element) -> C.Index) -> Parser<C, C.Element>.Function where C.Element: Equatable {
+	
+	return { input, index, ifFailure, ifSuccess in
+		if index == input.endIndex {
+			return try ifFailure(.alreadyEnd(index))
+		}else {
+			let elem = input[index]
+			
+			return pred(elem)
+				? try ifSuccess(elem, next(input, index, elem))
+				: try ifFailure(.notSatisfaction(index))
+		}
+	}
+}
+
+public func pure<C, T>(_ value: T) -> Parser<C, T>.Function {
+	return { _, index, ifFailure, ifSuccess in
+		try ifSuccess(value, index)
+	}
+}
+
+public func lift<C, T, U, V>(_ f: @escaping (T, U) -> V) -> Parser<C, (T) -> (U) -> V>.Function {
+	return pure(curry(f))
+}
