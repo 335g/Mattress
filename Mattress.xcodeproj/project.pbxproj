@@ -26,6 +26,7 @@
 		842FCBFB1F1114AE005AEDFE /* Repetition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FCBFA1F1114AE005AEDFE /* Repetition.swift */; };
 		842FCBFD1F1117F3005AEDFE /* Concatenation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FCBFC1F1117F3005AEDFE /* Concatenation.swift */; };
 		843CA2EA1F0D205700DCFEA9 /* Prelude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA2E91F0D205700DCFEA9 /* Prelude.swift */; };
+		84CCBC371F1266C00016567F /* Nagation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCBC361F1266C00016567F /* Nagation.swift */; };
 		OBJ_41 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* ParserTests.swift */; };
 		OBJ_43 /* Mattress.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mattress::Mattress::Product" /* Mattress.framework */; };
 		OBJ_44 /* Runes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Runes::Runes::Product" /* Runes.framework */; };
@@ -80,6 +81,8 @@
 		842FCBFA1F1114AE005AEDFE /* Repetition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repetition.swift; sourceTree = "<group>"; };
 		842FCBFC1F1117F3005AEDFE /* Concatenation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concatenation.swift; sourceTree = "<group>"; };
 		843CA2E91F0D205700DCFEA9 /* Prelude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prelude.swift; sourceTree = "<group>"; };
+		84CCBC361F1266C00016567F /* Nagation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nagation.swift; sourceTree = "<group>"; };
+		84CCBC381F1272810016567F /* Collections.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Collections.playground; path = Playgrounds/Collections.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		"Mattress::Mattress::Product" /* Mattress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mattress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mattress::MattressTests::Product" /* MattressTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = MattressTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_11 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
@@ -231,6 +234,7 @@
 		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
+				84CCBC381F1272810016567F /* Collections.playground */,
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_12 /* Tests */,
@@ -248,6 +252,7 @@
 				842FCBF61F110992005AEDFE /* Map.swift */,
 				842FCBF81F110E72005AEDFE /* Alternation.swift */,
 				842FCBFA1F1114AE005AEDFE /* Repetition.swift */,
+				84CCBC361F1266C00016567F /* Nagation.swift */,
 				842FCBFC1F1117F3005AEDFE /* Concatenation.swift */,
 			);
 			path = Sources;
@@ -350,6 +355,7 @@
 			files = (
 				OBJ_54 /* Error.swift in Sources */,
 				843CA2EA1F0D205700DCFEA9 /* Prelude.swift in Sources */,
+				84CCBC371F1266C00016567F /* Nagation.swift in Sources */,
 				842FCBFD1F1117F3005AEDFE /* Concatenation.swift in Sources */,
 				842FCBFB1F1114AE005AEDFE /* Repetition.swift in Sources */,
 				842FCBF71F110992005AEDFE /* Map.swift in Sources */,

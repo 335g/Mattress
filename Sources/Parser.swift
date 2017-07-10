@@ -28,8 +28,14 @@ extension String {
 	}
 }
 
+extension String.CharacterView {
+	func contains(_ needle: String, at i: Index) -> Bool {
+		return String(self).contains(needle, at: i)
+	}
+}
+
 prefix operator %
-public prefix func %(literal: String) -> Parser<String, String>.Function {
+public prefix func %(literal: String) -> Parser<String.CharacterView, String>.Function {
 	return { input, index, ifFailure, ifSuccess in
 		return input.contains(literal, at: index)
 			? try ifSuccess(literal, index)
@@ -39,12 +45,12 @@ public prefix func %(literal: String) -> Parser<String, String>.Function {
 
 // MARK: - parse
 
-public func parse<C, T>(_ parser: @escaping Parser<C, T>.Function, input: C) throws -> T where C.Element: Equatable {
+public func parse<C, T>(_ parser: @escaping Parser<C, T>.Function, input: C) throws -> T {
 	let ifFailure: AParser<C, T, T>.IfFailure = { e in throw Error(e) }
 	let ifSuccess: AParser<C, T, T>.IfSuccess = { a, _ in a }
-	let parser = parser as! AParser<C, T, T>.Function
-	
-	return try parser(input, input.startIndex, ifFailure, ifSuccess)
+	if case let parser = parser as! AParser<C, T, T>.Function {
+		return try parser(input, input.startIndex, ifFailure, ifSuccess)
+	}
 }
 
 // MARK: - primitive functions

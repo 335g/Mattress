@@ -36,6 +36,30 @@ public func * <C, T>(parser: @escaping Parser<C, T>.Function, interval: Countabl
 				}
 }
 
+public func * <C, T>(parser: @escaping Parser<C, T>.Function, interval: CountableRange<Int>) -> Parser<C, [T]>.Function {
+	return interval.isEmpty
+		? { _, index, ifFailure, _ in try ifFailure(.atLeast(index)) }
+		: parser * (interval.lowerBound...decrement(interval.upperBound))
+}
+
+public func sepBy1<C, T, U>(parser: @escaping Parser<C, T>.Function, separator: @escaping Parser<C, U>.Function) -> Parser<C, [T]>.Function {
+	return prepend <^> parser <*> many(separator *> parser)
+}
+
+public func sepBy<C, T, U>(parser: @escaping Parser<C, T>.Function, separator: @escaping Parser<C, U>.Function) -> Parser<C, [T]>.Function {
+	return sepBy1(parser: parser, separator: separator) <|> pure([])
+}
+
+public func endBy1<C, T, U>(parser: @escaping Parser<C, T>.Function, terminator: @escaping Parser<C, U>.Function) -> Parser<C, [T]>.Function {
+	return some(parser <* terminator)
+}
+
+public func endBy<C, T, U>(parser: @escaping Parser<C, T>.Function, terminator: @escaping Parser<C, U>.Function) -> Parser<C, [T]>.Function {
+	return many(parser <* terminator)
+}
+
+// 
+
 private func decrement(_ x: Int) -> Int {
 	return x == Int.max ? Int.max : x - 1
 }
