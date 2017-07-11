@@ -1,16 +1,16 @@
 
 import Runes
 
-public func many<C, T>(_ parser: @escaping Parser<C, T>.Function) -> Parser<C, [T]>.Function {
+public func many<C, T, A>(_ parser: @escaping Parser<C, T, A>.Function) -> Parser<C, [T], A>.Function {
 	return prepend <^> parser <*> delay{ many(parser) } <|> pure([])
 }
 
-public func some<C, T>(_ parser: @escaping Parser<C, T>.Function) -> Parser<C, [T]>.Function {
+public func some<C, T, A>(_ parser: @escaping Parser<C, T, A>.Function) -> Parser<C, [T], A>.Function {
 	return prepend <^> parser <*> many(parser)
 }
 
 extension Int {
-	public func times<C, T>(_ parser: @escaping Parser<C, T>.Function) -> Parser<C, [T]>.Function {
+	public func times<C, T, A>(_ parser: @escaping Parser<C, T, A>.Function) -> Parser<C, [T], A>.Function {
 		precondition(self >= 0)
 		
 		return self != 0
@@ -19,11 +19,11 @@ extension Int {
 	}
 }
 
-public func * <C, T>(parser: @escaping Parser<C, T>.Function, n: Int) -> Parser<C, [T]>.Function {
+public func * <C, T, A>(parser: @escaping Parser<C, T, A>.Function, n: Int) -> Parser<C, [T], A>.Function {
 	return n.times(parser)
 }
 
-public func * <C, T>(parser: @escaping Parser<C, T>.Function, interval: CountableClosedRange<Int>) -> Parser<C, [T]>.Function {
+public func * <C, T, A>(parser: @escaping Parser<C, T, A>.Function, interval: CountableClosedRange<Int>) -> Parser<C, [T], A>.Function {
 	precondition(interval.upperBound >= 0)
 	
 	return interval.upperBound == 0
@@ -32,33 +32,33 @@ public func * <C, T>(parser: @escaping Parser<C, T>.Function, interval: Countabl
 			<|> { _, index, ifFailure, ifSuccess in
 					return interval.lowerBound <= 0
 						? try ifSuccess([], index)
-						: try ifFailure(.atLeast(index))
+						: try ifFailure(ParsingError(at: index, becauseOf: "At least one must be matched."))
 				}
 }
 
-public func * <C, T>(parser: @escaping Parser<C, T>.Function, interval: CountableRange<Int>) -> Parser<C, [T]>.Function {
+public func * <C, T, A>(parser: @escaping Parser<C, T, A>.Function, interval: CountableRange<Int>) -> Parser<C, [T], A>.Function {
 	return interval.isEmpty
-		? { _, index, ifFailure, _ in try ifFailure(.atLeast(index)) }
+		? { _, index, ifFailure, _ in try ifFailure(ParsingError(at: index, becauseOf: "At least one must be matched.")) }
 		: parser * (interval.lowerBound...decrement(interval.upperBound))
 }
 
-public func sepBy1<C, T, U>(parser: @escaping Parser<C, T>.Function, separator: @escaping Parser<C, U>.Function) -> Parser<C, [T]>.Function {
+public func sepBy1<C, T, U, A>(parser: @escaping Parser<C, T, A>.Function, separator: @escaping Parser<C, U, A>.Function) -> Parser<C, [T], A>.Function {
 	return prepend <^> parser <*> many(separator *> parser)
 }
 
-public func sepBy<C, T, U>(parser: @escaping Parser<C, T>.Function, separator: @escaping Parser<C, U>.Function) -> Parser<C, [T]>.Function {
+public func sepBy<C, T, U, A>(parser: @escaping Parser<C, T, A>.Function, separator: @escaping Parser<C, U, A>.Function) -> Parser<C, [T], A>.Function {
 	return sepBy1(parser: parser, separator: separator) <|> pure([])
 }
 
-public func endBy1<C, T, U>(parser: @escaping Parser<C, T>.Function, terminator: @escaping Parser<C, U>.Function) -> Parser<C, [T]>.Function {
+public func endBy1<C, T, U, A>(parser: @escaping Parser<C, T, A>.Function, terminator: @escaping Parser<C, U, A>.Function) -> Parser<C, [T], A>.Function {
 	return some(parser <* terminator)
 }
 
-public func endBy<C, T, U>(parser: @escaping Parser<C, T>.Function, terminator: @escaping Parser<C, U>.Function) -> Parser<C, [T]>.Function {
+public func endBy<C, T, U, A>(parser: @escaping Parser<C, T, A>.Function, terminator: @escaping Parser<C, U, A>.Function) -> Parser<C, [T], A>.Function {
 	return many(parser <* terminator)
 }
 
-// 
+//
 
 private func decrement(_ x: Int) -> Int {
 	return x == Int.max ? Int.max : x - 1
@@ -67,3 +67,4 @@ private func decrement(_ x: Int) -> Int {
 private func decrement(range: CountableClosedRange<Int>) -> CountableClosedRange<Int> {
 	return decrement(range.lowerBound)...decrement(range.upperBound)
 }
+

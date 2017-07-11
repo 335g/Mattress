@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		8422B8961F13CA0E008D60D8 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B8951F13CA0E008D60D8 /* String.swift */; };
 		842FCBF71F110992005AEDFE /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FCBF61F110992005AEDFE /* Map.swift */; };
 		842FCBF91F110E72005AEDFE /* Alternation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FCBF81F110E72005AEDFE /* Alternation.swift */; };
 		842FCBFB1F1114AE005AEDFE /* Repetition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FCBFA1F1114AE005AEDFE /* Repetition.swift */; };
@@ -76,6 +77,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8422B8951F13CA0E008D60D8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		8422B8971F14FA8F008D60D8 /* Colours.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Colours.playground; path = Playgrounds/Colours.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		842FCBF61F110992005AEDFE /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		842FCBF81F110E72005AEDFE /* Alternation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alternation.swift; sourceTree = "<group>"; };
 		842FCBFA1F1114AE005AEDFE /* Repetition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repetition.swift; sourceTree = "<group>"; };
@@ -129,6 +132,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8422B8981F14FBF2008D60D8 /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				8422B8971F14FA8F008D60D8 /* Colours.playground */,
+				84CCBC381F1272810016567F /* Collections.playground */,
+			);
+			name = Playgrounds;
+			sourceTree = "<group>";
+		};
 		OBJ_12 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,8 +246,8 @@
 		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
-				84CCBC381F1272810016567F /* Collections.playground */,
 				OBJ_6 /* Package.swift */,
+				8422B8981F14FBF2008D60D8 /* Playgrounds */,
 				OBJ_7 /* Sources */,
 				OBJ_12 /* Tests */,
 				OBJ_15 /* Dependencies */,
@@ -254,6 +266,7 @@
 				842FCBFA1F1114AE005AEDFE /* Repetition.swift */,
 				84CCBC361F1266C00016567F /* Nagation.swift */,
 				842FCBFC1F1117F3005AEDFE /* Concatenation.swift */,
+				8422B8951F13CA0E008D60D8 /* String.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -356,6 +369,7 @@
 				OBJ_54 /* Error.swift in Sources */,
 				843CA2EA1F0D205700DCFEA9 /* Prelude.swift in Sources */,
 				84CCBC371F1266C00016567F /* Nagation.swift in Sources */,
+				8422B8961F13CA0E008D60D8 /* String.swift in Sources */,
 				842FCBFD1F1117F3005AEDFE /* Concatenation.swift in Sources */,
 				842FCBFB1F1114AE005AEDFE /* Repetition.swift in Sources */,
 				842FCBF71F110992005AEDFE /* Map.swift in Sources */,

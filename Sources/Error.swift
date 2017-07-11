@@ -1,12 +1,12 @@
 
-
-public enum ParsingError<C: Collection> {
-	case cast
-	case notSatisfaction(C.Index)
-	case notMatch(C.Index)
-	case alreadyEnd(C.Index)
-	case atLeast(C.Index)
-	case doNotMatch(C.Index)
+public struct ParsingError<C: Collection> {
+	let reason: String
+	let index: C.Index
+	
+	public init(at index: C.Index, becauseOf reason: String) {
+		self.reason = reason
+		self.index = index
+	}
 }
 
 public struct Error<C: Collection>: Swift.Error {
