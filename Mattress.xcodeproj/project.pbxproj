@@ -84,6 +84,8 @@
 		842FCBFA1F1114AE005AEDFE /* Repetition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repetition.swift; sourceTree = "<group>"; };
 		842FCBFC1F1117F3005AEDFE /* Concatenation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concatenation.swift; sourceTree = "<group>"; };
 		843CA2E91F0D205700DCFEA9 /* Prelude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prelude.swift; sourceTree = "<group>"; };
+		8461ECB01F16364A005D99C1 /* Subset of Common Markdown.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "Subset of Common Markdown.playground"; path = "Playgrounds/Subset of Common Markdown.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		84C71A571F162DD2005D0F58 /* Lambda Calculus.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "Lambda Calculus.playground"; path = "Playgrounds/Lambda Calculus.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		84CCBC361F1266C00016567F /* Nagation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nagation.swift; sourceTree = "<group>"; };
 		84CCBC381F1272810016567F /* Collections.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Collections.playground; path = Playgrounds/Collections.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		"Mattress::Mattress::Product" /* Mattress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mattress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,8 +137,10 @@
 		8422B8981F14FBF2008D60D8 /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				8422B8971F14FA8F008D60D8 /* Colours.playground */,
 				84CCBC381F1272810016567F /* Collections.playground */,
+				8422B8971F14FA8F008D60D8 /* Colours.playground */,
+				84C71A571F162DD2005D0F58 /* Lambda Calculus.playground */,
+				8461ECB01F16364A005D99C1 /* Subset of Common Markdown.playground */,
 			);
 			name = Playgrounds;
 			sourceTree = "<group>";

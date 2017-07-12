@@ -27,7 +27,7 @@ let three: ColorParser<[CGFloat]> = component1 * 3
 let six: ColorParser<[CGFloat]> = component2 * 3
 let colour: ColorParser<NSColor> = { rgb in NSColor(calibratedRed: rgb[0], green: rgb[1], blue: rgb[2], alpha: 1)  } <^> (%"#" *> (six <|> three))
 
-let raddish = try! parse("#d52a41", with: colour)
-let greenish = try! parse("#5a2", with: colour)
-let blueish = try! parse("#5e8ca1", with: colour)
+let raddish = try? parse("#d52a41", with: colour)
+let greenish = try? parse("#5a2", with: colour)
+let blueish = try? parse("#5e8ca1", with: colour)
 

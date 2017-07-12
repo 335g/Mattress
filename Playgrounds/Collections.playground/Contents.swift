@@ -20,4 +20,4 @@ let fibonacci: FibonacciParser = fix { (fibonacci: @escaping (Int, Int) -> Fibon
 	}
 }(0, 1)
 
-let parsed = try! parse(input, with: fibonacci)
+let parsed = try? parse(input, with: fibonacci)
