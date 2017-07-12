@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		8419E7751F165BBE00917FAA /* Lift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419E7741F165BBE00917FAA /* Lift.swift */; };
 		8422B8961F13CA0E008D60D8 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B8951F13CA0E008D60D8 /* String.swift */; };
 		842FCBF71F110992005AEDFE /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FCBF61F110992005AEDFE /* Map.swift */; };
 		842FCBF91F110E72005AEDFE /* Alternation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FCBF81F110E72005AEDFE /* Alternation.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8419E7741F165BBE00917FAA /* Lift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lift.swift; sourceTree = "<group>"; };
 		8422B8951F13CA0E008D60D8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		8422B8971F14FA8F008D60D8 /* Colours.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Colours.playground; path = Playgrounds/Colours.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		842FCBF61F110992005AEDFE /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			children = (
 				OBJ_9 /* Error.swift */,
 				OBJ_11 /* Parser.swift */,
+				8419E7741F165BBE00917FAA /* Lift.swift */,
 				843CA2E91F0D205700DCFEA9 /* Prelude.swift */,
 				842FCBF61F110992005AEDFE /* Map.swift */,
 				842FCBF81F110E72005AEDFE /* Alternation.swift */,
@@ -374,6 +377,7 @@
 				843CA2EA1F0D205700DCFEA9 /* Prelude.swift in Sources */,
 				84CCBC371F1266C00016567F /* Nagation.swift in Sources */,
 				8422B8961F13CA0E008D60D8 /* String.swift in Sources */,
+				8419E7751F165BBE00917FAA /* Lift.swift in Sources */,
 				842FCBFD1F1117F3005AEDFE /* Concatenation.swift in Sources */,
 				842FCBFB1F1114AE005AEDFE /* Repetition.swift in Sources */,
 				842FCBF71F110992005AEDFE /* Map.swift in Sources */,

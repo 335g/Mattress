@@ -4,7 +4,7 @@ import Darwin
 import Runes
 import Mattress
 
-typealias ColorParser<T> = Parser<String.CharacterView, T, NSColor>.Function
+typealias ColorParser<T> = Parser<String.CharacterView, T, NSColor>
 
 extension Character {
 	static func + (lhs: Character, rhs: Character) -> String {
@@ -19,15 +19,15 @@ func toComponent(_ str: String) -> CGFloat {
 let digit: ColorParser<Character> = %("0"..."9")
 let lower: ColorParser<Character> = %("a"..."f")
 let upper: ColorParser<Character> = %("A"..."F")
-let hex: ColorParser<Character> = digit <|> lower <|> upper
-let hex2: ColorParser<String> = lift(+) <*> hex <*> hex
-let component1: ColorParser<CGFloat> = { toComponent($0 + $0) } <^> hex
-let component2: ColorParser<CGFloat> = toComponent <^> hex2
-let three: ColorParser<[CGFloat]> = component1 * 3
-let six: ColorParser<[CGFloat]> = component2 * 3
+let hex = digit <|> lower <|> upper
+let hex2 = lift(+) <*> hex <*> hex
+let component1 = { toComponent($0 + $0) } <^> hex
+let component2 = toComponent <^> hex2
+let three = component1 * 3
+let six = component2 * 3
 let colour: ColorParser<NSColor> = { rgb in NSColor(calibratedRed: rgb[0], green: rgb[1], blue: rgb[2], alpha: 1)  } <^> (%"#" *> (six <|> three))
 
-let raddish = try? parse("#d52a41", with: colour)
-let greenish = try? parse("#5a2", with: colour)
-let blueish = try? parse("#5e8ca1", with: colour)
+let raddish = try? colour.parse("#d52a41")
+let greenish = try? colour.parse("#5a2")
+let blueish = try? colour.parse("#5e8ca1")
 

@@ -1,15 +1,15 @@
 
 import Runes
 
-public func <*> <C, T, U, A>(left: @escaping Parser<C, (T) -> U, A>.Function, right: @escaping Parser<C, T, A>.Function) -> Parser<C, U, A>.Function {
+public func <*> <C, T, U, A>(left: Parser<C, (T) -> U, A>, right: Parser<C, T, A>) -> Parser<C, U, A> {
 	return left >>- { $0 <^> right }
 }
 
-public func <* <C, T, U, A>(left: @escaping Parser<C, T, A>.Function, right: @escaping Parser<C, U, A>.Function) -> Parser<C, T, A>.Function {
+public func <* <C, T, U, A>(left: Parser<C, T, A>, right: Parser<C, U, A>) -> Parser<C, T, A> {
 	return left >>- { const($0) <^> right }
 }
 
-public func *> <C, T, U, A>(left: @escaping Parser<C, T, A>.Function, right: @escaping Parser<C, U, A>.Function) -> Parser<C, U, A>.Function {
+public func *> <C, T, U, A>(left: Parser<C, T, A>, right: Parser<C, U, A>) -> Parser<C, U, A> {
 	return left >>- const(right)
 }
 

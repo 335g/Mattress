@@ -1,70 +1,101 @@
 
 import Runes
 
-public func many<C, T, A>(_ parser: @escaping Parser<C, T, A>.Function) -> Parser<C, [T], A>.Function {
-	return prepend <^> parser <*> delay{ many(parser) } <|> pure([])
-}
-
-public func some<C, T, A>(_ parser: @escaping Parser<C, T, A>.Function) -> Parser<C, [T], A>.Function {
-	return prepend <^> parser <*> many(parser)
+extension Parser {
+	public var many: Parser<C, [T], A> {
+		return prepend <^> self <*> delay{ self.many } <|> .pure([])
+	}
+	
+	public var some: Parser<C, [T], A> {
+		return prepend <^> self <*> self.many
+	}
 }
 
 extension Int {
-	public func times<C, T, A>(_ parser: @escaping Parser<C, T, A>.Function) -> Parser<C, [T], A>.Function {
+	public func times<C, T, A>(_ parser: Parser<C, T, A>) -> Parser<C, [T], A> {
 		precondition(self >= 0)
 		
 		return self != 0
 			? prepend <^> parser <*> delay{ (self - 1).times(parser) }
-			: pure([])
+			: .pure([])
+	}
+	
+	func decrement() -> Int {
+		return self == Int.max
+			? Int.max
+			: self - 1
 	}
 }
 
-public func * <C, T, A>(parser: @escaping Parser<C, T, A>.Function, n: Int) -> Parser<C, [T], A>.Function {
+public func * <C, T, A>(parser: Parser<C, T, A>, n: Int) -> Parser<C, [T], A> {
 	return n.times(parser)
 }
 
-public func * <C, T, A>(parser: @escaping Parser<C, T, A>.Function, interval: CountableClosedRange<Int>) -> Parser<C, [T], A>.Function {
-	precondition(interval.upperBound >= 0)
+// TODO: Test for ContableClosedRange/CountableRange
+
+extension CountableClosedRange where Bound == Int {
+	private func decrement() -> CountableClosedRange {
+		return CountableClosedRange(uncheckedBounds: (lowerBound.decrement(), upperBound.decrement()))
+	}
 	
-	return interval.upperBound == 0
-		? { _, index, _, ifSuccess in try ifSuccess([], index) }
-		: (parser >>- { append($0) <^> (parser * decrement(range: interval)) })
-			<|> { _, index, ifFailure, ifSuccess in
-					return interval.lowerBound <= 0
+	public func times<C, T, A>(_ parser: Parser<C, T, A>) -> Parser<C, [T], A> {
+		precondition(upperBound >= 0)
+		
+		return upperBound == 0
+			? Parser<C, [T], A> { _, index, _, ifSuccess in try ifSuccess([], index) }
+			: (parser >>- { append($0) <^> (self.decrement().times(parser)) })
+				<|> Parser<C, [T], A> { _, index, ifFailure, ifSuccess in
+					return self.lowerBound <= 0
 						? try ifSuccess([], index)
 						: try ifFailure(ParsingError(at: index, becauseOf: "At least one must be matched."))
 				}
+	}
 }
 
-public func * <C, T, A>(parser: @escaping Parser<C, T, A>.Function, interval: CountableRange<Int>) -> Parser<C, [T], A>.Function {
-	return interval.isEmpty
-		? { _, index, ifFailure, _ in try ifFailure(ParsingError(at: index, becauseOf: "At least one must be matched.")) }
-		: parser * (interval.lowerBound...decrement(interval.upperBound))
+public func * <C, T, A>(parser: Parser<C, T, A>, interval: CountableClosedRange<Int>) -> Parser<C, [T], A> {
+	return interval.times(parser)
 }
 
-public func sepBy1<C, T, U, A>(parser: @escaping Parser<C, T, A>.Function, separator: @escaping Parser<C, U, A>.Function) -> Parser<C, [T], A>.Function {
-	return prepend <^> parser <*> many(separator *> parser)
+extension CountableRange where Bound == Int {
+	private func decrement() -> CountableRange {
+		return CountableRange(uncheckedBounds: (lowerBound.decrement(), upperBound.decrement()))
+	}
+	
+	public func times<C, T, A>(_ parser: Parser<C, T, A>) -> Parser<C, [T], A> {
+		precondition(upperBound >= 0)
+		
+		return upperBound == 0
+			? Parser<C, [T], A> { _, index, _, ifSuccess in try ifSuccess([], index) }
+			: (parser >>- { append($0) <^> (self.decrement().times(parser)) })
+				<|> Parser<C, [T], A> { _, index, ifFailure, ifSuccess in
+					return self.lowerBound <= 0
+						? try ifSuccess([], index)
+						: try ifFailure(ParsingError(at: index, becauseOf: "At least one must be matched."))
+				}
+	}
 }
 
-public func sepBy<C, T, U, A>(parser: @escaping Parser<C, T, A>.Function, separator: @escaping Parser<C, U, A>.Function) -> Parser<C, [T], A>.Function {
-	return sepBy1(parser: parser, separator: separator) <|> pure([])
+public func * <C, T, A>(parser: Parser<C, T, A>, interval: CountableRange<Int>) -> Parser<C, [T], A> {
+	return interval.times(parser)
 }
 
-public func endBy1<C, T, U, A>(parser: @escaping Parser<C, T, A>.Function, terminator: @escaping Parser<C, U, A>.Function) -> Parser<C, [T], A>.Function {
-	return some(parser <* terminator)
-}
+// MARK: - sep, end
 
-public func endBy<C, T, U, A>(parser: @escaping Parser<C, T, A>.Function, terminator: @escaping Parser<C, U, A>.Function) -> Parser<C, [T], A>.Function {
-	return many(parser <* terminator)
-}
-
-//
-
-private func decrement(_ x: Int) -> Int {
-	return x == Int.max ? Int.max : x - 1
-}
-
-private func decrement(range: CountableClosedRange<Int>) -> CountableClosedRange<Int> {
-	return decrement(range.lowerBound)...decrement(range.upperBound)
+extension Parser {
+	public func isSeparatedByAtLeastOne<U>(by separator: Parser<C, U, A>) -> Parser<C, [T], A> {
+		return prepend <^> self <*> (separator *> self).many
+	}
+	
+	public func isSeparated<U>(by separator: Parser<C, U, A>) -> Parser<C, [T], A> {
+		return self.isSeparatedByAtLeastOne(by: separator) <|> .pure([])
+	}
+	
+	public func isTerminatedByAtLeastOne<U>(by terminator: Parser<C, U, A>) -> Parser<C, [T], A> {
+		return (self <* terminator).some
+	}
+	
+	public func isTerminated<U>(by terminator: Parser<C, U, A>) -> Parser<C, [T], A> {
+		return (self <* terminator).many
+	}
 }
 
