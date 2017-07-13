@@ -19,24 +19,26 @@ indirect enum Lambda: CustomStringConvertible {
 	}
 }
 
-func fix<T1, T2, T3, T4, U>(_ f: @escaping (@escaping (T1, T2, T3, T4) throws -> U) -> (T1, T2, T3, T4) throws -> U) -> (T1, T2, T3, T4) throws -> U {
-	return { try f(fix(f))($0, $1, $2, $3) }
+func fix<T>(_ f: @escaping (@escaping () -> T) -> () -> T) -> () -> T {
+	return { f(fix(f))() }
 }
 
 func pair<T, U>(_ t: T, _ u: U) -> (T, U) {
 	return (t, u)
 }
 
-typealias LambdaParser<T> = Parser<String.CharacterView, T, Lambda>.Function
+typealias LambdaParser<T> = Parser<String.CharacterView, T, Lambda>
 
-let lambda: LambdaParser<Lambda> = fix { (lambda: @escaping LambdaParser<Lambda>) in
-	let symbol: LambdaParser<String> = { String($0) } <^> %("a"..."z")
-	
-	let variable: LambdaParser<Lambda> = Lambda.variable <^> symbol
-	let abstraction: LambdaParser<Lambda> = Lambda.abstraction <^> (lift(pair) <*> (%"λ" *> symbol) <*> (%"." *> lambda))
-	let application: LambdaParser<Lambda> = Lambda.application <^> (lift(pair) <*> (%"(" *> lambda) <*> (%" " *> lambda) <* %")")
-	return variable <|> abstraction <|> application
-}
+let lambda: LambdaParser<Lambda> = fix { (lambda: @escaping () -> LambdaParser<Lambda>) in
+	{
+		let symbol: LambdaParser<String> = { String($0) } <^> %("a"..."z")
+		let variable = Lambda.variable <^> symbol
+		let abstraction = Lambda.abstraction <^> (lift(pair) <*> (%"λ" *> symbol) <*> (%"." *> delay{ lambda() }))
+		let application = Lambda.application <^> (lift(pair) <*> (%"(" *> delay{ lambda() }) <*> (%" " *> delay{ lambda() }) <* %")")
+		return variable <|> abstraction <|> application
+	}
+}()
 
-try? parse("λx.(x x)", with: lambda)
-try? parse("λx.(x x) λx.(x x)", with: lambda)
+try? lambda.parse("λx.(x x)")
+try? lambda.parse("λx.(x x) λx.(x x)")
+

@@ -26,3 +26,23 @@ indirect enum Node: CustomStringConvertible {
 		)
 	}
 }
+
+//typealias IntParser = Parser<String.CharacterView, Int, Node>
+typealias NodeParser<T> = Parser<String.CharacterView, T, Node>
+
+func fix<T>(_ f: @escaping (@escaping () -> T) -> () -> T) -> () -> T {
+	return { f(fix(f))() }
+}
+
+func pair<T, U>(_ t: T, _ u: U) -> (T, U) {
+	return (t, u)
+}
+
+//let parser: NodeParser<Node> = fix { (element: @escaping (NodeParser<String>) -> NodeParser<Node>) in
+//	{ prefix in
+//		let octothorpes: NodeParser<Int> = { $0.count } <^> (%"#" * (1..<7))
+//		let header = prefix *> (Node.header <^> (lift(pair) <*> octothorpes <*> ))
+//		
+//	}
+//}
+

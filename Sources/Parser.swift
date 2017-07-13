@@ -25,7 +25,7 @@ extension Parser where T == C.Element {
 		}
 	}
 	
-	public static func forwardElement(satisfy: @escaping (C.Element) -> Bool) -> Parser<C, C.Element, A> {
+	public static func forward(satisfy: @escaping (C.Element) -> Bool) -> Parser<C, C.Element, A> {
 		return token(satisfy) { input, index, elem in
 			input.index(after: index)
 		}
