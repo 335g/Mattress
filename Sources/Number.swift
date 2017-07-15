@@ -1,35 +1,35 @@
 
 import Runes
 
-public typealias DoubleParser<A> = Parser<String.CharacterView, Double, A>
-public typealias IntParser<A> = Parser<String.CharacterView, Int, A>
+public typealias DoubleParser = Parser<String.CharacterView, Double>
+public typealias IntParser = Parser<String.CharacterView, Int>
 
 extension Parser where C == String.CharacterView {
-	public static var digit: CharacterParser<A> {
+	public static var digit: CharacterParser {
 		return oneOf("0123456789")
 	}
 	
-	private static var someDigits: CharacterArrayParser<A> {
+	private static var someDigits: CharacterArrayParser {
 		return Parser.digit.some
 	}
 	
-	private static var int: CharacterArrayParser<A> {
+	private static var int: CharacterArrayParser {
 		return maybePrepend <^> Parser.char("-")|? <*> Parser.someDigits
 	}
 	
-	private static var decimal: CharacterArrayParser<A> {
+	private static var decimal: CharacterArrayParser {
 		return prepend <^> %"." <*> Parser.someDigits
 	}
 	
-	private static var exp: StringParser<A> {
+	private static var exp: StringParser {
 		return %"e+" <|> %"e-" <|> %"e" <|> %"E+" <|> %"E-" <|> %"E"
 	}
 	
-	private static var exponent: CharacterArrayParser<A> {
+	private static var exponent: CharacterArrayParser {
 		return { s in { s.characters + $0 }} <^> Parser.exp <*> Parser.someDigits
 	}
 	
-	public static var number: DoubleParser<A> {
+	public static var number: DoubleParser {
 		let num = (concat2 <^> Parser.int <*> Parser.decimal <*> Parser.exponent)
 			<|> (concat <^> Parser.int <*> Parser.decimal)
 			<|> (concat <^> Parser.int <*> Parser.exponent)

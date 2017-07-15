@@ -1,15 +1,15 @@
 
 import Runes
 
-public func <*> <C, T, U, A>(left: Parser<C, (T) -> U, A>, right: Parser<C, T, A>) -> Parser<C, U, A> {
+public func <*> <C, T, U>(left: Parser<C, (T) -> U>, right: Parser<C, T>) -> Parser<C, U> {
 	return left >>- { $0 <^> right }
 }
 
-public func <* <C, T, U, A>(left: Parser<C, T, A>, right: Parser<C, U, A>) -> Parser<C, T, A> {
+public func <* <C, T, U>(left: Parser<C, T>, right: Parser<C, U>) -> Parser<C, T> {
 	return left >>- { const($0) <^> right }
 }
 
-public func *> <C, T, U, A>(left: Parser<C, T, A>, right: Parser<C, U, A>) -> Parser<C, U, A> {
+public func *> <C, T, U>(left: Parser<C, T>, right: Parser<C, U>) -> Parser<C, U> {
 	return left >>- const(right)
 }
 

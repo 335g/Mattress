@@ -1,23 +1,23 @@
 
-// `T` finally converges to `A`
-public struct Parser<C, T, A> where C: Collection {
+// `AnyObject` finally converges to `T`
+public struct Parser<C, T> where C: Collection {
 	// There are cases where it is evaluated inside `ifSuccess` to chain other parser.
-	public typealias IfSuccess = (T, C.Index) throws -> A
+	public typealias IfSuccess = (T, C.Index) throws -> AnyObject
 	
 	// always throwing
-	public typealias IfFailure = (ParsingError<C>) throws -> A
+	public typealias IfFailure = (ParsingError<C>) throws -> AnyObject
 	
 	// parser
-	let parser: (C, C.Index, IfFailure, IfSuccess) throws -> A
+	let parser: (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject
 	
-	fileprivate func parse(_ input: C, ifFailure: @escaping IfFailure = { e in throw Error(e) }, ifSuccess: @escaping IfSuccess) throws -> A {
+	fileprivate func parse(_ input: C, ifFailure: @escaping IfFailure = { e in throw Error(e) }, ifSuccess: @escaping IfSuccess) throws -> AnyObject {
 		return try parser(input, input.startIndex, ifFailure, ifSuccess)
 	}
 }
 
 extension Parser where T == C.Element {
-	private static func token(_ pred: @escaping (C.Element) -> Bool, _ next: @escaping (C, C.Index, C.Element) -> C.Index?) -> Parser<C, C.Element, A> {
-		return Parser<C, C.Element, A>{ input, index, ifFailure, ifSuccess in
+	private static func token(_ pred: @escaping (C.Element) -> Bool, _ next: @escaping (C, C.Index, C.Element) -> C.Index?) -> Parser<C, C.Element> {
+		return Parser<C, C.Element>{ input, index, ifFailure, ifSuccess in
 			return index >= input.endIndex
 				? try ifFailure(ParsingError(at: index, becauseOf: "`\(index)` is over endIndex."))
 				: try {
@@ -29,7 +29,7 @@ extension Parser where T == C.Element {
 		}
 	}
 	
-	public static func forward(satisfy: @escaping (C.Element) -> Bool) -> Parser<C, C.Element, A> {
+	public static func forward(satisfy: @escaping (C.Element) -> Bool) -> Parser<C, C.Element> {
 		return token(satisfy) { input, index, elem in
 			input.index(after: index)
 		}
@@ -38,21 +38,21 @@ extension Parser where T == C.Element {
 
 // MARK: - parse
 
-extension Parser where T == A {
+extension Parser {
+	public func parse(_ input: C) throws -> AnyObject {
+		return try parse(input, ifSuccess: { t, _ in t as AnyObject })
+	}
+}
+
+extension Parser where T == AnyObject {
 	public func parse(_ input: C) throws -> T {
 		return try parse(input, ifSuccess: { t, _ in t })
 	}
 }
 
-extension Parser where C == String.CharacterView, T == A {
+extension Parser where C == String.CharacterView, T == AnyObject {
 	public func parse(_ input: String) throws -> T {
 		return try parse(input.characters, ifSuccess: { t, _ in t })
-	}
-}
-
-extension Parser {
-	public func parse(_ input: C, with f: @escaping (T) -> A) throws -> A {
-		return try parse(input, ifSuccess: { t, _ in f(t) })
 	}
 }
 
@@ -60,24 +60,24 @@ extension Parser {
 
 prefix operator %
 
-public prefix func %<C, A>(literal: C) -> Parser<C, C, A> where C.Element: Equatable {
-	return Parser<C, C, A>{ input, index, ifFailure, ifSuccess in
+public prefix func %<C>(literal: C) -> Parser<C, C> where C.Element: Equatable {
+	return Parser<C, C>{ input, index, ifFailure, ifSuccess in
 		return input.contains(literal, at: index)
 			? try ifSuccess(literal, input.index(index, offsetBy: literal.count))
 			: try ifFailure(ParsingError(at: index, becauseOf: "not contains '\(literal)'."))
 	}
 }
 
-public prefix func %<A>(literal: String) -> Parser<String.CharacterView, String, A> {
-	return Parser<String.CharacterView, String, A>{ input, index, ifFailure, ifSuccess in
+public prefix func %(literal: String) -> Parser<String.CharacterView, String> {
+	return Parser<String.CharacterView, String>{ input, index, ifFailure, ifSuccess in
 		return input.contains(literal, at: index)
 			? try ifSuccess(literal, input.index(index, offsetBy: literal.count))
 			: try ifFailure(ParsingError(at: index, becauseOf: "not contains '\(literal)'."))
 	}
 }
 
-public prefix func %<C, A>(literal: C.Element) -> Parser<C, C.Element, A> where C.Element: Equatable {
-	return Parser<C, C.Element, A>{ input, index, ifFailure, ifSuccess in
+public prefix func %<C>(literal: C.Element) -> Parser<C, C.Element> where C.Element: Equatable {
+	return Parser<C, C.Element>{ input, index, ifFailure, ifSuccess in
 		return index >= input.endIndex
 			? try ifFailure(ParsingError(at: index, becauseOf: "`\(index)` is over endIndex."))
 			: try {
@@ -88,16 +88,16 @@ public prefix func %<C, A>(literal: C.Element) -> Parser<C, C.Element, A> where 
 	}
 }
 
-public prefix func %<A>(literal: Character) -> Parser<String.CharacterView, Character, A> {
-	return Parser<String.CharacterView, Character, A>{ input, index, ifFailure, ifSuccess in
+public prefix func %(literal: Character) -> Parser<String.CharacterView, Character> {
+	return Parser<String.CharacterView, Character>{ input, index, ifFailure, ifSuccess in
 		return input.contains(literal, at: index)
 			? try ifSuccess(literal, input.index(after: index))
 			: try ifFailure(ParsingError(at: index, becauseOf: "not contains '\(literal)'."))
 	}
 }
 
-public prefix func %<C, A>(interval: ClosedRange<C.Element>) -> Parser<C, C.Element, A> {
-	return Parser<C, C.Element, A>{ input, index, ifFailure, ifSuccess in
+public prefix func %<C>(interval: ClosedRange<C.Element>) -> Parser<C, C.Element> {
+	return Parser<C, C.Element>{ input, index, ifFailure, ifSuccess in
 		return index >= input.endIndex
 			? try ifFailure(ParsingError(at: index, becauseOf: "`\(index)` is over endIndex."))
 			: try {
@@ -157,14 +157,14 @@ extension Collection where Element: Equatable {
 // MARK: - primitive
 
 extension Parser {
-	public static func none() -> Parser<C, T, A> {
-		return Parser<C, T, A> { input, index, ifFailure, _ in
+	public static func none() -> Parser<C, T> {
+		return Parser<C, T> { input, index, ifFailure, _ in
 			try ifFailure(ParsingError(at: index, becauseOf: "must not match '\(input)'."))
 		}
 	}
 	
-	public static func pure(_ value: T) -> Parser<C, T, A> {
-		return Parser<C, T, A> { _, index, _, ifSuccess in
+	public static func pure(_ value: T) -> Parser<C, T> {
+		return Parser<C, T> { _, index, _, ifSuccess in
 			try ifSuccess(value, index)
 		}
 	}
@@ -182,9 +182,9 @@ private func memoize<T>(_ f: @escaping () -> T) -> () -> T {
 	}
 }
 
-public func delay<C, T, A>(_ generator: @escaping () -> Parser<C, T, A>) -> Parser<C, T, A> {
+public func delay<C, T>(_ generator: @escaping () -> Parser<C, T>) -> Parser<C, T> {
 	let memoized = memoize(generator)
 	
-	return Parser<C, T, A>{ try memoized().parser($0, $1, $2, $3) }
+	return Parser<C, T>{ try memoized().parser($0, $1, $2, $3) }
 }
 

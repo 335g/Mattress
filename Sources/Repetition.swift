@@ -2,17 +2,17 @@
 import Runes
 
 extension Parser {
-	public var many: Parser<C, [T], A> {
+	public var many: Parser<C, [T]> {
 		return prepend <^> self <*> delay{ self.many } <|> .pure([])
 	}
 	
-	public var some: Parser<C, [T], A> {
+	public var some: Parser<C, [T]> {
 		return prepend <^> self <*> self.many
 	}
 }
 
 extension Int {
-	public func times<C, T, A>(_ parser: Parser<C, T, A>) -> Parser<C, [T], A> {
+	public func times<C, T>(_ parser: Parser<C, T>) -> Parser<C, [T]> {
 		precondition(self >= 0)
 		
 		return self != 0
@@ -27,7 +27,7 @@ extension Int {
 	}
 }
 
-public func * <C, T, A>(parser: Parser<C, T, A>, n: Int) -> Parser<C, [T], A> {
+public func * <C, T>(parser: Parser<C, T>, n: Int) -> Parser<C, [T]> {
 	return n.times(parser)
 }
 
@@ -38,13 +38,13 @@ extension CountableClosedRange where Bound == Int {
 		return CountableClosedRange(uncheckedBounds: (lowerBound.decrement(), upperBound.decrement()))
 	}
 	
-	public func times<C, T, A>(_ parser: Parser<C, T, A>) -> Parser<C, [T], A> {
+	public func times<C, T>(_ parser: Parser<C, T>) -> Parser<C, [T]> {
 		precondition(upperBound >= 0)
 		
 		return upperBound == 0
-			? Parser<C, [T], A> { _, index, _, ifSuccess in try ifSuccess([], index) }
+			? Parser<C, [T]> { _, index, _, ifSuccess in try ifSuccess([], index) }
 			: (parser >>- { append($0) <^> (self.decrement().times(parser)) })
-				<|> Parser<C, [T], A> { _, index, ifFailure, ifSuccess in
+				<|> Parser<C, [T]> { _, index, ifFailure, ifSuccess in
 					return self.lowerBound <= 0
 						? try ifSuccess([], index)
 						: try ifFailure(ParsingError(at: index, becauseOf: "At least one must be matched."))
@@ -52,7 +52,7 @@ extension CountableClosedRange where Bound == Int {
 	}
 }
 
-public func * <C, T, A>(parser: Parser<C, T, A>, interval: CountableClosedRange<Int>) -> Parser<C, [T], A> {
+public func * <C, T>(parser: Parser<C, T>, interval: CountableClosedRange<Int>) -> Parser<C, [T]> {
 	return interval.times(parser)
 }
 
@@ -61,13 +61,13 @@ extension CountableRange where Bound == Int {
 		return CountableRange(uncheckedBounds: (lowerBound.decrement(), upperBound.decrement()))
 	}
 	
-	public func times<C, T, A>(_ parser: Parser<C, T, A>) -> Parser<C, [T], A> {
+	public func times<C, T>(_ parser: Parser<C, T>) -> Parser<C, [T]> {
 		precondition(upperBound >= 0)
 		
 		return upperBound == 0
-			? Parser<C, [T], A> { _, index, _, ifSuccess in try ifSuccess([], index) }
+			? Parser<C, [T]> { _, index, _, ifSuccess in try ifSuccess([], index) }
 			: (parser >>- { append($0) <^> (self.decrement().times(parser)) })
-				<|> Parser<C, [T], A> { _, index, ifFailure, ifSuccess in
+				<|> Parser<C, [T]> { _, index, ifFailure, ifSuccess in
 					return self.lowerBound <= 0
 						? try ifSuccess([], index)
 						: try ifFailure(ParsingError(at: index, becauseOf: "At least one must be matched."))
@@ -75,26 +75,26 @@ extension CountableRange where Bound == Int {
 	}
 }
 
-public func * <C, T, A>(parser: Parser<C, T, A>, interval: CountableRange<Int>) -> Parser<C, [T], A> {
+public func * <C, T>(parser: Parser<C, T>, interval: CountableRange<Int>) -> Parser<C, [T]> {
 	return interval.times(parser)
 }
 
 // MARK: - sep, end
 
 extension Parser {
-	public func isSeparatedByAtLeastOne<U>(by separator: Parser<C, U, A>) -> Parser<C, [T], A> {
+	public func isSeparatedByAtLeastOne<U>(by separator: Parser<C, U>) -> Parser<C, [T]> {
 		return prepend <^> self <*> (separator *> self).many
 	}
 	
-	public func isSeparated<U>(by separator: Parser<C, U, A>) -> Parser<C, [T], A> {
+	public func isSeparated<U>(by separator: Parser<C, U>) -> Parser<C, [T]> {
 		return self.isSeparatedByAtLeastOne(by: separator) <|> .pure([])
 	}
 	
-	public func isTerminatedByAtLeastOne<U>(by terminator: Parser<C, U, A>) -> Parser<C, [T], A> {
+	public func isTerminatedByAtLeastOne<U>(by terminator: Parser<C, U>) -> Parser<C, [T]> {
 		return (self <* terminator).some
 	}
 	
-	public func isTerminated<U>(by terminator: Parser<C, U, A>) -> Parser<C, [T], A> {
+	public func isTerminated<U>(by terminator: Parser<C, U>) -> Parser<C, [T]> {
 		return (self <* terminator).many
 	}
 }
