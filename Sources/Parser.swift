@@ -9,6 +9,10 @@ public struct Parser<C, T, A> where C: Collection {
 	
 	// parser
 	let parser: (C, C.Index, IfFailure, IfSuccess) throws -> A
+	
+	fileprivate func parse(_ input: C, ifFailure: @escaping IfFailure = { e in throw Error(e) }, ifSuccess: @escaping IfSuccess) throws -> A {
+		return try parser(input, input.startIndex, ifFailure, ifSuccess)
+	}
 }
 
 extension Parser where T == C.Element {
@@ -36,19 +40,19 @@ extension Parser where T == C.Element {
 
 extension Parser where T == A {
 	public func parse(_ input: C) throws -> T {
-		let ifFailure: Parser<C, T, T>.IfFailure = { e in throw Error(e) }
-		let ifSuccess: Parser<C, T, T>.IfSuccess = { t, _ in t }
-		
-		return try self.parser(input, input.startIndex, ifFailure, ifSuccess)
+		return try parse(input, ifSuccess: { t, _ in t })
 	}
 }
 
 extension Parser where C == String.CharacterView, T == A {
 	public func parse(_ input: String) throws -> T {
-		let ifFailure: Parser<String.CharacterView, T, T>.IfFailure = { e in throw Error(e) }
-		let ifSuccess: Parser<String.CharacterView, T, T>.IfSuccess = { t, _ in t }
-		
-		return try self.parser(input.characters, input.startIndex, ifFailure, ifSuccess)
+		return try parse(input.characters, ifSuccess: { t, _ in t })
+	}
+}
+
+extension Parser {
+	public func parse(_ input: C, with f: @escaping (T) -> A) throws -> A {
+		return try parse(input, ifSuccess: { t, _ in f(t) })
 	}
 }
 
