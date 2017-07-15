@@ -27,33 +27,38 @@ indirect enum Node: CustomStringConvertible {
 	}
 }
 
-typealias NodeParser<T> = Parser<String.CharacterView, T, AnyObject>
-
-func fix<T>(_ f: @escaping (@escaping () -> T) -> () -> T) -> () -> T {
-	return { f(fix(f))() }
+func fix<T, U>(_ f: @escaping (@escaping (T) -> U) -> (T) -> U) -> (T) -> U {
+	return { f(fix(f))($0) }
 }
 
 func pair<T, U>(_ t: T, _ u: U) -> (T, U) {
 	return (t, u)
 }
 
-let ws: NodeParser<String> = { String($0) } <^> (.space <|> .tab)
-let lower: NodeParser<String> = { String($0) } <^> %("a"..."z")
-let upper: NodeParser<String> = { String($0) } <^> %("A"..."Z")
-let digit: NodeParser<String> = { String($0) } <^> .digit
+let ws: StringParser<String> = { String($0) } <^> (.space <|> .tab)
+let lower: StringParser<String> = { String($0) } <^> %("a"..."z")
+let upper: StringParser<String> = { String($0) } <^> %("A"..."Z")
+let digit: StringParser<String> = { String($0) } <^> .digit
 let text = lower <|> upper <|> digit <|> ws
 let restOfLine = { $0.joined() } <^> text.many <* .newLine
+let texts = { $0.joined() } <^> (text <|> (%"" <* .newLine)).some
 
-try? digit.parse("10".characters)
+let element = fix { (element: @escaping (StringParser<String>) -> StringParser<Node>) in
+	{ prefix in
+		let octothorpes = { $0.count } <^> (%"#" * (1..<7))
+		let header = prefix *> (Node.header <^> (lift(pair) <*> octothorpes <*> (.space *> restOfLine)))
+		let paragpraph = prefix *> (Node.paragraph <^> texts)
+		let blockquote = prefix *> delay{ Node.blockquote <^> some(element(prefix *> %"> ")) }
+		
+		return header <|> paragpraph <|> blockquote
+	}
+}(.pure(""))
 
-//let nodeParser: NodeParser<Node> = fix { node in
-//	{
-//		let symbol: NodeParser<String> = { String($0) } <^> %("a"..."z")
-//		let header: NodeParser<Node> = Node.header <^> symbol
-//
-//		return header
-//	}
-//}()
-
-
+// > # hello\n> \n> hello\n> there\n> \n> \n
+//do {
+//	let parsed = try element.parse("#") as! Node
+//	print(parsed.description)
+//} catch(let e) {
+//	print(e)
+//}
 

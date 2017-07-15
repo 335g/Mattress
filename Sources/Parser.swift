@@ -8,10 +8,15 @@ public struct Parser<C, T> where C: Collection {
 	public typealias IfFailure = (ParsingError<C>) throws -> AnyObject
 	
 	// parser
-	let parser: (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject
+	private let parser: (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject
 	
-	fileprivate func parse(_ input: C, ifFailure: @escaping IfFailure = { e in throw Error(e) }, ifSuccess: @escaping IfSuccess) throws -> AnyObject {
-		return try parser(input, input.startIndex, ifFailure, ifSuccess)
+	// constructor
+	public init(parser: @escaping (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject) {
+		self.parser = parser
+	}
+	
+	func parse(_ input: C, at: C.Index, ifFailure: IfFailure, ifSuccess: IfSuccess) throws -> AnyObject {
+		return try parser(input, at, ifFailure, ifSuccess)
 	}
 }
 
@@ -39,20 +44,18 @@ extension Parser where T == C.Element {
 // MARK: - parse
 
 extension Parser {
+	fileprivate func parse(_ input: C, ifFailure: @escaping IfFailure = { throw $0 }, ifSuccess: @escaping IfSuccess) throws -> AnyObject {
+		return try parser(input, input.startIndex, ifFailure, ifSuccess)
+	}
+	
 	public func parse(_ input: C) throws -> AnyObject {
 		return try parse(input, ifSuccess: { t, _ in t as AnyObject })
 	}
 }
 
-extension Parser where T == AnyObject {
-	public func parse(_ input: C) throws -> T {
-		return try parse(input, ifSuccess: { t, _ in t })
-	}
-}
-
-extension Parser where C == String.CharacterView, T == AnyObject {
-	public func parse(_ input: String) throws -> T {
-		return try parse(input.characters, ifSuccess: { t, _ in t })
+extension Parser where C == String.CharacterView {
+	public func parse(_ input: String) throws -> AnyObject {
+		return try parse(input.characters, ifSuccess: { t, _ in t as AnyObject })
 	}
 }
 
@@ -185,6 +188,6 @@ private func memoize<T>(_ f: @escaping () -> T) -> () -> T {
 public func delay<C, T>(_ generator: @escaping () -> Parser<C, T>) -> Parser<C, T> {
 	let memoized = memoize(generator)
 	
-	return Parser<C, T>{ try memoized().parser($0, $1, $2, $3) }
+	return Parser<C, T>{ try memoized().parse($0, at: $1, ifFailure: $2, ifSuccess: $3) }
 }
 

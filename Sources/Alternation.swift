@@ -4,9 +4,9 @@ import Runes
 extension Parser {
 	public func or(_ other: Parser<C, T>) -> Parser<C, T> {
 		return Parser<C, T> { input, index, ifFailure, ifSuccess in
-			try self.parser(input, index,
-			               { _ in try other.parser(input, index, ifFailure, { t, i in try ifSuccess(t, i) }) },
-			               { t, i in try ifSuccess(t, i) }
+			try self.parse(input, at: index,
+			               ifFailure: { _ in try other.parse(input, at: index, ifFailure: ifFailure, ifSuccess: { t, i in try ifSuccess(t, i) }) },
+			               ifSuccess: { t, i in try ifSuccess(t, i) }
 			)
 		}
 	}

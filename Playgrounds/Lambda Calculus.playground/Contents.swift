@@ -23,15 +23,9 @@ func fix<T>(_ f: @escaping (@escaping () -> T) -> () -> T) -> () -> T {
 	return { f(fix(f))() }
 }
 
-func pair<T, U>(_ t: T, _ u: U) -> (T, U) {
-	return (t, u)
-}
-
-typealias LambdaParser<T> = Parser<String.CharacterView, T, Lambda>
-
-let lambda: LambdaParser<Lambda> = fix { (lambda: @escaping () -> LambdaParser<Lambda>) in
+let lambda = fix { (lambda: @escaping () -> StringParser<Lambda>) in
 	{
-		let symbol: LambdaParser<String> = { String($0) } <^> %("a"..."z")
+		let symbol: StringParser<String> = { String($0) } <^> %("a"..."z")
 		let variable = Lambda.variable <^> symbol
 		let abstraction = Lambda.abstraction <^> (lift(pair) <*> (%"λ" *> symbol) <*> (%"." *> delay{ lambda() }))
 		let application = Lambda.application <^> (lift(pair) <*> (%"(" *> delay{ lambda() }) <*> (%" " *> delay{ lambda() }) <* %")")

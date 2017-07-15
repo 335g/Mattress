@@ -11,6 +11,14 @@ extension Parser {
 	}
 }
 
+public func many<C, T>(_ parser: Parser<C, T>) -> Parser<C, [T]> {
+	return parser.many
+}
+
+public func some<C, T>(_ parser: Parser<C, T>) -> Parser<C, [T]> {
+	return parser.some
+}
+
 extension Int {
 	public func times<C, T>(_ parser: Parser<C, T>) -> Parser<C, [T]> {
 		precondition(self >= 0)
@@ -42,7 +50,7 @@ extension CountableClosedRange where Bound == Int {
 		precondition(upperBound >= 0)
 		
 		return upperBound == 0
-			? Parser<C, [T]> { _, index, _, ifSuccess in try ifSuccess([], index) }
+			? Parser<C, [T]>(parser: { _, index, _, ifSuccess in try ifSuccess([], index) })
 			: (parser >>- { append($0) <^> (self.decrement().times(parser)) })
 				<|> Parser<C, [T]> { _, index, ifFailure, ifSuccess in
 					return self.lowerBound <= 0
