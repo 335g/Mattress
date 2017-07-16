@@ -2,8 +2,6 @@
 import XCTest
 @testable import Mattress
 
-///
-
 private func failure<T>(message: String, file: StaticString = #file, line: UInt = #line) -> T? {
 	XCTFail(message, file: file, line: line)
 	return nil
