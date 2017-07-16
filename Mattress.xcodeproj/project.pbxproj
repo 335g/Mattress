@@ -33,6 +33,7 @@
 		84034A5C1F19FC3400D51BBA /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B8951F13CA0E008D60D8 /* String.swift */; };
 		84034A5D1F19FC3400D51BBA /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B490B91F17B778005830FD /* Number.swift */; };
 		8419E7771F1784EC00917FAA /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419E7761F1784EC00917FAA /* ParserTests.swift */; };
+		84B17C631F1BB41800BBC489 /* Assertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B17C621F1BB41800BBC489 /* Assertion.swift */; };
 		OBJ_43 /* Mattress.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mattress::Mattress::Product" /* Mattress.framework */; };
 		OBJ_44 /* Runes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Runes::Runes::Product" /* Runes.framework */; };
 		OBJ_58 /* Runes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Runes::Runes::Product" /* Runes.framework */; };
@@ -89,6 +90,7 @@
 		842FCBFC1F1117F3005AEDFE /* Concatenation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concatenation.swift; sourceTree = "<group>"; };
 		843CA2E91F0D205700DCFEA9 /* Prelude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prelude.swift; sourceTree = "<group>"; };
 		8461ECB01F16364A005D99C1 /* Subset of Common Markdown.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "Subset of Common Markdown.playground"; path = "Playgrounds/Subset of Common Markdown.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		84B17C621F1BB41800BBC489 /* Assertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertion.swift; sourceTree = "<group>"; };
 		84B490B91F17B778005830FD /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		84C71A571F162DD2005D0F58 /* Lambda Calculus.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "Lambda Calculus.playground"; path = "Playgrounds/Lambda Calculus.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		84CCBC361F1266C00016567F /* Nagation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nagation.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				8419E7761F1784EC00917FAA /* ParserTests.swift */,
+				84B17C621F1BB41800BBC489 /* Assertion.swift */,
 			);
 			name = MattressTests;
 			path = Tests/MattressTests;
@@ -381,6 +384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				84B17C631F1BB41800BBC489 /* Assertion.swift in Sources */,
 				8419E7771F1784EC00917FAA /* ParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

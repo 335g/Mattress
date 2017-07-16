@@ -24,8 +24,8 @@ public struct Parser<C, T> where C: Collection {
 		self.handler = handler
 	}
 	
-	func parse(_ input: C, at: C.Index, ifFailure: IfFailure, ifSuccess: IfSuccess) throws -> AnyObject {
-		return try handler(input, at, ifFailure, ifSuccess)
+	func parse(_ input: C, at index: C.Index, ifFailure: IfFailure, ifSuccess: IfSuccess) throws -> AnyObject {
+		return try handler(input, index, ifFailure, ifSuccess)
 	}
 }
 
@@ -62,26 +62,30 @@ extension Parser where T == C.Element {
 // MARK: - parse
 
 extension Parser {
-	fileprivate func parse(_ input: C, ifFailure: @escaping IfFailure = { throw $0 }, ifSuccess: @escaping IfSuccess) throws -> AnyObject {
-		return try parse(input, at: input.startIndex, ifFailure: ifFailure, ifSuccess: ifSuccess)
+	fileprivate func parse(_ input: C, ifFailure: @escaping IfFailure = { throw $0 }, ifSuccess: @escaping IfSuccess) throws -> T {
+		return try parse(input, at: input.startIndex, ifFailure: ifFailure, ifSuccess: ifSuccess) as! T
 	}
 	
-	public func parse(_ input: C) throws -> AnyObject {
-		return try parse(input, ifSuccess: { tree, index in
-			return index == input.endIndex
-				? tree as AnyObject
-				: try { throw ParsingError<C>(at: index, becauseOf: "\(index) is not equal to input.endIndex.") }()
-		})
+	public func parse(_ input: C) throws -> T {
+		return try parse(input){ tree, index in
+			if index == input.endIndex {
+				return tree as AnyObject
+			} else {
+				throw ParsingError<C>(at: index, becauseOf: "\(index) is not equal to input.endIndex.")
+			}
+		}
 	}
 }
 
 extension Parser where C == String.CharacterView {
-	public func parse(_ input: String) throws -> AnyObject {
-		return try parse(input.characters, ifSuccess: { tree, index in
-			return index == input.endIndex
-				? tree as AnyObject
-				: try { throw ParsingError<C>(at: index, becauseOf: "\(index) is not equal to input.endIndex.") }()
-		})
+	public func parse(_ input: String) throws -> T {
+		return try parse(input.characters){ tree, index in
+			if index == input.endIndex {
+				return tree as AnyObject
+			} else {
+				throw ParsingError<C>(at: index, becauseOf: "\(index) is not equal to input.endIndex.")
+			}
+		}
 	}
 }
 
@@ -176,7 +180,7 @@ extension Collection where Element: Equatable {
 // MARK: - primitive
 
 extension Parser {
-	public static func none() -> Parser<C, T> {
+	public static var none: Parser<C, T> {
 		return Parser<C, T> { input, index, ifFailure, _ in
 			try ifFailure(ParsingError(at: index, becauseOf: "must not match '\(input)'."))
 		}

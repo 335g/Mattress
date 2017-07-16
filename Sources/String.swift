@@ -5,7 +5,7 @@ public typealias StringParser<T> = Parser<String.CharacterView, T>
 
 extension Parser where C == String.CharacterView {
 	public static func char(_ x: Character) -> StringParser<Character> {
-		return .forward { $0 == x }
+		return .satisfy{ $0 == x }
 	}
 	
 	public static var tab: StringParser<Character> {
@@ -33,10 +33,10 @@ extension Parser where C == String.CharacterView {
 	}
 	
 	public static func oneOf(_ input: String) -> StringParser<Character> {
-		return .forward { input.characters.contains($0) }
+		return .satisfy{ input.characters.contains($0) }
 	}
 	
 	public static func noneOf(_ input: String) -> StringParser<Character> {
-		return .forward { !input.characters.contains($0) }
+		return .satisfy{ !input.characters.contains($0) }
 	}
 }

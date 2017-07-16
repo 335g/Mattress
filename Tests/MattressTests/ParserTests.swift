@@ -6,11 +6,11 @@ class ParserTests: XCTestCase {
 	func testCollectionLiteralParser(){
 		// Parser<C, C>
 		
-		var input = [1,2,3,4]
+		var input: [Int]
 		let parser: Parser<[Int], [Int]> = %[1,2,3,4]
 		
 		// parse without throwing if input matches
-		XCTAssertNoThrow(try parser.parse(input))
+		assertTree(parser, [1,2,3,4], ==, [1,2,3,4])
 		
 		// throw if input is not match
 		input = []
@@ -47,11 +47,11 @@ class ParserTests: XCTestCase {
 	func testElementLiteralParser(){
 		// Parser<C, C.Element>
 		
-		var input: [Int] = [5]
+		var input: [Int]
 		let parser: Parser<[Int], Int> = %5
 		
 		// parse without throwing if input matches
-		XCTAssertNoThrow(try parser.parse(input))
+		assertTree(parser, [5], ==, 5)
 		
 		// throw if input is not match
 		input = []
@@ -70,11 +70,11 @@ class ParserTests: XCTestCase {
 	func testCharacterLiteralParser(){
 		// Parser<String.CharacterView, Character>
 		
-		var input = "a".characters
+		var input: String.CharacterView
 		let parser: StringParser<Character> = %"a"
 		
 		// parse without throwing if input matches
-		XCTAssertNoThrow(try parser.parse(input))
+		assertTree(parser, "a", ==, "a")
 		
 		// throw if input is not match
 		input = "".characters
@@ -99,11 +99,11 @@ class ParserTests: XCTestCase {
 	func testStringLiteralParser(){
 		// Parser<String.CharacterView, String>
 		
-		var input = "abcd"
+		var input: String
 		let parser: StringParser<String> = %"abcd"
 		
 		// parse without throwing if input matches
-		XCTAssertNoThrow(try parser.parse(input))
+		assertTree(parser, "abcd", ==, "abcd")
 		
 		// throw if input is not match
 		input = ""
@@ -144,9 +144,9 @@ class ParserTests: XCTestCase {
 		let parser: StringParser<Character> = %("a"..."f")
 		
 		// parse without throwing if input matches
-		XCTAssertNoThrow(try parser.parse("a"))
-		XCTAssertNoThrow(try parser.parse("c"))
-		XCTAssertNoThrow(try parser.parse("f"))
+		assertTree(parser, "a", ==, "a")
+		assertTree(parser, "c", ==, "c")
+		assertTree(parser, "f", ==, "f")
 		
 		// throw if input is not match
 		input = ""
@@ -166,5 +166,41 @@ class ParserTests: XCTestCase {
 			let err = err as! ParsingError<String.CharacterView>
 			XCTAssertEqual(err.index, input.index(input.startIndex, offsetBy: 1))
 		}
+	}
+	
+	func testNoneParser(){
+		let parser: StringParser<Character> = .none
+		var input: String.CharacterView
+			
+		input = "".characters
+		XCTAssertThrowsError(try parser.parse(input), "not match"){ err in
+			let err = err as! ParsingError<String.CharacterView>
+			XCTAssertEqual(err.index, input.startIndex)
+		}
+		
+		input = "a".characters
+		XCTAssertThrowsError(try parser.parse(input), "not match"){ err in
+			let err = err as! ParsingError<String.CharacterView>
+			XCTAssertEqual(err.index, input.startIndex)
+		}
+		
+		input = "aaaa".characters
+		XCTAssertThrowsError(try parser.parse(input), "not match"){ err in
+			let err = err as! ParsingError<String.CharacterView>
+			XCTAssertEqual(err.index, input.startIndex)
+		}
+	}
+	
+	func testPureParser(){
+		// ignore inputs
+		assertTree(StringParser<String>.pure("a"), "b", ==, "a")
+	}
+	
+	func testFinishedParser(){
+		// anything is fine after end
+		let parser = (%"a").finished()
+		
+		XCTAssertNoThrow(try? parser.parse("abcd"))
+		assertTree(parser, "abcd", ==, "a")
 	}
 }
