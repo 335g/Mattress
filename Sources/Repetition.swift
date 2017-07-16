@@ -50,7 +50,7 @@ extension CountableClosedRange where Bound == Int {
 		precondition(upperBound >= 0)
 		
 		return upperBound == 0
-			? Parser<C, [T]>(parser: { _, index, _, ifSuccess in try ifSuccess([], index) })
+			? Parser<C, [T]>{ _, index, _, ifSuccess in try ifSuccess([], index) }
 			: (parser >>- { append($0) <^> (self.decrement().times(parser)) })
 				<|> Parser<C, [T]> { _, index, ifFailure, ifSuccess in
 					return self.lowerBound <= 0

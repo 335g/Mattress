@@ -16,15 +16,15 @@ public struct Parser<C, T> where C: Collection {
 	public typealias IfFailure = (ParsingError<C>) throws -> AnyObject
 	
 	// parser
-	private let parser: (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject
+	private let handler: (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject
 	
 	// constructor
-	public init(parser: @escaping (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject) {
-		self.parser = parser
+	public init(handler: @escaping (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject) {
+		self.handler = handler
 	}
 	
 	func parse(_ input: C, at: C.Index, ifFailure: IfFailure, ifSuccess: IfSuccess) throws -> AnyObject {
-		return try parser(input, at, ifFailure, ifSuccess)
+		return try handler(input, at, ifFailure, ifSuccess)
 	}
 }
 
@@ -62,7 +62,7 @@ extension Parser where T == C.Element {
 
 extension Parser {
 	fileprivate func parse(_ input: C, ifFailure: @escaping IfFailure = { throw $0 }, ifSuccess: @escaping IfSuccess) throws -> AnyObject {
-		return try parser(input, input.startIndex, ifFailure, ifSuccess)
+		return try parse(input, at: input.startIndex, ifFailure: ifFailure, ifSuccess: ifSuccess)
 	}
 	
 	public func parse(_ input: C) throws -> AnyObject {
