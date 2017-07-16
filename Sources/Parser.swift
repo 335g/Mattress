@@ -1,4 +1,12 @@
 
+
+public protocol ParserProtocol {
+	associatedtype Target: Collection
+	associatedtype Tree
+	
+	var parser: Parser<Target, Tree> { get }
+}
+
 // `AnyObject` finally converges to `T`
 public struct Parser<C, T> where C: Collection {
 	// There are cases where it is evaluated inside `ifSuccess` to chain other parser.
@@ -17,6 +25,15 @@ public struct Parser<C, T> where C: Collection {
 	
 	func parse(_ input: C, at: C.Index, ifFailure: IfFailure, ifSuccess: IfSuccess) throws -> AnyObject {
 		return try parser(input, at, ifFailure, ifSuccess)
+	}
+}
+
+extension Parser: ParserProtocol {
+	public typealias Target = C
+	public typealias Tree = T
+	
+	public var parser: Parser<C, T> {
+		return self
 	}
 }
 
