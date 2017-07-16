@@ -1,4 +1,5 @@
 
+import Runes
 
 public protocol ParserProtocol {
 	associatedtype Target: Collection
@@ -186,6 +187,14 @@ extension Parser {
 	public static func pure(_ value: T) -> Parser<C, T> {
 		return Parser<C, T> { _, index, _, ifSuccess in
 			try ifSuccess(value, index)
+		}
+	}
+	
+	public func finished() -> Parser<C, T> {
+		return self >>- { tree in
+			return Parser<C, T>{ input, _, _, ifSuccess in
+				return try ifSuccess(tree, input.endIndex)
+			}
 		}
 	}
 }
