@@ -67,13 +67,21 @@ extension Parser {
 	}
 	
 	public func parse(_ input: C) throws -> AnyObject {
-		return try parse(input, ifSuccess: { t, _ in t as AnyObject })
+		return try parse(input, ifSuccess: { tree, index in
+			return index == input.endIndex
+				? tree as AnyObject
+				: try { throw ParsingError<C>(at: index, becauseOf: "\(index) is not equal to input.endIndex.") }()
+		})
 	}
 }
 
 extension Parser where C == String.CharacterView {
 	public func parse(_ input: String) throws -> AnyObject {
-		return try parse(input.characters, ifSuccess: { t, _ in t as AnyObject })
+		return try parse(input.characters, ifSuccess: { tree, index in
+			return index == input.endIndex
+				? tree as AnyObject
+				: try { throw ParsingError<C>(at: index, becauseOf: "\(index) is not equal to input.endIndex.") }()
+		})
 	}
 }
 
@@ -83,29 +91,29 @@ prefix operator %
 
 public prefix func %<C>(literal: C) -> Parser<C, C> where C.Element: Equatable {
 	return Parser<C, C>{ input, index, ifFailure, ifSuccess in
-		return input.contains(literal, at: index)
+		return input.contains(literal, from: index)
 			? try ifSuccess(literal, input.index(index, offsetBy: literal.count))
-			: try ifFailure(ParsingError(at: index, becauseOf: "not contains '\(literal)'."))
-	}
-}
-
-public prefix func %(literal: String) -> Parser<String.CharacterView, String> {
-	return Parser<String.CharacterView, String>{ input, index, ifFailure, ifSuccess in
-		return input.contains(literal, at: index)
-			? try ifSuccess(literal, input.index(index, offsetBy: literal.count))
-			: try ifFailure(ParsingError(at: index, becauseOf: "not contains '\(literal)'."))
+			: try ifFailure(ParsingError<C>(at: index, becauseOf: "not contains '\(literal)'."))
 	}
 }
 
 public prefix func %<C>(literal: C.Element) -> Parser<C, C.Element> where C.Element: Equatable {
 	return Parser<C, C.Element>{ input, index, ifFailure, ifSuccess in
 		return index >= input.endIndex
-			? try ifFailure(ParsingError(at: index, becauseOf: "`\(index)` is over endIndex."))
+			? try ifFailure(ParsingError<C>(at: index, becauseOf: "`\(index)` is over endIndex."))
 			: try {
 				return input[index] == literal
 					? try ifSuccess(literal, input.index(after: index))
-					: try ifFailure(ParsingError(at: index, becauseOf: "not contains `\(literal)`"))
+					: try ifFailure(ParsingError<C>(at: index, becauseOf: "not contains `\(literal)`"))
 				}()
+	}
+}
+
+public prefix func %(literal: String) -> Parser<String.CharacterView, String> {
+	return Parser<String.CharacterView, String>{ input, index, ifFailure, ifSuccess in
+		return input.contains(literal, from: index)
+			? try ifSuccess(literal, input.index(index, offsetBy: literal.count))
+			: try ifFailure(ParsingError<String.CharacterView>(at: index, becauseOf: "not contains '\(literal)'."))
 	}
 }
 
@@ -113,7 +121,7 @@ public prefix func %(literal: Character) -> Parser<String.CharacterView, Charact
 	return Parser<String.CharacterView, Character>{ input, index, ifFailure, ifSuccess in
 		return input.contains(literal, at: index)
 			? try ifSuccess(literal, input.index(after: index))
-			: try ifFailure(ParsingError(at: index, becauseOf: "not contains '\(literal)'."))
+			: try ifFailure(ParsingError<String.CharacterView>(at: index, becauseOf: "not contains '\(literal)'."))
 	}
 }
 
@@ -134,7 +142,7 @@ public prefix func %<C>(interval: ClosedRange<C.Element>) -> Parser<C, C.Element
 // MARK: - Satisfier
 
 extension String {
-	func contains(_ needle: String, at i: Index) -> Bool {
+	func contains(_ needle: String, from i: Index) -> Bool {
 		guard let to = self.index(i, offsetBy: needle.count, limitedBy: self.endIndex) else {
 			return false
 		}
@@ -144,34 +152,24 @@ extension String {
 }
 
 extension String.CharacterView {
-	func contains(_ needle: String, at i: Index) -> Bool {
-		return String(self).contains(needle, at: i)
+	func contains(_ needle: String, from i: Index) -> Bool {
+		return String(self).contains(needle, from: i)
 	}
 	
 	func contains(_ needle: Character, at i: Index) -> Bool {
-		return self.endIndex != i && self[i] == needle
+		return self.startIndex <= i
+			&& i < self.endIndex
+			&& self[i] == needle
 	}
 }
 
 extension Collection where Element: Equatable {
-	func contains(_ needle: Self, at i: Index) -> Bool {
-		guard let first = needle.first, i != endIndex else {
-			return false
-		}
+	func contains(_ needle: Self, from: Index) -> Bool {
+		guard
+			self.startIndex <= from && from < self.endIndex,
+			let to = self.index(from, offsetBy: needle.count, limitedBy: self.endIndex) else { return false }
 		
-		if self[i] != first {
-			return false
-		}
-		
-		var i = i
-		var j = needle.startIndex
-		while self.formIndex(&i, offsetBy: 1, limitedBy: self.endIndex) && needle.formIndex(&j, offsetBy: 1, limitedBy: needle.endIndex) {
-			if self[i] != needle[j] {
-				return false
-			}
-		}
-		
-		return i != endIndex
+		return zip(self[from..<to], needle).lazy.reduce(true){ $0 && $1.0 == $1.1 }
 	}
 }
 
