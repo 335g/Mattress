@@ -1,6 +1,6 @@
 
 extension Parser {
-	public func isNot() -> Parser<C, ()> {
+	public var isNot: Parser<C, ()> {
 		return Parser<C, ()> { input, index, ifFailure, ifSuccess in
 			try self.parse(input, at: index,
 			               ifFailure: { _ in try ifSuccess((), index) },
@@ -8,4 +8,8 @@ extension Parser {
 			)
 		}
 	}
+}
+
+public func not<C, T>(_ parser: Parser<C, T>) -> Parser<C, ()> {
+	return parser.isNot
 }

@@ -22,15 +22,27 @@ private func assertExpected<T, U>(_ t: T?, _ pred: (T, U) -> Bool, _ u: U?, mess
 	}
 }
 
+private func check<C, T>(_ parser: Parser<C, T>, _ input: C) -> T? {
+	return try? parser.parse(input, at: input.startIndex, ifFailure: { throw $0 }, ifSuccess: { t, _ in t as AnyObject }) as! T
+}
+
 @discardableResult
 func assertTree<C, T>(_ parser: Parser<C, T>, _ input: C, _ match: (T, T) -> Bool, _ tree: T, message: String = "", file: StaticString = #file, line: UInt = #line) -> T? {
-	let parsed = try? parser.parse(input, at: input.startIndex,
-	                               ifFailure: { throw $0 },
-	                               ifSuccess: { t, _ in t as AnyObject }) as! T
-	return assertExpected(parsed, match, tree)
+//	let parsed = try? parser.parse(input, at: input.startIndex,
+//	                               ifFailure: { throw $0 },
+//	                               ifSuccess: { t, _ in t as AnyObject }) as! T
+	return assertExpected(check(parser, input), match, tree)
 }
 
 @discardableResult
 func assertTree<T>(_ parser: StringParser<T>, _ input: String, _ match: (T, T) -> Bool, _ tree: T, message: String = "", file: StaticString = #file, line: UInt = #line) -> T? {
 	return assertTree(parser, input.characters, match, tree)
+}
+
+func assertFailure<C, T>(_ parser: Parser<C, T>, _ input: C) {
+	XCTAssertNil(check(parser, input))
+}
+
+func assertFailure<T>(_ parser: Parser<String.CharacterView, T>, _ input: String) {
+	XCTAssertNil(check(parser, input.characters))
 }
