@@ -19,6 +19,9 @@ public struct Parser<C, T> where C: Collection {
 	// parser
 	private let handler: (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject
 	
+	// wheather it consumes when first parser fails  (cf. `or`
+	var consumeType: Bool = false
+	
 	// constructor
 	public init(handler: @escaping (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject) {
 		self.handler = handler
@@ -38,23 +41,17 @@ extension Parser: ParserProtocol {
 	}
 }
 
-extension Parser where T == C.Element {
-	private static func token(_ pred: @escaping (C.Element) -> Bool, _ next: @escaping (C, C.Index, C.Element) -> C.Index?) -> Parser<C, C.Element> {
+extension Parser {
+	public static func satisfy(where pred: @escaping (C.Element) -> Bool) -> Parser<C, C.Element> {
 		return Parser<C, C.Element>{ input, index, ifFailure, ifSuccess in
 			return index >= input.endIndex
-				? try ifFailure(ParsingError(at: index, becauseOf: "`\(index)` is over endIndex."))
+				? try ifFailure(ParsingError(at: index, becauseOf: "\(index) is over endIndex."))
 				: try {
 					let elem = input[index]
 					return pred(elem)
-						? try ifSuccess(elem, index)
-						: try ifFailure(ParsingError(at: index, becauseOf: "`\(input)` is not satisfied."))
-					}()
-		}
-	}
-	
-	public static func satisfy(pred: @escaping (C.Element) -> Bool) -> Parser<C, C.Element> {
-		return token(pred) { input, index, elem in
-			input.index(after: index)
+						? try ifSuccess(elem, input.index(after: index))
+						: try ifFailure(ParsingError(at: index, becauseOf: "\(input) is not satisfied."))
+				}()
 		}
 	}
 }

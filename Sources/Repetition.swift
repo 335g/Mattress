@@ -39,8 +39,6 @@ public func * <C, T>(parser: Parser<C, T>, n: Int) -> Parser<C, [T]> {
 	return n.times(parser)
 }
 
-// TODO: Test for ContableClosedRange/CountableRange
-
 extension CountableClosedRange where Bound == Int {
 	private func decrement() -> CountableClosedRange {
 		return CountableClosedRange(uncheckedBounds: (lowerBound.decrement(), upperBound.decrement()))
@@ -70,9 +68,9 @@ extension CountableRange where Bound == Int {
 	}
 	
 	public func times<C, T>(_ parser: Parser<C, T>) -> Parser<C, [T]> {
-		precondition(upperBound >= 0)
+		precondition(upperBound >= 1)
 		
-		return upperBound == 0
+		return upperBound == 1
 			? Parser<C, [T]> { _, index, _, ifSuccess in try ifSuccess([], index) }
 			: (parser >>- { append($0) <^> (self.decrement().times(parser)) })
 				<|> Parser<C, [T]> { _, index, ifFailure, ifSuccess in
@@ -91,7 +89,7 @@ public func * <C, T>(parser: Parser<C, T>, interval: CountableRange<Int>) -> Par
 
 extension Parser {
 	public func isSeparatedByAtLeastOne<U>(by separator: Parser<C, U>) -> Parser<C, [T]> {
-		return prepend <^> self <*> (separator *> self).many
+		return prepend <^> self <*> Mattress.many(separator *> self)
 	}
 	
 	public func isSeparated<U>(by separator: Parser<C, U>) -> Parser<C, [T]> {
@@ -107,3 +105,18 @@ extension Parser {
 	}
 }
 
+public func sep<C, T, U>(by separator: Parser<C, U>, parser: Parser<C, T>) -> Parser<C, [T]> {
+	return parser.isSeparated(by: separator)
+}
+
+public func sep1<C, T, U>(by separator: Parser<C, U>, parser: Parser<C, T>) -> Parser<C, [T]> {
+	return parser.isSeparatedByAtLeastOne(by: separator)
+}
+
+public func end<C, T, U>(by terminator: Parser<C, U>, parser: Parser<C, T>) -> Parser<C, [T]> {
+	return parser.isTerminated(by: terminator)
+}
+
+public func end1<C, T, U>(by terminator: Parser<C, U>, parser: Parser<C, T>) -> Parser<C, [T]> {
+	return parser.isTerminatedByAtLeastOne(by: terminator)
+}

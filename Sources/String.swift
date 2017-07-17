@@ -16,6 +16,14 @@ extension Parser where C == String.CharacterView {
 		return .char(" ")
 	}
 	
+	public static var comma: StringParser<Character> {
+		return .char(",")
+	}
+	
+	public static var dot: StringParser<Character> {
+		return .char(".")
+	}
+	
 	public static var newLine: StringParser<Character> {
 		return .char("\n")
 	}

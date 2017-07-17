@@ -41,6 +41,8 @@ public func <^> <C, T, U, V, W>(f: @escaping (T, U, V) -> W, parser: Parser<C, (
 	return parser >>- { .pure(f($0.0, $0.1, $0.2)) }
 }
 
+// MARK: - ignore
+
 public func <^ <C, T, U>(left: T, right: Parser<C, U>) -> Parser<C, T> {
 	return const(left) <^> right
 }
