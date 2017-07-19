@@ -31,15 +31,10 @@ func fix<T, U>(_ f: @escaping (@escaping (T) -> U) -> (T) -> U) -> (T) -> U {
 	return { f(fix(f))($0) }
 }
 
-func pair<T, U>(_ t: T, _ u: U) -> (T, U) {
-	return (t, u)
-}
-
-let ws: StringParser<String> = { String($0) } <^> (.space <|> .tab)
-let lower: StringParser<String> = { String($0) } <^> %("a"..."z")
-let upper: StringParser<String> = { String($0) } <^> %("A"..."Z")
-let digit: StringParser<String> = { String($0) } <^> .digit
-let text = lower <|> upper <|> digit <|> ws
+let ws = .space <|> .tab
+let lower: StringParser<Character> = %("a"..."z")
+let upper: StringParser<Character> = %("A"..."Z")
+let text = { String($0) } <^> (lower <|> upper <|> .digit <|> ws)
 let restOfLine = { $0.joined() } <^> text.many <* .newLine
 let texts = { $0.joined() } <^> (text <|> (%"" <* .newLine)).some
 
@@ -54,11 +49,17 @@ let element = fix { (element: @escaping (StringParser<String>) -> StringParser<N
 	}
 }(.pure(""))
 
-// > # hello\n> \n> hello\n> there\n> \n> \n
-//do {
-//	let parsed = try element.parse("#") as! Node
-//	print(parsed.description)
-//} catch(let e) {
-//	print(e)
-//}
+do {
+	let parsed = try element.parse("> # hello\n> \n> hello\n> there\n> \n> \n")
+	print("1) " + parsed.description)
+} catch (let err) {
+	print(err)
+}
+
+do {
+	let parsed = try element.parse("This is a \nparagraph\n")
+	print("2) " + parsed.description)
+} catch (let err) {
+	print(err)
+}
 
