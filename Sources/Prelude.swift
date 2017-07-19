@@ -38,3 +38,11 @@ func append<T>(_ value: T) -> ([T]) -> [T] {
 		return arr
 	}
 }
+
+func insert<T>(_ elem: T) -> (Set<T>) -> Set<T> {
+	return { box in
+		var box = box
+		box.insert(elem)
+		return box
+	}
+}

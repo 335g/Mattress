@@ -203,4 +203,11 @@ class ParserTests: XCTestCase {
 		XCTAssertNoThrow(try? parser.parse("abcd"))
 		assertTree(parser, "abcd", ==, "a")
 	}
+	
+	func testSatisfyParser() {
+		let parser: StringParser<Character> = .satisfy{ $0 == "a" }
+		
+		assertTree(parser, "a", ==, "a")
+		XCTAssertNoThrow(try parser.parse("a"))
+	}
 }

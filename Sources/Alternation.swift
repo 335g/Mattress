@@ -36,3 +36,6 @@ public postfix func |? <C, T>(parser: Parser<C, T>) -> Parser<C, T?> {
 	return parser.maybe()
 }
 
+public func oneOf<C, S>(_ seq: S) -> Parser<C, C.Element> where S: Sequence, S.Element == C.Element, C.Element: Equatable {
+	return .satisfy{ seq.contains($0) }
+}

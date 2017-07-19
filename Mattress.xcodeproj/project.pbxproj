@@ -39,6 +39,8 @@
 		84B17C691F1BD1B700BBC489 /* RepetitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B17C681F1BD1B700BBC489 /* RepetitionTests.swift */; };
 		84B17C6B1F1BD1D800BBC489 /* NegationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B17C6A1F1BD1D800BBC489 /* NegationTests.swift */; };
 		84B17C6D1F1BD1F100BBC489 /* ConcatenationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B17C6C1F1BD1F100BBC489 /* ConcatenationTests.swift */; };
+		84F95ACF1F1E396C00C40060 /* Combination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F95ACE1F1E396C00C40060 /* Combination.swift */; };
+		84F95AD11F1E3A0500C40060 /* CombinationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F95AD01F1E3A0500C40060 /* CombinationTests.swift */; };
 		OBJ_43 /* Mattress.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mattress::Mattress::Product" /* Mattress.framework */; };
 		OBJ_44 /* Runes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Runes::Runes::Product" /* Runes.framework */; };
 		OBJ_58 /* Runes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Runes::Runes::Product" /* Runes.framework */; };
@@ -105,6 +107,8 @@
 		84C71A571F162DD2005D0F58 /* Lambda Calculus.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "Lambda Calculus.playground"; path = "Playgrounds/Lambda Calculus.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		84CCBC361F1266C00016567F /* Nagation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nagation.swift; sourceTree = "<group>"; };
 		84CCBC381F1272810016567F /* Collections.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Collections.playground; path = Playgrounds/Collections.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		84F95ACE1F1E396C00C40060 /* Combination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Combination.swift; sourceTree = "<group>"; };
+		84F95AD01F1E3A0500C40060 /* CombinationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinationTests.swift; sourceTree = "<group>"; };
 		"Mattress::Mattress::Product" /* Mattress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mattress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mattress::MattressTests::Product" /* MattressTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MattressTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_11 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
@@ -188,6 +192,7 @@
 				84B17C6A1F1BD1D800BBC489 /* NegationTests.swift */,
 				84B17C6C1F1BD1F100BBC489 /* ConcatenationTests.swift */,
 				84B17C621F1BB41800BBC489 /* Assertion.swift */,
+				84F95AD01F1E3A0500C40060 /* CombinationTests.swift */,
 			);
 			name = MattressTests;
 			path = Tests/MattressTests;
@@ -302,6 +307,7 @@
 				842FCBFA1F1114AE005AEDFE /* Repetition.swift */,
 				84CCBC361F1266C00016567F /* Nagation.swift */,
 				842FCBFC1F1117F3005AEDFE /* Concatenation.swift */,
+				84F95ACE1F1E396C00C40060 /* Combination.swift */,
 				84B055B71F17B794002F35A4 /* Convenient */,
 			);
 			path = Sources;
@@ -406,6 +412,7 @@
 				84B17C691F1BD1B700BBC489 /* RepetitionTests.swift in Sources */,
 				84B17C651F1BD15F00BBC489 /* MapTests.swift in Sources */,
 				84B17C6D1F1BD1F100BBC489 /* ConcatenationTests.swift in Sources */,
+				84F95AD11F1E3A0500C40060 /* CombinationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +421,7 @@
 			buildActionMask = 0;
 			files = (
 				84034A5C1F19FC3400D51BBA /* String.swift in Sources */,
+				84F95ACF1F1E396C00C40060 /* Combination.swift in Sources */,
 				84034A5D1F19FC3400D51BBA /* Number.swift in Sources */,
 				84034A5A1F19FC2900D51BBA /* Nagation.swift in Sources */,
 				84034A5B1F19FC2900D51BBA /* Concatenation.swift in Sources */,
