@@ -17,18 +17,18 @@ public struct Parser<C, T> where C: Collection {
 	public typealias IfFailure = (ParsingError<C>) throws -> AnyObject
 	
 	// parser
-	private let handler: (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject
+	private let unparser: (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject
 	
 	// wheather it consumes when first parser fails  (cf. `or`
 	var consumeType: Bool = false
 	
 	// constructor
-	public init(handler: @escaping (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject) {
-		self.handler = handler
+	public init(unparser: @escaping (C, C.Index, IfFailure, IfSuccess) throws -> AnyObject) {
+		self.unparser = unparser
 	}
 	
 	func parse(_ input: C, at index: C.Index, ifFailure: IfFailure, ifSuccess: IfSuccess) throws -> AnyObject {
-		return try handler(input, index, ifFailure, ifSuccess)
+		return try unparser(input, index, ifFailure, ifSuccess)
 	}
 }
 
