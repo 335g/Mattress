@@ -14,9 +14,9 @@ extension Parser where C == String.CharacterView {
 					}
 					
 					let elem = String(input[index..<to])
-					return elem == str
-						? try ifSuccess(elem, to)
-						: try ifFailure(ParsingError(at: index, becauseOf: "\(elem) is not equal to \(to)"))
+					return str == elem
+						? try ifSuccess(str, to)
+						: try ifFailure(ParsingError(at: index, becauseOf: "\(elem) is not equal to \(str)"))
 					}()
 		}
 	}
@@ -57,4 +57,27 @@ extension Parser where C == String.CharacterView, T == Character {
 	public static func char(_ x: Character) -> StringParser<Character> {
 		return .satisfy{ $0 == x }
 	}
+	
+	public static var tabC: StringParser<Character> 		{ return .char("\t") }
+	public static var spaceC: StringParser<Character> 		{ return .char(" ") }
+	public static var commaC: StringParser<Character> 		{ return .char(",") }
+	public static var dotC: StringParser<Character> 		{ return .char(".") }
+	public static var newLineC: StringParser<Character> 	{ return .char("\n") }
+	public static var crC: StringParser<Character> 			{ return .char("\r") }
+	public static var crlfC: StringParser<Character> 		{ return .char("\r\n") }
+	public static var endOfLineC: StringParser<Character> 	{ return .newLineC <|> .crlfC }
+	public static var lparenC: StringParser<Character> 		{ return .char("(") }
+	public static var rparenC: StringParser<Character> 		{ return .char(")") }
+	public static var lbracketC: StringParser<Character> 	{ return .char("[") }
+	public static var rbracketC: StringParser<Character> 	{ return .char("]") }
+	public static var langleC: StringParser<Character> 		{ return .char("<") }
+	public static var rangleC: StringParser<Character> 		{ return .char(">") }
+	public static var lbraceC: StringParser<Character> 		{ return .char("{") }
+	public static var rbraceC: StringParser<Character> 		{ return .char("}") }
+	public static var semiC: StringParser<Character> 		{ return .char(";") }
+	public static var colonC: StringParser<Character> 		{ return .char(":") }
+	public static var squoteC: StringParser<Character> 		{ return .char("'") }
+	public static var dquoteC: StringParser<Character>		{ return .char("\"") }
+	public static var backslashC: StringParser<Character>	{ return .char("\\") }
+	public static var equalsC: StringParser<Character> 		{ return .char("=") }
 }
