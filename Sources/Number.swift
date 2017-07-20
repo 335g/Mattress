@@ -11,7 +11,7 @@ extension Parser where C == String.CharacterView {
 	}
 	
 	private static var int: StringParser<[Character]> {
-		return maybePrepend <^> Parser.char("-")|? <*> Parser.someDigits
+		return maybePrepend <^> StringParser<Character>.char("-")|? <*> Parser.someDigits
 	}
 	
 	private static var decimal: StringParser<[Character]> {
