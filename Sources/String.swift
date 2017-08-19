@@ -1,11 +1,11 @@
 
 import Runes
 
-public typealias StringParser<T> = Parser<String.CharacterView, T>
+public typealias StringParser<T> = Parser<String, T>
 
-extension Parser where C == String.CharacterView {
+extension Parser where C == String {
 	public static func equal(to str: String) -> StringParser<String> {
-		return Parser<String.CharacterView, String>{ input, index, ifFailure, ifSuccess in
+		return StringParser<String>{ input, index, ifFailure, ifSuccess in
 			return index >= input.endIndex
 				? try ifFailure(ParsingError(at: index, becauseOf: "\(index) is over endIndex."))
 				: try {
@@ -45,15 +45,15 @@ extension Parser where C == String.CharacterView {
 	public static var equals: StringParser<String> 		{ return .equal(to: "=") }
 	
 	public static func oneOf(_ input: String) -> StringParser<Character> {
-		return .satisfy{ input.characters.contains($0) }
+		return .satisfy{ input.contains($0) }
 	}
 	
 	public static func noneOf(_ input: String) -> StringParser<Character> {
-		return .satisfy{ !input.characters.contains($0) }
+		return .satisfy{ !input.contains($0) }
 	}
 }
 
-extension Parser where C == String.CharacterView, T == Character {
+extension Parser where C == String, T == Character {
 	public static func char(_ x: Character) -> StringParser<Character> {
 		return .satisfy{ $0 == x }
 	}

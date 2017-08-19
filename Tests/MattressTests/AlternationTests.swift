@@ -8,8 +8,8 @@ class AlternationTests: XCTestCase {
 	// or
 	
 	func testOrParserConsumeOrNor(){
-		var ab = lift(+) <*> %"a" <*> %"b"
-		let ac = lift(+) <*> %"a" <*> %"c"
+		var ab: StringParser<String> = lift(+) <*> %"a" <*> %"b"
+		let ac: StringParser<String> = lift(+) <*> %"a" <*> %"c"
 		var parser = ab <|> ac
 		
 		assertTree(parser, "ac", ==, "ac")
@@ -20,7 +20,7 @@ class AlternationTests: XCTestCase {
 		
 		assertFailure(parser, "ac", message: "fails too 2nd parser `ac` because input `ac` is consumed at 1st parsing")
 		XCTAssertThrowsError(try parser.parse("ac"), ""){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "ac".index("ac".startIndex, offsetBy: 1))
 		}
 		
@@ -38,7 +38,7 @@ class AlternationTests: XCTestCase {
 		assertTree(optional, "z", ==, nil, message: "nil when input is not match")
 		
 		XCTAssertThrowsError(try optional.parse("z"), "missed index"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "z".startIndex)
 		}
 	}

@@ -14,6 +14,6 @@ class CombinationTests: XCTestCase {
 	}
 	
 	func testBetweenCombinatorAcceptsEmptyString(){
-		assertTree(braces(%""), "{}".characters, ==, "")
+		assertTree(braces(%""), "{}", ==, "")
 	}
 }

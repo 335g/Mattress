@@ -74,18 +74,6 @@ extension Parser {
 	}
 }
 
-extension Parser where C == String.CharacterView {
-	public func parse(_ input: String) throws -> T {
-		return try parse(input.characters){ tree, index in
-			if index == input.endIndex {
-				return tree as AnyObject
-			} else {
-				throw ParsingError<C>(at: index, becauseOf: "\(index) is not equal to input.endIndex.")
-			}
-		}
-	}
-}
-
 // MARK: - `%`
 
 prefix operator %
@@ -110,20 +98,8 @@ public prefix func %<C>(literal: C.Element) -> Parser<C, C.Element> where C.Elem
 	}
 }
 
-public prefix func %(literal: String) -> Parser<String.CharacterView, String> {
-	return Parser<String.CharacterView, String>{ input, index, ifFailure, ifSuccess in
-		return input.contains(literal, from: index)
-			? try ifSuccess(literal, input.index(index, offsetBy: literal.count))
-			: try ifFailure(ParsingError<String.CharacterView>(at: index, becauseOf: "not contains '\(literal)'."))
-	}
-}
-
-public prefix func %(literal: Character) -> Parser<String.CharacterView, Character> {
-	return Parser<String.CharacterView, Character>{ input, index, ifFailure, ifSuccess in
-		return input.contains(literal, at: index)
-			? try ifSuccess(literal, input.index(after: index))
-			: try ifFailure(ParsingError<String.CharacterView>(at: index, becauseOf: "not contains '\(literal)'."))
-	}
+public prefix func %(literal: Substring) -> StringParser<String> {
+	return %(String(literal))
 }
 
 public prefix func %<C>(interval: ClosedRange<C.Element>) -> Parser<C, C.Element> {
@@ -147,20 +123,12 @@ extension String {
 		guard let to = self.index(i, offsetBy: needle.count, limitedBy: self.endIndex) else {
 			return false
 		}
-		
+
 		return self[i..<to] == needle
 	}
-}
-
-extension String.CharacterView {
-	func contains(_ needle: String, from i: Index) -> Bool {
-		return String(self).contains(needle, from: i)
-	}
 	
-	func contains(_ needle: Character, at i: Index) -> Bool {
-		return self.startIndex <= i
-			&& i < self.endIndex
-			&& self[i] == needle
+	func contains(_ needle: Substring, from i: Index) -> Bool {
+		return self.contains(String(needle), from: i)
 	}
 }
 

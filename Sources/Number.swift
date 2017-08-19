@@ -1,7 +1,7 @@
 
 import Runes
 
-extension Parser where C == String.CharacterView {
+extension Parser where C == String {
 	public static var digit: StringParser<Character> {
 		return oneOf("0123456789")
 	}

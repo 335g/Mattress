@@ -12,7 +12,7 @@ class RepetitionTests: XCTestCase {
 		
 		assertTree(parser, "y", ==, [], message: "`many` parses not matched element without advance.")
 		XCTAssertThrowsError(try parser.parse("y"), "`many` parses not matched element without advance."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "y".startIndex)
 		}
 		
@@ -33,7 +33,7 @@ class RepetitionTests: XCTestCase {
 		
 		assertFailure(parser, "y", message: "`some` doesn't parse not matched element.")
 		XCTAssertThrowsError(try parser.parse("y"), "`some` doesn't parse not matched element."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "y".startIndex)
 		}
 		
@@ -51,13 +51,13 @@ class RepetitionTests: XCTestCase {
 		
 		assertTree(zeroTimes, "y", ==, [], message: "0.`times` parses not matched element without advance.")
 		XCTAssertThrowsError(try zeroTimes.parse("y"), "0.`times` parses not matched element without advance."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "y".startIndex)
 		}
 		
 		assertTree(zeroTimes, "x", ==, [], message: "0.`times` parses matched element without advance and tree.")
 		XCTAssertThrowsError(try zeroTimes.parse("x"), "0.`times` parses matched element without advance and tree."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "x".startIndex)
 		}
 	}
@@ -67,13 +67,13 @@ class RepetitionTests: XCTestCase {
 		
 		assertFailure(twoTimes, "y", message: "2.`times` doesn't parse not matched element.")
 		XCTAssertThrowsError(try twoTimes.parse("y"), "2.`times` doesn't parse not matched element."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "y".startIndex)
 		}
 		
 		assertFailure(twoTimes, "x", message: "2.`times` doesn't parse matched elements when the number is less than 2.")
 		XCTAssertThrowsError(try twoTimes.parse("x"), "2.`times` doesn't parse matched elements when the number is less than 2."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "x".index("x".startIndex, offsetBy: 1))
 		}
 		
@@ -82,7 +82,7 @@ class RepetitionTests: XCTestCase {
 		
 		assertTree(twoTimes, "xxx", ==, ["x", "x"], message: "2.`times` parses matched over 3 elements with 2 advance and 2 tree.")
 		XCTAssertThrowsError(try twoTimes.parse("xxx"), "2.`times` parses matched over 3 elements with 2 advance and 2 tree."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "xxx".index("xxx".startIndex, offsetBy: 2))
 		}
 	}
@@ -100,7 +100,7 @@ class RepetitionTests: XCTestCase {
 		
 		assertTree(parser, "xx", ==, ["x"], message: "(0...1).`times` parses matched 1 element with 1 advance and tree.")
 		XCTAssertThrowsError(try parser.parse("xx"), "(0...1).`times` parses matched 1 element with 1 advance and tree."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "xxx".index("xxx".startIndex, offsetBy: 1))
 		}
 	}
@@ -110,13 +110,13 @@ class RepetitionTests: XCTestCase {
 		
 		assertFailure(parser, "", message: "(2...3).`times` doesn't parse empty.")
 		XCTAssertThrowsError(try parser.parse(""), "(2...3).`times` doesn't parse empty."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "".startIndex)
 		}
 		
 		assertFailure(parser, "x", message: "(2...3).`times` doesn't parse 1 matched element.")
 		XCTAssertThrowsError(try parser.parse("x"), "(2...3).`times` doesn't parse 1 matched element."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "x".startIndex)
 		}
 		
@@ -130,7 +130,7 @@ class RepetitionTests: XCTestCase {
 		
 		assertTree(parser, "xxxx", == , ["x", "x", "x"], message: "(2...3).`times` parse over 3 matched elements with 3 advance and tree.")
 		XCTAssertThrowsError(try parser.parse("xxxx"), "(2...3).`times` parse over 3 matched elements with 3 advance and tree."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "xxxx".index("xxxx".startIndex, offsetBy: 3))
 		}
 	}
@@ -148,7 +148,7 @@ class RepetitionTests: XCTestCase {
 		
 		assertTree(parser, "xx", ==, ["x"], message: "(0..<2).`times` parses matched 1 element with 1 advance and tree.")
 		XCTAssertThrowsError(try parser.parse("xx"), "(0..<2).`times` parses matched 1 element with 1 advance and tree."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "xxx".index("xxx".startIndex, offsetBy: 1))
 		}
 	}
@@ -158,13 +158,13 @@ class RepetitionTests: XCTestCase {
 		
 		assertFailure(parser, "", message: "(2..<4).`times` doesn't parse empty.")
 		XCTAssertThrowsError(try parser.parse(""), "(2..<4).`times` doesn't parse empty."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "".startIndex)
 		}
 		
 		assertFailure(parser, "x", message: "(2..<4).`times` doesn't parse 1 matched element.")
 		XCTAssertThrowsError(try parser.parse("x"), "(2..<4).`times` doesn't parse 1 matched element."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "x".startIndex)
 		}
 		
@@ -178,7 +178,7 @@ class RepetitionTests: XCTestCase {
 		
 		assertTree(parser, "xxxx", == , ["x", "x", "x"], message: "(2..<4).`times` parse over 3 matched elements with 3 advance and tree.")
 		XCTAssertThrowsError(try parser.parse("xxxx"), "(2..<4).`times` parse over 3 matched elements with 3 advance and tree."){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, "xxxx".index("xxxx".startIndex, offsetBy: 3))
 		}
 	}

@@ -68,36 +68,36 @@ class ParserTests: XCTestCase {
 	}
 	
 	func testCharacterLiteralParser(){
-		// Parser<String.CharacterView, Character>
+		// Parser<String, Character>
 		
-		var input: String.CharacterView
+		var input: String
 		let parser: StringParser<Character> = %"a"
 		
 		// parse without throwing if input matches
 		assertTree(parser, "a", ==, "a")
 		
 		// throw if input is not match
-		input = "".characters
+		input = ""
 		XCTAssertThrowsError(try parser.parse(input), "empty"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.startIndex)
 		}
 		
-		input = "b".characters
+		input = "b"
 		XCTAssertThrowsError(try parser.parse(input), "not match element"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.startIndex)
 		}
 		
-		input = "ab".characters
+		input = "ab"
 		XCTAssertThrowsError(try parser.parse(input), "input is over"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.index(input.startIndex, offsetBy: 1))
 		}
 	}
 	
 	func testStringLiteralParser(){
-		// Parser<String.CharacterView, String>
+		// Parser<String, String>
 		
 		var input: String
 		let parser: StringParser<String> = %"abcd"
@@ -108,31 +108,31 @@ class ParserTests: XCTestCase {
 		// throw if input is not match
 		input = ""
 		XCTAssertThrowsError(try parser.parse(input), "empty"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.startIndex)
 		}
 		
 		input = "b"
 		XCTAssertThrowsError(try parser.parse(input), "not match element"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.startIndex)
 		}
 		
 		input = "a"
 		XCTAssertThrowsError(try parser.parse(input), "input is not enough"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.startIndex)	// String is checked by set
 		}
 		
 		input = "abz"
 		XCTAssertThrowsError(try parser.parse(input), "input is not enough"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.startIndex) // String is checked by set
 		}
 		
 		input = "abcde"
 		XCTAssertThrowsError(try parser.parse(input), "input is over"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.index(input.startIndex, offsetBy: 4))
 		}
 	}
@@ -151,42 +151,42 @@ class ParserTests: XCTestCase {
 		// throw if input is not match
 		input = ""
 		XCTAssertThrowsError(try parser.parse(input), "empty"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.startIndex)
 		}
 		
 		input = "z"
 		XCTAssertThrowsError(try parser.parse(input), "not match element"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.startIndex)
 		}
 		
 		input = "ab"
 		XCTAssertThrowsError(try parser.parse(input), "input is over"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.index(input.startIndex, offsetBy: 1))
 		}
 	}
 	
 	func testNoneParser(){
 		let parser: StringParser<Character> = .none
-		var input: String.CharacterView
+		var input: String
 			
-		input = "".characters
+		input = ""
 		XCTAssertThrowsError(try parser.parse(input), "not match"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.startIndex)
 		}
 		
-		input = "a".characters
+		input = "a"
 		XCTAssertThrowsError(try parser.parse(input), "not match"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.startIndex)
 		}
 		
-		input = "aaaa".characters
+		input = "aaaa"
 		XCTAssertThrowsError(try parser.parse(input), "not match"){ err in
-			let err = err as! ParsingError<String.CharacterView>
+			let err = err as! ParsingError<String>
 			XCTAssertEqual(err.index, input.startIndex)
 		}
 	}
