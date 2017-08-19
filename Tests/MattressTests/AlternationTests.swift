@@ -8,8 +8,8 @@ class AlternationTests: XCTestCase {
 	// or
 	
 	func testOrParserConsumeOrNor(){
-		var ab: StringParser<String> = lift(+) <*> %"a" <*> %"b"
-		let ac: StringParser<String> = lift(+) <*> %"a" <*> %"c"
+		var ab = lift(+) <*> "a"% <*> "b"%
+		let ac = lift(+) <*> "a"% <*> "c"%
 		var parser = ab <|> ac
 		
 		assertTree(parser, "ac", ==, "ac")
@@ -29,8 +29,7 @@ class AlternationTests: XCTestCase {
 	// maybe
 	
 	func testMaybeParser(){
-		let abc = %"abc"
-		let optional = abc|?
+		let optional = "abc"%?
 		
 		assertTree(optional, "abc", ==, "abc", message: "When input matches it returns as it is")
 		XCTAssertNoThrow(try optional.parse("abc"))

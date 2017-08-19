@@ -7,7 +7,7 @@ class ParserTests: XCTestCase {
 		// Parser<C, C>
 		
 		var input: [Int]
-		let parser: Parser<[Int], [Int]> = %[1,2,3,4]
+		let parser = [1,2,3,4]%
 		
 		// parse without throwing if input matches
 		assertTree(parser, [1,2,3,4], ==, [1,2,3,4])
@@ -48,7 +48,7 @@ class ParserTests: XCTestCase {
 		// Parser<C, C.Element>
 		
 		var input: [Int]
-		let parser: Parser<[Int], Int> = %5
+		let parser: Parser<[Int], Int> = 5%
 		
 		// parse without throwing if input matches
 		assertTree(parser, [5], ==, 5)
@@ -71,7 +71,7 @@ class ParserTests: XCTestCase {
 		// Parser<String, Character>
 		
 		var input: String
-		let parser: StringParser<Character> = %"a"
+		let parser = "a"%
 		
 		// parse without throwing if input matches
 		assertTree(parser, "a", ==, "a")
@@ -100,7 +100,7 @@ class ParserTests: XCTestCase {
 		// Parser<String, String>
 		
 		var input: String
-		let parser: StringParser<String> = %"abcd"
+		let parser = "abcd"%
 		
 		// parse without throwing if input matches
 		assertTree(parser, "abcd", ==, "abcd")
@@ -141,7 +141,7 @@ class ParserTests: XCTestCase {
 		// ClosedRange -> Parser<C, C.Element> where C.Element == ClosedRange.Base
 		
 		var input: String
-		let parser: StringParser<Character> = %("a"..."f")
+		let parser = ("a"..."f")%
 		
 		// parse without throwing if input matches
 		assertTree(parser, "a", ==, "a")
@@ -169,7 +169,7 @@ class ParserTests: XCTestCase {
 	}
 	
 	func testNoneParser(){
-		let parser: StringParser<Character> = .none
+		let parser = StringParser<Character>.none
 		var input: String
 			
 		input = ""
@@ -198,14 +198,14 @@ class ParserTests: XCTestCase {
 	
 	func testFinishedParser(){
 		// anything is fine after end
-		let parser = (%"a").finished()
+		let parser = "a"%.finished()
 		
 		XCTAssertNoThrow(try? parser.parse("abcd"))
 		assertTree(parser, "abcd", ==, "a")
 	}
 	
 	func testSatisfyParser() {
-		let parser: StringParser<Character> = .satisfy{ $0 == "a" }
+		let parser = StringParser<Character>.satisfy{ $0 == "a" }
 		
 		assertTree(parser, "a", ==, "a")
 		XCTAssertNoThrow(try parser.parse("a"))

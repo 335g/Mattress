@@ -25,9 +25,9 @@ func fix<T>(_ f: @escaping (@escaping () -> T) -> () -> T) -> () -> T {
 
 let lambda = fix { (lambda: @escaping () -> StringParser<Lambda>) in
 	{
-		let symbol: StringParser<String> = { String($0) } <^> %("a"..."z")
-		let variable = Lambda.variable <^> symbol
-		let abstraction = Lambda.abstraction <^> (lift(pair) <*> (%"λ" *> symbol) <*> (%"." *> delay{ lambda() }))
+		let symbol = %("a"..."z")
+		let variable = Lambda.variable <^> symbol.string
+		let abstraction = Lambda.abstraction <^> (lift(pair) <*> (%"λ" *> symbol.string) <*> (%"." *> delay{ lambda() }))
 		let application = Lambda.application <^> (lift(pair) <*> (%"(" *> delay{ lambda() }) <*> (%" " *> delay{ lambda() }) <* %")")
 		return variable <|> abstraction <|> application
 	}

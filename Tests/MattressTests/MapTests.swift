@@ -13,7 +13,7 @@ class MapTests: XCTestCase {
 	// MARK: - map
 	
 	func testMapTransformsParsedTree(){
-		assertTree({ String($0) } <^> %123, [123], ==, "123")
+		assertTree(123%.string, [123], ==, "123")
 	}
 	
 	// MARK: - ignore

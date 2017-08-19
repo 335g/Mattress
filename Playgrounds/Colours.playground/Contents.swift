@@ -6,7 +6,7 @@ import Mattress
 
 extension Character {
 	static func + (lhs: Character, rhs: Character) -> String {
-		return String(lhs) + String(rhs)
+		return String("\(lhs)\(rhs)")
 	}
 }
 
@@ -14,9 +14,9 @@ func toComponent(_ str: String) -> CGFloat {
 	return CGFloat(strtol(str, nil, 16)) / 255.0
 }
 
-let digit: StringParser<Character> = %("0"..."9")
-let lower: StringParser<Character> = %("a"..."f")
-let upper: StringParser<Character> = %("A"..."F")
+let digit = %("0"..."9")
+let lower = %("a"..."f")
+let upper = %("A"..."F")
 let hex = digit <|> lower <|> upper
 let hex2 = lift(+) <*> hex <*> hex
 let component1 = { toComponent($0 + $0) } <^> hex

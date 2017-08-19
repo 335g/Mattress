@@ -76,9 +76,9 @@ extension Parser {
 
 // MARK: - `%`
 
-prefix operator %
+postfix operator %
 
-public prefix func %<C>(literal: C) -> Parser<C, C> where C.Element: Equatable {
+public postfix func %<C>(literal: C) -> Parser<C, C> where C.Element: Equatable {
 	return Parser<C, C>{ input, index, ifFailure, ifSuccess in
 		return input.contains(literal, from: index)
 			? try ifSuccess(literal, input.index(index, offsetBy: literal.count))
@@ -86,7 +86,7 @@ public prefix func %<C>(literal: C) -> Parser<C, C> where C.Element: Equatable {
 	}
 }
 
-public prefix func %<C>(literal: C.Element) -> Parser<C, C.Element> where C.Element: Equatable {
+public postfix func %<C>(literal: C.Element) -> Parser<C, C.Element> where C.Element: Equatable {
 	return Parser<C, C.Element>{ input, index, ifFailure, ifSuccess in
 		return index >= input.endIndex
 			? try ifFailure(ParsingError<C>(at: index, becauseOf: "`\(index)` is over endIndex."))
@@ -98,11 +98,11 @@ public prefix func %<C>(literal: C.Element) -> Parser<C, C.Element> where C.Elem
 	}
 }
 
-public prefix func %(literal: Substring) -> StringParser<String> {
-	return %(String(literal))
+public postfix func %(literal: Substring) -> StringParser<String> {
+	return String(literal)%
 }
 
-public prefix func %<C>(interval: ClosedRange<C.Element>) -> Parser<C, C.Element> {
+public postfix func %<C>(interval: ClosedRange<C.Element>) -> Parser<C, C.Element> {
 	return Parser<C, C.Element>{ input, index, ifFailure, ifSuccess in
 		return index >= input.endIndex
 			? try ifFailure(ParsingError(at: index, becauseOf: "`\(index)` is over endIndex."))
@@ -116,7 +116,7 @@ public prefix func %<C>(interval: ClosedRange<C.Element>) -> Parser<C, C.Element
 }
 
 /// to infer the type of "" as Character
-public prefix func %(interval: ClosedRange<Character>) -> StringParser<Character> {
+public postfix func %(interval: ClosedRange<Character>) -> StringParser<Character> {
 	return StringParser<Character>{ input, index, ifFailure, ifSuccess in
 		return index >= input.endIndex
 			? try ifFailure(ParsingError(at: index, becauseOf: "`\(index)` is over endIndex."))

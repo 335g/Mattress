@@ -5,7 +5,7 @@ import Runes
 
 class ConcatenationTests: XCTestCase {
 	func testConcatenation(){
-		let parser = lift(pair) <*> %"x" <*> %"y"
+		let parser = lift(pair) <*> "x"% <*> "y"%
 		
 		assertFailure(parser, "x", message: "not tree if not both matching")
 		XCTAssertThrowsError(try parser.parse("x"), ""){ err in
@@ -23,14 +23,14 @@ class ConcatenationTests: XCTestCase {
 	}
 	
 	func testConcatenation2(){
-		let parser: StringParser<String> = %"x" <* %"y"
+		let parser: StringParser<String> = "x"% <* "y"%
 		
 		assertTree(parser, "xy", ==, "x")
 		XCTAssertNoThrow(try parser.parse("xy"))
 	}
 	
 	func testConcatenation3(){
-		let parser: StringParser<String> = %"x" *> %"y"
+		let parser: StringParser<String> = "x"% *> "y"%
 		
 		assertTree(parser, "xy", ==, "y")
 		XCTAssertNoThrow(try parser.parse("xy"))

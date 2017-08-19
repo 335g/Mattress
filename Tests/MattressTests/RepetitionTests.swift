@@ -8,7 +8,7 @@ class RepetitionTests: XCTestCase {
 	// many
 	
 	func testManyParser(){
-		let parser = many(%"x")
+		let parser = many("x"%)
 		
 		assertTree(parser, "y", ==, [], message: "`many` parses not matched element without advance.")
 		XCTAssertThrowsError(try parser.parse("y"), "`many` parses not matched element without advance."){ err in
@@ -29,7 +29,7 @@ class RepetitionTests: XCTestCase {
 	// some
 	
 	func testSomeParser(){
-		let parser = some(%"x")
+		let parser = some("x"%)
 		
 		assertFailure(parser, "y", message: "`some` doesn't parse not matched element.")
 		XCTAssertThrowsError(try parser.parse("y"), "`some` doesn't parse not matched element."){ err in
@@ -47,7 +47,7 @@ class RepetitionTests: XCTestCase {
 	// ntimes
 	
 	func test0timesParser(){
-		let zeroTimes = %"x" * 0	// == 0.times(%"x")
+		let zeroTimes = "x"% * 0	// == 0.times(%"x")
 		
 		assertTree(zeroTimes, "y", ==, [], message: "0.`times` parses not matched element without advance.")
 		XCTAssertThrowsError(try zeroTimes.parse("y"), "0.`times` parses not matched element without advance."){ err in
@@ -63,7 +63,7 @@ class RepetitionTests: XCTestCase {
 	}
 	
 	func test2timesParser(){
-		let twoTimes = %"x" * 2	// == 2.times(%"x")
+		let twoTimes = "x"% * 2	// == 2.times(%"x")
 		
 		assertFailure(twoTimes, "y", message: "2.`times` doesn't parse not matched element.")
 		XCTAssertThrowsError(try twoTimes.parse("y"), "2.`times` doesn't parse not matched element."){ err in
@@ -90,7 +90,7 @@ class RepetitionTests: XCTestCase {
 	// CountableClosedRange
 	
 	func testZeroOverCountableClosedRangeParser(){
-		let parser = %"x" * (0...1)	// == (0...1).times(%"x")
+		let parser = "x"% * (0...1)	// == (0...1).times(%"x")
 		
 		assertTree(parser, "", ==, [])
 		XCTAssertNoThrow(try parser.parse(""))
@@ -106,7 +106,7 @@ class RepetitionTests: XCTestCase {
 	}
 	
 	func testNotZeroOverCountableClosedRangeParser(){
-		let parser = %"x" * (2...3)	// == (2...3).times(%"x")
+		let parser = "x"% * (2...3)	// == (2...3).times(%"x")
 		
 		assertFailure(parser, "", message: "(2...3).`times` doesn't parse empty.")
 		XCTAssertThrowsError(try parser.parse(""), "(2...3).`times` doesn't parse empty."){ err in
@@ -138,7 +138,7 @@ class RepetitionTests: XCTestCase {
 	// CountableRange
 	
 	func testZeroOverCountableRangeParser(){
-		let parser = %"x" * (0..<2)	// == (0..<2).times(%"x")
+		let parser = "x"% * (0..<2)	// == (0..<2).times(%"x")
 		
 		assertTree(parser, "", ==, [])
 		XCTAssertNoThrow(try parser.parse(""))
@@ -154,7 +154,7 @@ class RepetitionTests: XCTestCase {
 	}
 	
 	func testNotZeroOverCountableRangeParser(){
-		let parser = %"x" * (2..<4)	// == (2..<4).times(%"x")
+		let parser = "x"% * (2..<4)	// == (2..<4).times(%"x")
 		
 		assertFailure(parser, "", message: "(2..<4).`times` doesn't parse empty.")
 		XCTAssertThrowsError(try parser.parse(""), "(2..<4).`times` doesn't parse empty."){ err in
@@ -186,7 +186,7 @@ class RepetitionTests: XCTestCase {
 	// sep
 	
 	func testSepParser(){
-		let parser = (%("a"..."c")).isSeparated(by: .comma)	// == sep(by: .comma, parser: %("a"..."c"))
+		let parser = ("a"..."c")%.isSeparated(by: .comma)	// == sep(by: .comma, parser: %("a"..."c"))
 		
 		assertTree(parser, "", ==, [])
 		assertTree(parser, "a", ==, ["a"])
@@ -200,7 +200,7 @@ class RepetitionTests: XCTestCase {
 	}
 	
 	func testSep1Parser(){
-		let parser = (%("a"..."c")).isSeparatedByAtLeastOne(by: .comma)	// == sep1(by: .comma, parser: %("a"..."c"))
+		let parser = ("a"..."c")%.isSeparatedByAtLeastOne(by: .comma)	// == sep1(by: .comma, parser: %("a"..."c"))
 		
 		assertFailure(parser, "", message: "must input at least one")
 		assertTree(parser, "a", ==, ["a"])
@@ -215,8 +215,7 @@ class RepetitionTests: XCTestCase {
 	// end
 	
 	func testEndParser(){
-		let abc: StringParser<Character> = %("a"..."c")
-		let parser = abc.isTerminated(by: .dot)	// == end(by: .dot, parser: %("a"..."c"))
+		let parser = ("a"..."c")%.isTerminated(by: .dot)	// == end(by: .dot, parser: %("a"..."c"))
 		
 		assertTree(parser, "", ==, [])
 		assertTree(parser, "a.", ==, ["a"])
@@ -230,7 +229,7 @@ class RepetitionTests: XCTestCase {
 	}
 	
 	func testEnd1Parser(){
-		let abc: StringParser<Character> = %("a"..."c")
+		let abc = ("a"..."c")%
 		let parser = abc.isTerminatedByAtLeastOne(by: .dot)	// == end1(by: .dot, parser: %("a"..."c"))
 		
 		assertFailure(parser, "", message: "must input at least one")

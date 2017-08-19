@@ -40,8 +40,14 @@ extension Parser where C == String {
 	public static var equals: StringParser<Character> 		{ return .char("=") }
 }
 
-extension Parser where C == String, T == Character {
-	public var string: StringParser<String> {
+extension Parser where T == Character {
+	public var string: Parser<C, String> {
+		return { String($0) } <^> self
+	}
+}
+
+extension Parser where T: LosslessStringConvertible {
+	public var string: Parser<C, String> {
 		return { String($0) } <^> self
 	}
 }

@@ -10,10 +10,10 @@ class CombinationTests: XCTestCase {
 	let braces: (StringParser<String>) -> StringParser<String> = between(.lbrace, and: .rbrace)
 	
 	func testBetweenCombinator(){
-		assertTree(braces(%"aaa"), "{aaa}", ==, "aaa")
+		assertTree(braces("aaa"%), "{aaa}", ==, "aaa")
 	}
 	
 	func testBetweenCombinatorAcceptsEmptyString(){
-		assertTree(braces(%""), "{}", ==, "")
+		assertTree(braces(""%), "{}", ==, "")
 	}
 }

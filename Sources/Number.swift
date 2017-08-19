@@ -15,11 +15,11 @@ extension Parser where C == String {
 	}
 	
 	private static var decimal: StringParser<[Character]> {
-		return prepend <^> %"." <*> Parser.someDigits
+		return prepend <^> "."% <*> Parser.someDigits
 	}
 	
 	private static var exp: StringParser<String> {
-		return %"e+" <|> %"e-" <|> %"e" <|> %"E+" <|> %"E-" <|> %"E"
+		return "e+"% <|> "e-"% <|> "e"% <|> "E+"% <|> "E-"% <|> "E"%
 	}
 	
 	private static var exponent: StringParser<[Character]> {
