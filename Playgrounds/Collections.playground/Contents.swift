@@ -12,7 +12,7 @@ typealias FibonacciParser = Parser<[Int], [Int]>
 
 let fibonacci = fix { (fibonacci: @escaping (Int, Int) -> FibonacciParser) in
 	{ x, y in
-		let combined = %(x + y) >>- { xy in
+		let combined = (x + y)% >>- { xy in
 			{ [xy] + $0 } <^> fibonacci(y, xy)
 		}
 		

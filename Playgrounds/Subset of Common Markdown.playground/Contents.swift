@@ -32,19 +32,19 @@ func fix<T, U>(_ f: @escaping (@escaping (T) -> U) -> (T) -> U) -> (T) -> U {
 }
 
 let ws = .space <|> .tab
-let lower = %("a"..."z")
-let upper = %("A"..."Z")
+let lower = ("a"..."z")%
+let upper = ("A"..."Z")%
 let text = (lower <|> upper <|> ws <|> .digit).string
 
 let restOfLine = { $0.joined() } <^> text.many <* .newLine
-let texts = { $0.joined() } <^> (text <|> (%"" <* .newLine)).some
+let texts = { $0.joined() } <^> (text <|> (""% <* .newLine)).some
 
 let element = fix { (element: @escaping (StringParser<String>) -> StringParser<Node>) in
 	{ prefix in
-		let octothorpes = { $0.count } <^> (%"#" * (1..<7))
+		let octothorpes = { $0.count } <^> ("#"% * (1..<7))
 		let header = prefix *> (Node.header <^> (lift(pair) <*> octothorpes <*> (.space *> restOfLine)))
 		let paragpraph = prefix *> (Node.paragraph <^> texts)
-		let blockquote = prefix *> delay{ Node.blockquote <^> some(element(prefix *> %"> ")) }
+		let blockquote = prefix *> delay{ Node.blockquote <^> some(element(prefix *> "> "%)) }
 		
 		return header <|> paragpraph <|> blockquote
 	}
