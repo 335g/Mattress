@@ -115,6 +115,19 @@ public prefix func %<C>(interval: ClosedRange<C.Element>) -> Parser<C, C.Element
 	}
 }
 
+/// to infer the type of "" as Character
+public prefix func %(interval: ClosedRange<Character>) -> StringParser<Character> {
+	return StringParser<Character>{ input, index, ifFailure, ifSuccess in
+		return index >= input.endIndex
+			? try ifFailure(ParsingError(at: index, becauseOf: "`\(index)` is over endIndex."))
+			: try {
+				let elem = input[index]
+				return interval.contains(elem)
+					? try ifSuccess(elem, input.index(after: index))
+					: try ifFailure(ParsingError(at: index, becauseOf: "not contains `\(elem)`"))
+				}()
+	}
+}
 
 // MARK: - Satisfier
 

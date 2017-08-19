@@ -31,11 +31,10 @@ func fix<T, U>(_ f: @escaping (@escaping (T) -> U) -> (T) -> U) -> (T) -> U {
 	return { f(fix(f))($0) }
 }
 
-let ws = (.space <|> .tab).string
-let digit = StringParser<String>.digit.string
-let lower: StringParser<String> = %("a"..."z")
-let upper: StringParser<String> = { String($0) } <^> %("A"..."Z")
-let text = lower <|> upper <|> ws <|> digit
+let ws = .space <|> .tab
+let lower = %("a"..."z")
+let upper = %("A"..."Z")
+let text = (lower <|> upper <|> ws <|> .digit).string
 
 let restOfLine = { $0.joined() } <^> text.many <* .newLine
 let texts = { $0.joined() } <^> (text <|> (%"" <* .newLine)).some
